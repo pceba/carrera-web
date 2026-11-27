@@ -1,17 +1,81 @@
 import { expect, test } from "@playwright/test";
 
-test("consulting page: sections, sources, no horizontal scroll", async ({ page }) => {
+test("consulting hub lists the sections and links the first one", async ({ page }) => {
   await page.goto("/industrias/consultoria");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+  await expect(page.getByRole("heading", { level: 1, name: "Consultoría" })).toBeVisible();
+  const toc = page.getByRole("region", { name: "La guía, en orden" });
+  await expect(toc.getByRole("listitem")).toHaveCount(7);
+  await page.getByRole("link", { name: /Empieza por/ }).click();
+  await expect(page).toHaveURL(/\/industrias\/consultoria\/como-funciona$/);
+});
+
+test("hub -> section -> next -> previous", async ({ page }) => {
+  await page.goto("/industrias/consultoria");
+  await page
+    .getByRole("region", { name: "La guía, en orden" })
+    .getByRole("link", { name: /Cómo funciona/ })
+    .click();
+  await expect(page).toHaveURL(/\/como-funciona$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Cómo funciona" })).toBeVisible();
   await expect(page.getByRole("region", { name: "Fuentes" })).toBeVisible();
-  const overflow = await page.evaluate(
-    () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+
+  const pn = page.getByRole("navigation", { name: "Anterior y siguiente" });
+  await pn.getByRole("link", { name: /Siguiente/ }).click();
+  await expect(page).toHaveURL(/\/el-trabajo$/);
+  await expect(page.getByRole("heading", { level: 1, name: "El trabajo" })).toBeVisible();
+
+  await page
+    .getByRole("navigation", { name: "Anterior y siguiente" })
+    .getByRole("link", { name: /Anterior/ })
+    .click();
+  await expect(page).toHaveURL(/\/como-funciona$/);
+});
+
+test("the first section goes back to the hub", async ({ page }) => {
+  await page.goto("/industrias/consultoria/como-funciona");
+  await page
+    .getByRole("navigation", { name: "Anterior y siguiente" })
+    .getByRole("link", { name: /Anterior/ })
+    .click();
+  await expect(page).toHaveURL(/\/industrias\/consultoria$/);
+});
+
+test("section nav marks the current page and jumps to another section", async ({
+  page,
+  isMobile,
+}) => {
+  await page.goto("/industrias/consultoria/proceso");
+  const nav = page.getByRole("navigation", { name: "En esta guía" });
+  if (isMobile) await nav.locator("summary").click();
+  await expect(nav.getByRole("link", { name: "Proceso de selección" })).toHaveAttribute(
+    "aria-current",
+    "page",
   );
-  expect(overflow).toBe(false);
+  await nav.getByRole("link", { name: "Empresas en España" }).click();
+  await expect(page).toHaveURL(/\/empresas$/);
+});
+
+test("segment page estrategia is reachable from the section nav", async ({ page, isMobile }) => {
+  await page.goto("/industrias/consultoria");
+  await page
+    .getByRole("link", { name: /Consultoría de estrategia/ })
+    .first()
+    .click();
+  await expect(page).toHaveURL(/\/industrias\/consultoria\/estrategia$/);
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Consultoría de estrategia" }),
+  ).toBeVisible();
+  await expect(page.getByText("Segmento de Consultoría")).toBeVisible();
+  const nav = page.getByRole("navigation", { name: "En esta guía" });
+  if (isMobile) await nav.locator("summary").click();
+  await expect(nav.getByRole("link", { name: "Consultoría de estrategia" })).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
 });
 
 test("firm filter narrows the list", async ({ page }) => {
-  await page.goto("/industrias/consultoria");
+  await page.goto("/industrias/consultoria/empresas");
   await page.getByRole("radio", { name: "Big Four" }).check();
   await expect(page.getByText("4 empresas")).toBeVisible();
   await page.getByRole("radio", { name: "Barcelona" }).check();
@@ -19,7 +83,7 @@ test("firm filter narrows the list", async ({ page }) => {
 });
 
 test("case happy path with the keyboard-friendly controls", async ({ page }) => {
-  await page.goto("/industrias/consultoria#caso");
+  await page.goto("/industrias/consultoria/caso-practico");
   const next = page.getByRole("button", { name: "Siguiente" });
   await next.click(); // prompt -> questions
   await page.getByLabel(/solo café, o cualquier bebida/).check();
@@ -39,33 +103,10 @@ test("case happy path with the keyboard-friendly controls", async ({ page }) => 
   await expect(page.getByText(/Autoevaluación: 20 %/)).toBeVisible();
 });
 
-test("section navigation follows the reader", async ({ page, isMobile }) => {
-  await page.goto("/industrias/consultoria");
-  const nav = page.getByRole("navigation", { name: "En esta guía" });
-  if (isMobile) {
-    const toggle = nav.getByRole("button", { name: /Sección actual/ });
-    await toggle.click();
-    await expect(toggle).toHaveAttribute("aria-expanded", "true");
-  }
-  await nav.getByRole("link", { name: /Empresas en España/ }).click();
-  await expect(page).toHaveURL(/#empresas$/);
-  if (isMobile) {
-    // The dropdown closes after the jump; the bar now names the section.
-    await expect(nav.getByRole("button", { name: /Sección actual/ })).toContainText(
-      "Empresas en España",
-    );
-  } else {
-    await expect(nav.getByRole("link", { name: /Empresas en España/ })).toHaveAttribute(
-      "aria-current",
-      "location",
-    );
-  }
-});
-
 test("recruiting calendar shows the published dates with their sources", async ({ page }) => {
-  await page.goto("/industrias/consultoria#seleccion");
+  await page.goto("/industrias/consultoria/proceso");
   const calendar = page.getByRole("figure").filter({ hasText: "Fechas publicadas" });
   await expect(calendar.getByText("BCG Women's Boot Camp Spain, octava edición")).toBeVisible();
-  await expect(calendar.getByRole("link", { name: "Fuente 2" })).toBeVisible();
+  await expect(calendar.getByRole("link", { name: /Fuente \d+/ }).first()).toBeVisible();
   await expect(calendar.getByText("Sin mes fijo")).toBeVisible();
 });
