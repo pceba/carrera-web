@@ -1,11 +1,31 @@
 # Curated employers whose public ATS board lists Spain roles. Each slug was checked against the
-# ATS's public endpoint (2026-11-27). Only Spain / remote-in-Spain junior roles are kept.
+# ATS's public endpoint on 2026-11-27 (HTTP 200 with data and at least one Spain location; the
+# pipeline keeps only junior roles in Spain or remote-in-Spain, so many boards yield few rows).
 # Add a company: name, ats (greenhouse | lever | ashby | workable | smartrecruiters), slug.
+# Aim for a mix: do not let one employer's internship programme dominate the page.
 companies:
-  - { name: Typeform, ats: greenhouse, slug: typeform }
-  - { name: Wallapop, ats: greenhouse, slug: wallapop }
+  # --- Consulting -------------------------------------------------------------------------------
+  - { name: Sopra Steria, ats: smartrecruiters, slug: SopraSteria1 }
+  - { name: ALTEN, ats: smartrecruiters, slug: Alten }
+  - { name: Celonis, ats: greenhouse, slug: celonis }
+
+  # --- Banking, fintech, insurance data -----------------------------------------------------------
   - { name: N26, ats: greenhouse, slug: n26 }
   - { name: Stripe, ats: greenhouse, slug: stripe }
+  - { name: Bitpanda, ats: greenhouse, slug: bitpanda }
+  - { name: Ebury, ats: greenhouse, slug: ebury }
+  - { name: SumUp, ats: greenhouse, slug: sumup }
+  - { name: Affirm, ats: greenhouse, slug: affirm }
+  - { name: Monzo, ats: greenhouse, slug: monzo }
+  - { name: Qonto, ats: ashby, slug: qonto }
+  - { name: Pleo, ats: ashby, slug: pleo }
+  - { name: Kantox, ats: workable, slug: kantox }
+  - { name: Experian, ats: smartrecruiters, slug: Experian }
+
+  # --- Tech -----------------------------------------------------------------------------------------
+  - { name: Typeform, ats: greenhouse, slug: typeform }
+  - { name: Wallapop, ats: greenhouse, slug: wallapop }
+  - { name: Cabify, ats: greenhouse, slug: cabify }
   - { name: Datadog, ats: greenhouse, slug: datadog }
   - { name: Elastic, ats: greenhouse, slug: elastic }
   - { name: Airbnb, ats: greenhouse, slug: airbnb }
@@ -14,13 +34,20 @@ companies:
   - { name: Databricks, ats: greenhouse, slug: databricks }
   - { name: GitLab, ats: greenhouse, slug: gitlab }
   - { name: Mirakl, ats: greenhouse, slug: mirakl }
-  - { name: Celonis, ats: greenhouse, slug: celonis }
   - { name: FlixBus, ats: greenhouse, slug: flix }
-  - { name: Bitpanda, ats: greenhouse, slug: bitpanda }
+  - { name: Helsing, ats: greenhouse, slug: helsing }
   - { name: Veepee, ats: lever, slug: veepee }
   - { name: Palantir, ats: lever, slug: palantir }
+  - { name: Jobandtalent, ats: lever, slug: jobandtalent }
   - { name: OpenAI, ats: ashby, slug: openai }
-  - { name: Bosch, ats: smartrecruiters, slug: BoschGroup }
+  - { name: ElevenLabs, ats: ashby, slug: elevenlabs }
+  - { name: n8n, ats: ashby, slug: n8n }
+  - { name: Back Market, ats: ashby, slug: backmarket }
+  - { name: Docplanner, ats: ashby, slug: docplanner }
   - { name: ServiceNow, ats: smartrecruiters, slug: ServiceNow }
-  - { name: Experian, ats: smartrecruiters, slug: Experian }
+  - { name: Ubisoft, ats: smartrecruiters, slug: Ubisoft2 }
+
+  # --- Industry and others ----------------------------------------------------------------------------
+  - { name: Bosch, ats: smartrecruiters, slug: BoschGroup }
+  - { name: Continental, ats: smartrecruiters, slug: Continental }
   - { name: Accor, ats: smartrecruiters, slug: Accor }
