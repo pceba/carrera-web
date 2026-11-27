@@ -1,0 +1,27 @@
+name: supabase-keepalive
+
+# Supabase Free pauses projects after ~7 days without activity. One light request a week prevents it.
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST endpoint
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "Secrets not set yet; skipping."; exit 0
+          fi
+          # Anonymous role has no table access: a 401/403 on profiles still counts as project activity.
+          code=$(curl -s -o /dev/null -w '%{http_code}' \
+            -H "apikey: $SUPABASE_ANON_KEY" "$SUPABASE_URL/rest/v1/profiles?select=id&limit=1")
+          echo "status: $code"
+          case "$code" in 200|401|403) ;; *) exit 1 ;; esac
