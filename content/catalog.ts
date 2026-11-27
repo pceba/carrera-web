@@ -162,6 +162,11 @@ export const INDUSTRIES: readonly Industry[] = [
           "Qué hace un banco de inversión, quién contrata en España y por qué puertas se entra.",
       },
       {
+        slug: "empresas",
+        title: "Empresas en España",
+        summary: "Bancos españoles, boutiques, Big Four y bancos internacionales: quién contrata.",
+      },
+      {
         slug: "el-trabajo",
         title: "El trabajo",
         summary: "La semana de un analista, la escalera de niveles, horas y sueldos con su fuente.",

@@ -20,14 +20,7 @@ Según la oferta de Rothschild & Co para analistas en Madrid, las tareas de un p
 
 ## La escalera
 
-Las guías salariales españolas usan cuatro niveles: analista, asociado, VP y director<Cite n={6} />. Los bancos internacionales añaden «managing director» por encima.
-
-1. **Analista:** modelos, documentos de propuesta, proceso de la operación. Es donde entras.
-2. **Asociado:** gestiona a los analistas, es responsable de partes del modelo y habla con clientes.
-3. **VP:** lleva las operaciones del día a día.
-4. **Director y por encima:** relación con los clientes y captación de encargos.
-
-No hay fuente española de cuántos años se pasa en cada nivel, así que no los damos; los títulos cambian según el banco.
+Las guías salariales españolas usan cuatro niveles<Cite n={6} />: **analista** (modelos y documentos; donde entras), **asociado** (gestiona analistas y habla con clientes), **VP** (lleva las operaciones día a día) y **director** (relación con clientes y captación de encargos). Los bancos internacionales añaden «managing director». No hay fuente española de cuántos años se pasa en cada nivel, así que no los damos; los títulos cambian según el banco.
 
 ## Horas
 
@@ -42,32 +35,36 @@ Como contexto de fuera: en septiembre de 2024 J.P. Morgan limitó a 80 horas sem
 Según Michael Page, 2026<Cite n={6} />, para España:
 
 <PayRanges
-  caption="M&A en banca nacional o boutique"
-  rows={[
-    { profile: "nac", level: "Analista", base: "45–50 mil €", bonus: "10–30%" },
-    { profile: "nac", level: "Asociado", base: "55–70 mil €", bonus: "30–50%" },
-    { profile: "nac", level: "VP", base: "75–100 mil €", bonus: "50–60%" },
-    { profile: "nac", level: "Director", base: "120–150 mil €", bonus: "70–80%" },
-  ]}
-/>
-
-<PayRanges
-  caption="M&A en banca internacional"
-  rows={[
-    { profile: "int", level: "Analista", base: "50–65 mil €", bonus: "20–40%" },
-    { profile: "int", level: "Asociado", base: "75–100 mil €", bonus: "50–70%" },
-    { profile: "int", level: "VP", base: "130–160 mil €", bonus: "60–80%" },
-    { profile: "int", level: "Director", base: "180–200 mil €", bonus: "80–120%" },
-  ]}
-/>
-
-<PayRanges
-  caption="Financiación estructurada"
-  rows={[
-    { profile: "fin", level: "Analista", base: "45–65 mil €", bonus: "10–30%" },
-    { profile: "fin", level: "Asociado", base: "70–90 mil €", bonus: "20–50%" },
-    { profile: "fin", level: "VP", base: "90–150 mil €", bonus: "30–70%" },
-    { profile: "fin", level: "Director", base: "150–200 mil €", bonus: "40–100%" },
+  caption="Base anual en miles de euros (K) y bonus sobre la base. «M&A nacional» es banca nacional o boutique; «Estructurada», financiación estructurada."
+  levels={["Analista", "Asociado", "VP", "Director"]}
+  columns={[
+    {
+      profile: "M&A nacional",
+      cells: [
+        { base: "45–50K", bonus: "10–30%" },
+        { base: "55–70K", bonus: "30–50%" },
+        { base: "75–100K", bonus: "50–60%" },
+        { base: "120–150K", bonus: "70–80%" },
+      ],
+    },
+    {
+      profile: "M&A internacional",
+      cells: [
+        { base: "50–65K", bonus: "20–40%" },
+        { base: "75–100K", bonus: "50–70%" },
+        { base: "130–160K", bonus: "60–80%" },
+        { base: "180–200K", bonus: "80–120%" },
+      ],
+    },
+    {
+      profile: "Estructurada",
+      cells: [
+        { base: "45–65K", bonus: "10–30%" },
+        { base: "70–90K", bonus: "20–50%" },
+        { base: "90–150K", bonus: "30–70%" },
+        { base: "150–200K", bonus: "40–100%" },
+      ],
+    },
   ]}
 />
 

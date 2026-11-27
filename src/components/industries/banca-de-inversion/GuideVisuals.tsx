@@ -21,10 +21,18 @@ export function DealFlow({ steps }: { steps: TimelineStep[] }) {
   );
 }
 
-export type PayRow = { profile: string; level: string; base: string; bonus: string };
+export type PayColumn = { profile: string; cells: { base: string; bonus: string }[] };
 
-/** Pay ranges by level for one profile; stacks as definition rows, no wide table on phones. */
-export function PayRanges({ caption, rows }: { caption: string; rows: PayRow[] }) {
+/** Pay ranges: one row per level, one column per profile; base and bonus share a cell. */
+export function PayRanges({
+  caption,
+  levels,
+  columns,
+}: {
+  caption: string;
+  levels: string[];
+  columns: PayColumn[];
+}) {
   return (
     <figure className={styles.pay}>
       <figcaption className={styles.payCaption}>{caption}</figcaption>
@@ -32,16 +40,23 @@ export function PayRanges({ caption, rows }: { caption: string; rows: PayRow[] }
         <thead>
           <tr>
             <th scope="col">Nivel</th>
-            <th scope="col">Base anual</th>
-            <th scope="col">Bonus</th>
+            {columns.map((c) => (
+              <th key={c.profile} scope="col">
+                {c.profile}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map((r) => (
-            <tr key={r.profile + r.level}>
-              <th scope="row">{r.level}</th>
-              <td data-label="Base">{r.base}</td>
-              <td data-label="Bonus">{r.bonus}</td>
+          {levels.map((level, i) => (
+            <tr key={level}>
+              <th scope="row">{level}</th>
+              {columns.map((c) => (
+                <td key={c.profile}>
+                  {c.cells[i]!.base}
+                  <span className={styles.bonus}>{c.cells[i]!.bonus}</span>
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>

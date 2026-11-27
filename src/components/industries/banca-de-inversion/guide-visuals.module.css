@@ -53,7 +53,8 @@
 
 /* ---------- Pay ranges ---------- */
 .pay {
-  margin: var(--space-4) 0;
+  overflow-x: auto;
+  margin: var(--space-3) 0;
 }
 .payCaption {
   margin-block-end: var(--space-2);
@@ -62,11 +63,11 @@
 .table {
   inline-size: 100%;
   border-collapse: collapse;
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
 }
 .table th,
 .table td {
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-1) var(--space-2);
   text-align: start;
   border-block-end: 1px solid var(--color-border);
 }
@@ -76,4 +77,9 @@
 }
 .table tbody th {
   font-weight: 500;
+}
+
+.bonus {
+  display: block;
+  color: var(--color-text-muted);
 }
