@@ -1,28 +1,29 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Sonnet 5.5, WS0 session)
+Last updated: 2026-11-27 (Claude Sonnet 5.5, WS-A session, branch `claude/ws-a-design-system-375be6`)
 
 ## Current step
 
-M0 repo foundation: code done and verified locally (typecheck, lint, format, unit, build, e2e).
+WS-A design system + public shell: code done; typecheck, lint, unit, build and e2e (desktop + 375 px) pass locally.
 
-## Done
+## Done this session
 
-- Next 16 App Router + TS strict + MDX, plain-CSS tokens (`src/styles/tokens.css`, light/dark).
-- Folder skeleton with owner READMEs (`docs/ownership.md`), tooling, CI workflow, licences, AGENTS.md.
-- `docs/naming.md` with 5 name proposals (DNS-only check).
+- Primitives in `src/components/ui/` (CSS modules on tokens): typography, button, card, tag, callout,
+  tabs, accordion, timeline, stat, sources/cite/reviewed-by, header/footer/shell, MDX map, OG card.
+- Home, `/industrias` map, `/dev/ui` showcase, `opengraph-image`, unit + e2e tests.
 
 ## Next task
 
-Pablo creates the GitHub repo, pushes `main`, turns on branch protection, connects Vercel (Hobby)
-and creates a Supabase project in an EU region. Then WS-A (design system) and WS-C (auth/data) start.
+Pablo reviews the preview (look, phone), then Lighthouse >= 90 on home. Merge before WS-B/WS-D start.
 
-## Open threads
+## Open threads / requests for shared files (not edited here)
 
-- Pick the name (`docs/naming.md`), then rename codename, `SITE.name`, `package.json` name.
-- Verify CI is green on GitHub and a Vercel preview shows the placeholder home.
+- `src/mdx-components.tsx` (WS0): spread `uiMdxComponents` from `@/components/ui`.
+- Fonts are system stacks (Georgia display). A webfont would need `next/font` in the root layout.
+- `ROUTES.signUp = "/registro"` and legal paths in `ui/site-data.ts`: align with WS-C / WS-D.
+- OG card mirrors token hex values (satori can't read CSS vars); `metadataBase` is unset in root layout.
+- No new tokens or dependencies were needed.
 
 ## Gotchas
 
-- Next 16 has no `next lint`: use `npm run lint` (ESLint directly).
-- `src/app/(public)/page.tsx` is a placeholder owned by WS-A from now on.
+- `prettier --write src` rewrites CRLF READMEs/WS0 files on Windows; run it only on owned folders.
