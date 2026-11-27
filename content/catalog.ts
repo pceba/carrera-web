@@ -152,8 +152,21 @@ export const INDUSTRIES: readonly Industry[] = [
     title: "Banca de inversión",
     rust: "investment-banking",
     line: "Asesorar a empresas en compras, ventas, fusiones y salidas a bolsa.",
-    status: "preparing",
-    sections: [],
+    status: "live",
+    startHere: "como-funciona",
+    sections: [
+      {
+        slug: "como-funciona",
+        title: "Cómo funciona",
+        summary:
+          "Qué hace un banco de inversión, quién contrata en España y por qué puertas se entra.",
+      },
+      {
+        slug: "el-trabajo",
+        title: "El trabajo",
+        summary: "La semana de un analista, la escalera de niveles, horas y sueldos con su fuente.",
+      },
+    ],
     segments: [],
   },
   {
