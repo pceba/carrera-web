@@ -44,3 +44,20 @@ jobicy, workable kept 0; Adzuna skipped (no keys). 7,000+ fetched, so the filter
   sort order, not a verdict.
 - Do not regenerate `tests/golden/` to silence parity failures (see ADR-004).
 - `cargo test` regenerates `src/lib/generated/`; commit the result.
+
+## WS-R2c (done)
+
+- `/cuenta/encaje` (session required, like `/cuenta`) and `/dev/encaje` (404 in production) render
+  `src/components/match/Encaje.tsx`: CV upload (PDF/DOCX/TXT, 5 MB cap) read by the WASM engine,
+  editable profile (six industries, roles, skills, languages, cities, remote), ranked postings with
+  reasons, worded as an order and not a verdict. The privacy sentence is on the page.
+- WASM is a dynamic `import()` in `engine.ts`, so it is its own chunk and no other page pays for it.
+- Profile in `localStorage` (try/catch, sanitised on load); the CV text is never stored.
+- Postings come from `fetchPostings({})` on the server (first 60 active rows); `/dev/encaje` falls
+  back to `sample-postings.ts` when the database has none.
+- e2e `e2e/encaje.spec.ts` (desktop and 375 px): upload fixture, edit skills, reasons, keyboard,
+  bad file, no write requests. It needs `next dev`, so `playwright.config.ts` now starts a second
+  web server on port 3100 and the spec skips when `BASE_URL` is set.
+- Not done: saving the profile to the account. It needs a migration (only `target_industries`
+  exists) and a decision on which fields to persist; the client already holds only structured data.
+- Gotcha: the posting page size (60) limits what can be ranked; raise or page it when volume grows.
