@@ -6,4 +6,4 @@ export function getSupabaseEnv(): { url: string; anonKey: string } | null {
 }
 
 /** Bump when the legal texts (WS-D) change; stored with each consent. */
-export const LEGAL_VERSIONS = { privacy: "draft-1", terms: "draft-1" } as const;
+export { LEGAL_VERSIONS } from "@/app/(public)/legal/versions";
