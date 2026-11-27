@@ -99,7 +99,7 @@ impl Entry {
     /// True when `text` is exactly this entry's name or one of its aliases ("sql", "Estadistica").
     fn is_named(&self, text: &str) -> bool {
         let text = norm(text);
-        self.terms.iter().any(|term| *term == text)
+        self.terms.contains(&text)
             || self
                 .exact_name
                 .as_deref()

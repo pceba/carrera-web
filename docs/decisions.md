@@ -83,3 +83,18 @@ Revisit when a job needs real transactions or complex queries (probably `cw-aler
   deleted after that test passed; the golden files stay as regression data for the rules.
 - Local Windows builds need a C toolchain: MSVC Build Tools, or MinGW-w64 with
   `cargo +stable-x86_64-pc-windows-gnu`. `rust-toolchain.toml` stays on plain `stable` so CI on Linux works.
+
+## ADR-004: Six focus industries; parity with Python is no longer a goal (2026-11-27)
+
+Decision: `Industry` is exactly `consulting`, `ai`, `data-science`, `private-equity`,
+`investment-banking`, `big-law`. A posting that matches none is dropped by the classifier.
+
+Why: the site is a hand-crafted guide for these six; postings outside them are noise for the people
+it serves and cost storage on the free tier.
+
+Consequences: the Python-era golden files in `crates/cw-pipeline/tests/golden/` no longer fix the
+**industry** (the old taxonomy had other values). `tests/parity.rs` still asserts that parsers, level
+and place decisions equal the recorded Python output, so the source parsers keep a regression net;
+industry is covered by the classifier's own tests. Do not regenerate the golden files to "fix" a
+parity failure on industry. ADR-003's "must reproduce it exactly" now applies to parsers, level and
+place only.
