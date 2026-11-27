@@ -16,7 +16,7 @@ function currentHref(path: string): string | null {
 }
 
 /**
- * Site header. Desktop: inline links, theme switch and the sign-in button.
+ * Site header: four sections plus "Entrar". Desktop: inline links, dark-theme toggle, sign-in.
  * Phone: a menu button that opens a native popover (Esc and tapping outside close it,
  * focus returns to the button, and it works before JavaScript loads).
  */
@@ -101,10 +101,7 @@ export function Header() {
             </li>
           </ul>
         </nav>
-        <div className={styles.sheetTheme}>
-          <span className={styles.sheetLabel}>Tema</span>
-          <ThemeToggle labels />
-        </div>
+        <ThemeToggle labels />
       </div>
     </header>
   );

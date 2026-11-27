@@ -1,25 +1,19 @@
 .footer {
   margin-block-start: var(--space-section);
-  background: var(--color-sunken);
   border-block-start: 1px solid var(--color-border);
-}
-
-/* A page that ends on a full-bleed inverse band sits flush on the footer. */
-:global(main:has(> .inverse:last-child)) + .footer {
-  margin-block-start: 0;
 }
 
 .inner {
   display: grid;
-  gap: var(--space-10);
+  gap: var(--space-8);
   max-width: var(--page-max);
   margin-inline: auto;
-  padding: var(--space-12) var(--gutter) var(--space-8);
+  padding: var(--space-10) var(--gutter) var(--space-8);
 }
 
 .lead {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
   align-content: start;
 }
 
@@ -38,16 +32,14 @@
 
 .groups {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
-  gap: var(--space-8) var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: var(--space-6);
 }
 
 .groupTitle {
-  margin: 0 0 var(--space-2);
-  font: 500 var(--text-xs) / 1 var(--font-mono);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--color-text-muted);
+  margin: 0 0 var(--space-1);
+  font: 600 var(--text-sm) / 1.4 var(--font-sans);
+  color: var(--color-text);
 }
 
 .list {
@@ -60,8 +52,8 @@
 .link {
   display: inline-flex;
   align-items: center;
-  min-height: var(--tap);
-  color: var(--color-text);
+  min-height: 2.25rem;
+  color: var(--color-text-muted);
   font-size: var(--text-sm);
   text-decoration: none;
   border-radius: var(--radius-sm);
@@ -71,20 +63,20 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .link:hover {
-    color: var(--color-accent);
+    color: var(--color-text);
     text-decoration: underline;
   }
 }
 
 .base {
-  padding-block-start: var(--space-6);
+  margin: 0;
+  padding-block-start: var(--space-5);
   border-block-start: 1px solid var(--color-border);
   font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
-.base p {
-  margin: 0;
-  max-width: 70ch;
+.base a {
+  color: inherit;
 }
 
 @media (min-width: 52rem) {

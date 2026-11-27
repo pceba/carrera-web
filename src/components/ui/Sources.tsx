@@ -15,13 +15,25 @@ export function Cite({ n }: { n: number }) {
 }
 
 /** Numbered list of sources. Every factual claim in `content/` must end up here (AGENTS.md rule 8). */
-export function SourceList({ sources, title = "Fuentes" }: { sources: Source[]; title?: string }) {
+export function SourceList({
+  sources,
+  title = "Fuentes",
+  only,
+}: {
+  sources: Source[];
+  title?: string;
+  /** 1-based numbers to show (e.g. the ones cited on this page). Numbers stay as in `sources`. */
+  only?: readonly number[];
+}) {
+  const rows = sources
+    .map((s, i) => ({ s, n: i + 1 }))
+    .filter(({ n }) => !only || only.includes(n));
   return (
     <section className={styles.sources} aria-label={title}>
       <h2 className={styles.heading}>{title}</h2>
       <ol className={styles.list}>
-        {sources.map((s, i) => (
-          <li key={s.url} id={`fuente-${i + 1}`}>
+        {rows.map(({ s, n }) => (
+          <li key={`${n}-${s.url}`} id={`fuente-${n}`} data-n={n}>
             <a href={s.url} rel="noopener noreferrer" target="_blank">
               {s.title}
             </a>

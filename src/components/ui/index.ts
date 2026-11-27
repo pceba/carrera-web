@@ -7,15 +7,7 @@ export { Footer } from "./Footer";
 export { Header } from "./Header";
 export { uiMdxComponents } from "./mdx";
 export { Page, Shell } from "./Shell";
-export {
-  FOOTER_GROUPS,
-  INDUSTRIES,
-  NAV_LINKS,
-  PILLARS,
-  REPO_URL,
-  ROUTES,
-  type IndustryStatus,
-} from "./site-data";
+export { FOOTER_GROUPS, NAV_LINKS, REPO_URL, ROUTES } from "./site-data";
 export { ThemeToggle } from "./ThemeToggle";
 export { Wordmark } from "./Wordmark";
 export { Cite, formatDate, ReviewedBy, SourceList, type Source } from "./Sources";

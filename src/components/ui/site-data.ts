@@ -1,9 +1,14 @@
-/** Navigation and catalogue data shared by the shell, the home and the industry map. */
+/**
+ * Site routes and shell navigation. Industries, sections, preparation guides and resources are
+ * data in `content/catalog.ts`; this file only holds the fixed frame around them.
+ */
 
 export const ROUTES = {
   home: "/",
   industries: "/industrias",
   consulting: "/industrias/consultoria",
+  prep: "/preparacion",
+  resources: "/recursos",
   offers: "/ofertas",
   /** Owned by WS-C: magic-link sign-in, which also creates the account on first use. */
   signIn: "/entrar",
@@ -17,24 +22,26 @@ export const ROUTES = {
 /** Public source code. Content is CC BY-SA 4.0, code MIT. */
 export const REPO_URL = "https://github.com/pceba/carrera-web";
 
-/** Main navigation. `match` marks the link as current for every path under it. */
+/** Main navigation: four items. `match` marks the link as current for every path under it. */
 export const NAV_LINKS = [
   { href: ROUTES.industries, label: "Industrias", match: "/industrias" },
-  { href: ROUTES.consulting, label: "Consultoría", match: "/industrias/consultoria" },
+  { href: ROUTES.prep, label: "Preparación", match: "/preparacion" },
+  { href: ROUTES.resources, label: "Recursos", match: "/recursos" },
   { href: ROUTES.offers, label: "Ofertas", match: "/ofertas" },
 ] as const;
 
 export const FOOTER_GROUPS = [
   {
-    title: "La guía",
+    title: "Guía",
     links: [
-      { href: ROUTES.industries, label: "Mapa de industrias" },
-      { href: ROUTES.consulting, label: "Consultoría" },
-      { href: ROUTES.offers, label: "Ofertas junior" },
+      { href: ROUTES.industries, label: "Industrias" },
+      { href: ROUTES.prep, label: "Preparación" },
+      { href: ROUTES.resources, label: "Recursos" },
+      { href: ROUTES.offers, label: "Ofertas" },
     ],
   },
   {
-    title: "Tu cuenta",
+    title: "Cuenta",
     links: [
       { href: ROUTES.signIn, label: "Entrar o crear cuenta" },
       { href: ROUTES.account, label: "Mi cuenta" },
@@ -50,106 +57,3 @@ export const FOOTER_GROUPS = [
     ],
   },
 ] as const;
-
-export const PILLARS = [
-  {
-    n: "01",
-    title: "El mapa",
-    text: "Qué industrias existen y cuál encaja contigo, sin folletos de empresa.",
-  },
-  {
-    n: "02",
-    title: "Cómo funciona",
-    text: "Modelo de negocio, quién es quién y cómo se sube de escalón.",
-  },
-  {
-    n: "03",
-    title: "El trabajo real",
-    text: "Una semana cualquiera, las habilidades que piden y rangos salariales con fuente.",
-  },
-  {
-    n: "04",
-    title: "Empresas en España",
-    text: "Quién contrata, en qué oficinas y con qué programas de entrada.",
-  },
-  {
-    n: "05",
-    title: "Los procesos",
-    text: "Fases, calendario y práctica para llegar preparado a cada entrevista.",
-  },
-  {
-    n: "06",
-    title: "Personas",
-    text: "Profesionales que ya han pasado por ahí (mayores de 18, con consentimiento).",
-  },
-] as const;
-
-export type IndustryStatus = "live" | "soon";
-
-export const INDUSTRIES: readonly {
-  slug: string;
-  name: string;
-  blurb: string;
-  status: IndustryStatus;
-}[] = [
-  {
-    slug: "consultoria",
-    name: "Consultoría",
-    blurb: "Estrategia y gestión: procesos de selección, casos y firmas en España.",
-    status: "live",
-  },
-  {
-    slug: "tecnologia",
-    name: "Tecnología y software",
-    blurb: "Producto, ingeniería y datos en empresas tecnológicas.",
-    status: "soon",
-  },
-  {
-    slug: "banca-finanzas",
-    name: "Banca y finanzas",
-    blurb: "Banca de inversión, corporativa y mercados.",
-    status: "soon",
-  },
-  {
-    slug: "big-four",
-    name: "Big Four y auditoría",
-    blurb: "Auditoría, fiscal y asesoramiento en las grandes firmas.",
-    status: "soon",
-  },
-  {
-    slug: "datos-ia",
-    name: "Datos e IA",
-    blurb: "Analítica, ciencia de datos e ingeniería de IA.",
-    status: "soon",
-  },
-  {
-    slug: "marketing",
-    name: "Marketing",
-    blurb: "Marca, crecimiento y publicidad.",
-    status: "soon",
-  },
-  {
-    slug: "startups",
-    name: "Startups",
-    blurb: "Entrar en una empresa joven: roles, equity y riesgos.",
-    status: "soon",
-  },
-  {
-    slug: "sector-publico",
-    name: "Sector público",
-    blurb: "Oposiciones y carrera en la Administración.",
-    status: "soon",
-  },
-  {
-    slug: "ingenieria",
-    name: "Ingeniería",
-    blurb: "Industria, infraestructuras y energía.",
-    status: "soon",
-  },
-  {
-    slug: "salud",
-    name: "Salud",
-    blurb: "Itinerarios profesionales en el ámbito sanitario.",
-    status: "soon",
-  },
-];
