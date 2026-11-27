@@ -26,10 +26,51 @@
   padding-block-start: var(--space-4);
   border-block-start: 1px solid var(--color-border);
 }
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+  list-style: none;
+}
+.summary::-webkit-details-marker {
+  display: none;
+}
+.summary::after {
+  content: "";
+  flex: none;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border: solid var(--color-text-muted);
+  border-width: 0 2px 2px 0;
+  rotate: 45deg;
+  transition: rotate var(--dur-fast) var(--ease-out);
+}
+.sources[open] > .summary::after {
+  rotate: 225deg;
+}
 .heading {
-  margin: 0 0 var(--space-4);
+  margin: 0;
   font: 500 var(--text-sm) / 1 var(--font-sans);
   color: var(--color-text-muted);
+}
+/* Desktop: always expanded, no chevron. (JS also sets `open`; this avoids a flash before it runs.) */
+@media (min-width: 40rem) {
+  .summary {
+    min-height: 0;
+    margin-block-end: var(--space-4);
+    cursor: default;
+    pointer-events: none;
+  }
+  .summary::after {
+    display: none;
+  }
+  .sources::details-content {
+    content-visibility: visible;
+    display: block;
+  }
 }
 .list {
   margin: 0;
