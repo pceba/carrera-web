@@ -40,3 +40,7 @@ Gotchas and unverified:
 - London calendar, right to work, Big Four intake dates and Esade/CNMV/Cinco Días links (blocked or 500 to scripts) are not published.
 - Books are listed as text without links (no verified URL).
 - A server from another session listens on :3000, so `playwright` reuses it; run e2e with `BASE_URL` pointing at your own `next start -p <port>`.
+
+## Height follow-up (2026-11-27)
+
+`proceso` calendar and stages now sit in accordions (all facts kept); `el-trabajo` trimmed slightly. At 375 px, sources collapsed: proceso 3024, el-trabajo 3981, como-funciona 3888, empresas 3706.
