@@ -1,0 +1,14 @@
+LUCIA FICTICIA MARTIN
+lucia.ficticia@example.com | Madrid
+
+FORMACION
+Grado en Economia, Universidad Imaginaria de Navarra (2021-2025)
+Master en Finanzas Corporativas, Escuela de Negocios Inventada (2025-2026)
+
+EXPERIENCIA
+Becaria de analisis de datos, Empresa Ejemplo SL, Barcelona (verano 2025)
+- Limpieza y analisis con SQL y Python (pandas); cuadros de mando en Power BI.
+- Modelos de valoracion de empresas y DCF en Excel.
+
+IDIOMAS
+Ingles (C1, IELTS 7.5), Frances (B1), Espanol (nativo)
