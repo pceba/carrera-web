@@ -1,6 +1,6 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a/b/c, WS-IA, WS-F1)
+Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a/b/c, WS-IA, WS-F1, W2 IB-A)
 
 ## Current step
 
@@ -30,11 +30,13 @@ At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_
   dry run by default), migration `alert_subscriptions` (NOT yet run on a real Postgres), workflow
   `alerts.yml` 06:17 UTC, ADR-005. Handover `docs/handover/ws-f-alerts.md`.
 
+- W2 IB slice A merged: banca de inversión live (hub, `como-funciona`, `empresas`, `el-trabajo`,
+  9 cited sources, `reviewer: "pendiente"`). Heights ~4.2k, 4.3k, 5.3k px (el-trabajo split in B).
+  Handover `docs/handover/w2-banca-de-inversion.md`.
+
 ## In flight
 
-- W2 IB slice A (branch `claude/confident-kare-97f997`): hub, `como-funciona`, `el-trabajo` done;
-  fixing page heights (~6k px) by moving "who hires" into `empresas`. Brief `w2_ib_a.md`;
-  Pablo's scope decisions in `docs/research/banca-de-inversion.md` §15.
+Nothing. Next brief ready: `docs/briefs/w2_ib_b.md` (proceso, recursos, personas, `sueldos`).
 
 ## Next after these
 
