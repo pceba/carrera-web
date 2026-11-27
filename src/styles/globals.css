@@ -28,7 +28,7 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-text-body);
   font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
@@ -38,6 +38,9 @@ h1,
 h2,
 h3,
 h4 {
+  color: var(--color-text);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
   text-wrap: balance;
 }
 
@@ -83,6 +86,7 @@ a {
 
 @media (hover: hover) and (pointer: fine) {
   a:hover {
+    color: var(--color-accent-hover);
     text-decoration-thickness: 2px;
   }
 }
