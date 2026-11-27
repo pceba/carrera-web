@@ -76,6 +76,10 @@
 
 /* Long-form MDX bodies. */
 .prose {
+  min-width: 0;
+}
+/* Text keeps a readable measure; figures, tables and widgets may use the full column. */
+.prose > :is(p, ul, ol, h2, h3, h4, blockquote) {
   max-width: var(--measure);
 }
 .prose > * {
@@ -84,27 +88,27 @@
 .prose > * + * {
   margin-block-start: var(--space-5);
 }
-.prose > h2,
-.prose > h3 {
+.prose > :is(h2, h3, h4) {
   margin-block-start: var(--space-12);
 }
-.prose > h2 + *,
-.prose > h3 + * {
+.prose > :is(h2, h3) + h4 {
+  margin-block-start: var(--space-8);
+}
+.prose > :is(h2, h3, h4) + :not(h4) {
   margin-block-start: var(--space-3);
 }
-.prose ul,
-.prose ol {
+.prose > ol {
   padding-inline-start: 1.25rem;
 }
-.prose ul {
+.prose > ul {
   list-style: none;
   padding-inline-start: 0;
 }
-.prose ul > li {
+.prose > ul > li {
   position: relative;
   padding-inline-start: 1.5rem;
 }
-.prose ul > li::before {
+.prose > ul > li::before {
   content: "";
   position: absolute;
   inset-inline-start: 0.1rem;
@@ -113,7 +117,7 @@
   block-size: 1px;
   background: var(--color-accent);
 }
-.prose li + li {
+.prose > :is(ul, ol) > li + li {
   margin-block-start: var(--space-3);
 }
 .prose strong {
