@@ -32,17 +32,79 @@ impl CvKind {
 pub enum CvError {
     #[error("unknown CV file kind `{0}`")]
     UnknownKind(String),
-    #[error("reading {0:?} files is not available yet")]
-    Unsupported(CvKind),
+    #[error("could not read the {0:?} file: {1}")]
+    Unreadable(CvKind, String),
 }
+
+/// Upper bound for what we inflate from an untrusted file (a "zip bomb" guard): 20 MB of text is
+/// far more than any CV.
+const MAX_TEXT_BYTES: usize = 20 * 1024 * 1024;
 
 /// Plain text of a CV file.
 pub fn extract_text(bytes: &[u8], kind: CvKind) -> Result<String, CvError> {
     match kind {
         // Lossy: a stray byte in a pasted CV must not make the whole file unreadable.
         CvKind::Txt => Ok(String::from_utf8_lossy(bytes).into_owned()),
-        other => Err(CvError::Unsupported(other)),
+        CvKind::Docx => docx_text(bytes).map_err(|e| CvError::Unreadable(kind, e)),
+        CvKind::Pdf => pdf_text(bytes).map_err(|e| CvError::Unreadable(kind, e)),
     }
+}
+
+/// A DOCX is a zip whose `word/document.xml` holds the text: `<w:t>` runs inside `<w:p>`
+/// paragraphs. We read just that, one line per paragraph.
+fn docx_text(bytes: &[u8]) -> Result<String, String> {
+    use quick_xml::{Reader, events::Event};
+    use std::io::Read;
+
+    let mut archive =
+        zip::ZipArchive::new(std::io::Cursor::new(bytes)).map_err(|e| e.to_string())?;
+    let file = archive
+        .by_name("word/document.xml")
+        .map_err(|_| "not a Word document (no word/document.xml)".to_owned())?;
+    let mut xml = Vec::new();
+    file.take(MAX_TEXT_BYTES as u64)
+        .read_to_end(&mut xml)
+        .map_err(|e| e.to_string())?;
+
+    let mut reader = Reader::from_reader(xml.as_slice());
+    let (mut text, mut in_text) = (String::new(), false);
+    loop {
+        match reader.read_event().map_err(|e| e.to_string())? {
+            Event::Start(e) if e.local_name().as_ref() == "t" => in_text = true,
+            Event::End(e) => match e.local_name().as_ref() {
+                "t" => in_text = false,
+                "p" => text.push('\n'),
+                _ => {}
+            },
+            Event::Empty(e) => match e.local_name().as_ref() {
+                "tab" => text.push('\t'),
+                "br" => text.push('\n'),
+                _ => {}
+            },
+            Event::Text(t) if in_text => text.push_str(&t.xml10_content()),
+            // `&amp;`, `&lt;`... arrive as separate events in this quick-xml version.
+            Event::GeneralRef(r) if in_text => match &*r {
+                "amp" => text.push('&'),
+                "lt" => text.push('<'),
+                "gt" => text.push('>'),
+                "quot" => text.push('"'),
+                "apos" => text.push('\''),
+                _ => {}
+            },
+            Event::Eof => break,
+            _ => {}
+        }
+    }
+    Ok(text)
+}
+
+/// Text of every page of a PDF. Works for PDFs that carry real text; a scanned image has none,
+/// which the caller sees as an empty draft (the UI then asks for a TXT or DOCX).
+fn pdf_text(bytes: &[u8]) -> Result<String, String> {
+    let doc = lopdf::Document::load_mem(bytes).map_err(|e| e.to_string())?;
+    let pages: Vec<u32> = doc.get_pages().keys().copied().collect();
+    doc.extract_text_with_limit(&pages, MAX_TEXT_BYTES)
+        .map_err(|e| e.to_string())
 }
 
 /// Draft a profile from CV text using the dictionaries in `lexicon`.
@@ -155,9 +217,100 @@ mod tests {
     fn kind_tags_and_unsupported_formats() {
         assert_eq!(CvKind::parse("PDF"), Some(CvKind::Pdf));
         assert_eq!(CvKind::parse("rtf"), None);
-        assert_eq!(
-            extract_text(b"%PDF", CvKind::Pdf),
-            Err(CvError::Unsupported(CvKind::Pdf))
+    }
+
+    #[test]
+    fn broken_files_are_errors_not_panics() {
+        assert!(matches!(
+            extract_text(b"%PDF-1.4 garbage", CvKind::Pdf),
+            Err(CvError::Unreadable(CvKind::Pdf, _))
+        ));
+        assert!(matches!(
+            extract_text(b"not a zip", CvKind::Docx),
+            Err(CvError::Unreadable(CvKind::Docx, _))
+        ));
+    }
+
+    /// Build a DOCX in memory from plain lines (a real DOCX has more parts; we read only one).
+    fn docx_from(lines: &[&str]) -> Vec<u8> {
+        use std::io::Write;
+        let body: String = lines
+            .iter()
+            .map(|l| {
+                format!(
+                    "<w:p><w:r><w:t>{}</w:t></w:r></w:p>",
+                    l.replace('&', "&amp;")
+                )
+            })
+            .collect();
+        let xml = format!(
+            "<?xml version=\"1.0\"?><w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:body>{body}</w:body></w:document>"
         );
+        let mut zip = zip::ZipWriter::new(std::io::Cursor::new(Vec::new()));
+        zip.start_file(
+            "word/document.xml",
+            zip::write::SimpleFileOptions::default(),
+        )
+        .unwrap();
+        zip.write_all(xml.as_bytes()).unwrap();
+        zip.finish().unwrap().into_inner()
+    }
+
+    /// Build a one-page PDF whose lines are drawn with the standard Helvetica font.
+    fn pdf_from(lines: &[&str]) -> Vec<u8> {
+        use lopdf::content::{Content, Operation};
+        use lopdf::{Document, Object, Stream, dictionary};
+        let mut doc = Document::with_version("1.5");
+        let pages_id = doc.new_object_id();
+        let font_id = doc.add_object(dictionary! {
+            "Type" => "Font", "Subtype" => "Type1", "BaseFont" => "Helvetica",
+        });
+        let resources_id = doc.add_object(dictionary! {
+            "Font" => dictionary! { "F1" => font_id },
+        });
+        let mut ops = vec![
+            Operation::new("BT", vec![]),
+            Operation::new("Tf", vec!["F1".into(), 12.into()]),
+            Operation::new("Td", vec![50.into(), 750.into()]),
+            Operation::new("TL", vec![14.into()]),
+        ];
+        for line in lines {
+            ops.push(Operation::new("Tj", vec![Object::string_literal(*line)]));
+            ops.push(Operation::new("T*", vec![]));
+        }
+        ops.push(Operation::new("ET", vec![]));
+        let content = Content { operations: ops };
+        let content_id = doc.add_object(Stream::new(dictionary! {}, content.encode().unwrap()));
+        let page_id = doc.add_object(dictionary! {
+            "Type" => "Page", "Parent" => pages_id, "Contents" => content_id,
+            "Resources" => resources_id,
+            "MediaBox" => vec![0.into(), 0.into(), 595.into(), 842.into()],
+        });
+        doc.objects.insert(
+            pages_id,
+            Object::Dictionary(dictionary! {
+                "Type" => "Pages", "Kids" => vec![page_id.into()], "Count" => 1,
+            }),
+        );
+        let catalog_id = doc.add_object(dictionary! { "Type" => "Catalog", "Pages" => pages_id });
+        doc.trailer.set("Root", catalog_id);
+        let mut out = Vec::new();
+        doc.save_to(&mut out).unwrap();
+        out
+    }
+
+    #[test]
+    fn docx_and_pdf_give_the_same_draft_as_txt() {
+        let lexicon = Lexicon::bundled();
+        let lines: Vec<&str> = LUCIA.lines().collect();
+        let from_txt = detect_profile(LUCIA, &lexicon);
+        let from_docx = parse_cv(&docx_from(&lines), CvKind::Docx, &lexicon).unwrap();
+        assert_eq!(from_docx, from_txt);
+        // PDF text extraction keeps the words but not our exact line structure, so compare the
+        // dictionary-driven fields only.
+        let from_pdf = parse_cv(&pdf_from(&lines), CvKind::Pdf, &lexicon).unwrap();
+        assert_eq!(from_pdf.skills, from_txt.skills);
+        assert_eq!(from_pdf.languages, from_txt.languages);
+        assert_eq!(from_pdf.locations, from_txt.locations);
     }
 }
