@@ -18,7 +18,7 @@
 }
 .blockTitle {
   margin: 0;
-  font: 400 var(--text-xl) / var(--leading-tight) var(--font-display);
+  font: var(--weight-display) var(--text-xl) / var(--leading-tight) var(--font-display);
   letter-spacing: -0.01em;
 }
 

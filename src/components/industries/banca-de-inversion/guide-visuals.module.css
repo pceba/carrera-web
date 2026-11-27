@@ -34,7 +34,7 @@
 }
 .title {
   margin: 0;
-  font: 400 var(--text-xl) / 1.15 var(--font-display);
+  font: var(--weight-display) var(--text-xl) / 1.15 var(--font-display);
 }
 .text {
   margin-block-start: var(--space-1);

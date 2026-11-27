@@ -8,7 +8,7 @@
 .title {
   margin: 0;
   max-width: 16ch;
-  font: 400 var(--text-display) / var(--leading-display) var(--font-display);
+  font: var(--weight-display) var(--text-display) / var(--leading-display) var(--font-display);
   letter-spacing: -0.03em;
   text-wrap: balance;
 }
@@ -33,7 +33,7 @@
 }
 .h2 {
   margin: 0;
-  font: 400 var(--text-2xl) / var(--leading-tight) var(--font-display);
+  font: var(--weight-display) var(--text-2xl) / var(--leading-tight) var(--font-display);
   letter-spacing: -0.02em;
 }
 
@@ -58,7 +58,7 @@
   text-decoration: none;
 }
 .industryName {
-  font: 400 var(--text-xl) / var(--leading-tight) var(--font-display);
+  font: var(--weight-display) var(--text-xl) / var(--leading-tight) var(--font-display);
 }
 .industryLine {
   font-size: var(--text-sm);
@@ -95,7 +95,7 @@
   align-content: start;
 }
 .stepN {
-  font: 400 var(--text-2xl) / 1 var(--font-display);
+  font: var(--weight-display) var(--text-2xl) / 1 var(--font-display);
   color: var(--color-accent);
   font-variant-numeric: lining-nums;
 }

@@ -42,7 +42,7 @@
 }
 .rungTitle {
   margin: 0;
-  font: 400 var(--text-xl) / 1.15 var(--font-display);
+  font: var(--weight-display) var(--text-xl) / 1.15 var(--font-display);
 }
 .rungText {
   font-size: var(--text-sm);
@@ -169,7 +169,7 @@
   color: var(--color-text-muted);
 }
 .calYear {
-  font: 400 var(--text-2xl) / 1 var(--font-display);
+  font: var(--weight-display) var(--text-2xl) / 1 var(--font-display);
   color: var(--color-text);
 }
 .calGrid {
