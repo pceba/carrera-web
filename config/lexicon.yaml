@@ -1,0 +1,137 @@
+# Dictionaries used by the browser engine: `cw-cv` finds these in a CV, `cw-match` uses
+# `skills[].industries` to explain why a skill helps in a posting's industry.
+# Matching is case/accent-insensitive on whole words (see cw-classify::contains_word), except
+# entries marked `exact: true`, which must appear with this exact case (short names like "R").
+# Names and aliases are plain text; everything here is auditable by reading this file.
+
+skills:
+  # --- Data science and AI ---------------------------------------------------------------------
+  - { name: SQL, industries: [data-science, ai, consulting, investment-banking] }
+  - { name: Python, industries: [data-science, ai, consulting, investment-banking] }
+  - { name: R, exact: true, industries: [data-science] }
+  - { name: Pandas, industries: [data-science, ai] }
+  - { name: NumPy, industries: [data-science, ai] }
+  - { name: Scikit-learn, aliases: [sklearn, scikit learn], industries: [data-science, ai] }
+  - { name: PyTorch, industries: [ai, data-science] }
+  - { name: TensorFlow, industries: [ai, data-science] }
+  - { name: Spark, aliases: [pyspark, "apache spark"], industries: [data-science, ai] }
+  - { name: Machine learning, aliases: [aprendizaje automatico, "ml"], industries: [ai, data-science] }
+  - { name: Deep learning, aliases: [aprendizaje profundo], industries: [ai, data-science] }
+  - { name: NLP, aliases: ["procesamiento del lenguaje natural", "natural language processing"], industries: [ai, data-science] }
+  - { name: LLM, aliases: [llms, "large language models", "modelos de lenguaje"], industries: [ai] }
+  - { name: Prompt engineering, industries: [ai] }
+  - { name: RAG, exact: true, industries: [ai] }
+  - { name: Estadística, aliases: [statistics, estadistica], industries: [data-science, ai, consulting] }
+  - { name: Econometría, aliases: [econometrics, econometria], industries: [data-science, consulting] }
+  - { name: A/B testing, aliases: ["ab testing", "a/b tests", "experimentacion"], industries: [data-science] }
+  - { name: ETL, industries: [data-science] }
+  - { name: dbt, exact: true, industries: [data-science] }
+  - { name: Airflow, industries: [data-science, ai] }
+  - { name: Power BI, aliases: [powerbi], industries: [data-science, consulting] }
+  - { name: Tableau, industries: [data-science, consulting] }
+  - { name: Looker, industries: [data-science] }
+  - { name: Docker, industries: [ai, data-science] }
+  - { name: Git, aliases: [github, gitlab], industries: [ai, data-science] }
+  - { name: AWS, industries: [ai, data-science] }
+  - { name: Azure, industries: [ai, data-science, consulting] }
+  - { name: GCP, aliases: ["google cloud"], industries: [ai, data-science] }
+  - { name: MATLAB, industries: [data-science, ai] }
+  - { name: Stata, industries: [data-science, consulting] }
+  - { name: SAS, exact: true, industries: [data-science] }
+  - { name: Visualización de datos, aliases: ["data visualization", "visualizacion de datos"], industries: [data-science, consulting] }
+
+  # --- Finance: investment banking and private equity ----------------------------------------------
+  - { name: Excel, aliases: ["microsoft excel", "excel avanzado"], industries: [investment-banking, private-equity, consulting, data-science] }
+  - { name: Modelización financiera, aliases: ["financial modelling", "financial modeling", "modelizacion financiera", "modelado financiero"], industries: [investment-banking, private-equity, consulting] }
+  - { name: Valoración de empresas, aliases: [valoracion, valuation, dcf, "discounted cash flow", "flujos de caja descontados", "valoracion de empresas"], industries: [investment-banking, private-equity] }
+  - { name: LBO, exact: true, industries: [private-equity, investment-banking] }
+  - { name: M&A, aliases: ["fusiones y adquisiciones", "mergers and acquisitions"], industries: [investment-banking, private-equity, big-law] }
+  - { name: Due diligence, industries: [private-equity, investment-banking, big-law, consulting] }
+  - { name: Análisis financiero, aliases: ["financial analysis", "analisis financiero", "estados financieros", "financial statements"], industries: [investment-banking, private-equity, consulting] }
+  - { name: Contabilidad, aliases: [accounting, "contabilidad financiera"], industries: [investment-banking, private-equity, consulting] }
+  - { name: IFRS, aliases: [niif], industries: [investment-banking, private-equity, consulting] }
+  - { name: Bloomberg, aliases: ["bloomberg terminal"], industries: [investment-banking, private-equity] }
+  - { name: FactSet, industries: [investment-banking, private-equity] }
+  - { name: Capital IQ, aliases: [capiq, "cap iq", "s&p capital iq"], industries: [investment-banking, private-equity] }
+  - { name: CFA, exact: true, aliases: ["cfa level", "cfa nivel"], industries: [investment-banking, private-equity] }
+  - { name: Mercados de capitales, aliases: ["capital markets", "renta variable", "renta fija", "equity research"], industries: [investment-banking] }
+  - { name: Pitch books, aliases: [pitchbook, "pitch book", pitchbooks, "pitch decks"], industries: [investment-banking, private-equity] }
+  - { name: Finanzas corporativas, aliases: ["corporate finance", "finanzas de empresa"], industries: [investment-banking, private-equity, consulting] }
+  - { name: Venture capital, aliases: ["capital riesgo"], industries: [private-equity] }
+
+  # --- Consulting -----------------------------------------------------------------------------------
+  - { name: PowerPoint, aliases: ["power point", "microsoft powerpoint"], industries: [consulting, investment-banking, private-equity] }
+  - { name: Resolución de problemas, aliases: ["problem solving", "resolucion de problemas"], industries: [consulting] }
+  - { name: Análisis estratégico, aliases: ["strategic analysis", "analisis estrategico", "estrategia corporativa"], industries: [consulting] }
+  - { name: Gestión de proyectos, aliases: ["project management", "gestion de proyectos"], industries: [consulting] }
+  - { name: Casos de consultoría, aliases: ["case interview", "case interviews", "casos practicos", "case study", "case competition"], industries: [consulting] }
+  - { name: Investigación de mercado, aliases: ["market research", "investigacion de mercado", "market sizing"], industries: [consulting, private-equity] }
+  - { name: Transformación digital, aliases: ["digital transformation", "transformacion digital"], industries: [consulting] }
+  - { name: Lean Six Sigma, aliases: ["six sigma", lean], industries: [consulting] }
+  - { name: SAP, exact: true, industries: [consulting] }
+  - { name: Gestión del cambio, aliases: ["change management", "gestion del cambio"], industries: [consulting] }
+  - { name: Storytelling, aliases: ["comunicacion ejecutiva"], industries: [consulting] }
+
+  # --- Big Law --------------------------------------------------------------------------------------
+  - { name: Derecho mercantil, aliases: ["derecho de sociedades", "derecho societario", "corporate law", "commercial law"], industries: [big-law] }
+  - { name: Derecho fiscal, aliases: ["derecho tributario", "tax law"], industries: [big-law] }
+  - { name: Derecho laboral, aliases: ["employment law", "labour law"], industries: [big-law] }
+  - { name: Derecho procesal, aliases: [litigacion, litigation, "resolucion de conflictos", "dispute resolution"], industries: [big-law] }
+  - { name: Arbitraje, aliases: [arbitration], industries: [big-law] }
+  - { name: Derecho bancario, aliases: ["banking law", "derecho financiero", "finance law"], industries: [big-law] }
+  - { name: Derecho de la competencia, aliases: ["competition law", antitrust], industries: [big-law] }
+  - { name: Propiedad intelectual, aliases: ["intellectual property", "propiedad industrial"], industries: [big-law] }
+  - { name: Protección de datos, aliases: [rgpd, gdpr, "proteccion de datos", "data protection"], industries: [big-law] }
+  - { name: Compliance, aliases: ["cumplimiento normativo"], industries: [big-law, investment-banking] }
+  - { name: Redacción de contratos, aliases: ["contract drafting", "redaccion de contratos", "redaccion juridica", "legal drafting"], industries: [big-law] }
+  - { name: Aranzadi, aliases: [vlex, westlaw, lexnet, "la ley digital", "cendoj"], industries: [big-law] }
+  - { name: Derecho inmobiliario, aliases: ["real estate law"], industries: [big-law] }
+
+languages:
+  - { name: Inglés, aliases: [english, ingles, toefl, ielts] }
+  - { name: Francés, aliases: [french, frances, delf, dalf] }
+  - { name: Alemán, aliases: [german, aleman, goethe, testdaf] }
+  - { name: Italiano, aliases: [italian] }
+  - { name: Portugués, aliases: [portuguese, portugues] }
+  - { name: Catalán, aliases: [catalan, valencian, valenciano] }
+  - { name: Euskera, aliases: [basque] }
+  - { name: Gallego, aliases: [galician] }
+  - { name: Chino, aliases: [mandarin, chinese, mandarín] }
+  - { name: Árabe, aliases: [arabic, arabe] }
+  - { name: Ruso, aliases: [russian] }
+  - { name: Español, aliases: [spanish, castellano, espanol] }
+
+# Cities a CV may name as home or target. Spanish cities first (they match `postings.city`).
+locations:
+  - { name: Madrid }
+  - { name: Barcelona }
+  - { name: Valencia }
+  - { name: Sevilla, aliases: [seville] }
+  - { name: Bilbao }
+  - { name: Málaga, aliases: [malaga] }
+  - { name: Zaragoza }
+  - { name: Alicante }
+  - { name: Palma, aliases: ["palma de mallorca"] }
+  - { name: Granada }
+  - { name: Valladolid }
+  - { name: Pamplona }
+  - { name: San Sebastián, aliases: [donostia, "san sebastian"] }
+  - { name: A Coruña, aliases: ["la coruna", "a coruna"] }
+  - { name: Vigo }
+  - { name: Santander }
+  - { name: Londres, aliases: [london] }
+  - { name: París, aliases: [paris] }
+  - { name: Frankfurt }
+  - { name: Ámsterdam, aliases: [amsterdam] }
+  - { name: Lisboa, aliases: [lisbon] }
+  - { name: Milán, aliases: [milan, milano] }
+  - { name: Zúrich, aliases: [zurich] }
+  - { name: Luxemburgo, aliases: [luxembourg] }
+
+# A line of a CV is a "studies" line when it contains one of these degree words.
+degrees:
+  - { name: Doctorado, aliases: [phd, "ph.d", doctorate] }
+  - { name: Máster, aliases: [master, msc, "m.sc", mba, "master's", masters] }
+  - { name: Grado, aliases: [bachelor, licenciatura, licenciado, licenciada, ingenieria, "double degree", "doble grado", bsc, "b.sc", diplomatura] }
+  - { name: Formación profesional, aliases: ["ciclo formativo", "grado superior", "grado medio"] }
+  - { name: Bachillerato, aliases: [baccalaureate, "a levels", "ib diploma"] }

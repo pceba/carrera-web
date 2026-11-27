@@ -253,6 +253,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cw-lexicon"
+version = "0.1.0"
+dependencies = [
+ "cw-classify",
+ "cw-domain",
+ "serde",
+ "serde_yaml_ng",
+ "thiserror",
+]
+
+[[package]]
 name = "cw-pipeline"
 version = "0.1.0"
 dependencies = [

@@ -26,16 +26,25 @@ export const LEVELS: Record<Level, string> = {
   analyst: "Analista",
 };
 
-export const INDUSTRY_LABELS: Record<Industry, string> = {
+const SIX_INDUSTRIES: Record<Industry, string> = {
   consulting: "Consultoría",
-  banking: "Banca y finanzas",
-  tech: "Tecnología",
-  industrial: "Industria e ingeniería",
-  marketing: "Marketing",
-  sales: "Ventas",
-  operations: "Operaciones y RRHH",
-  other: "Otras",
+  ai: "Roles de IA",
+  "data-science": "Data science",
+  "private-equity": "Private equity",
+  "investment-banking": "Banca de inversión",
+  "big-law": "Big Law",
 };
+
+/**
+ * Labels for the six industries. `other` no longer exists as an industry (the classifier drops
+ * those postings), but `(public)/ofertas` still reads `INDUSTRY_LABELS.other` as a fallback.
+ * It is kept as a non-enumerable property so the filter menus list only the six; remove it when
+ * WS-IA's rebuild of that page stops reading it.
+ */
+export const INDUSTRY_LABELS = Object.defineProperty({ ...SIX_INDUSTRIES }, "other", {
+  value: "Otras",
+  enumerable: false,
+}) as Record<Industry, string> & { other: string };
 
 /** value = what the pipeline stores in `city` (accent-free, capitalised). */
 export const CITIES: { value: string; label: string }[] = [

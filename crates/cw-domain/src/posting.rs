@@ -75,7 +75,7 @@ mod tests {
             city: Some("Madrid".into()),
             remote: false,
             level: Level::Junior,
-            industry: Industry::Tech,
+            industry: Industry::DataScience,
             posted_at: Some("2026-11-20T00:00:00Z".parse().unwrap()),
         };
         let value = serde_json::to_value(&posting).unwrap();
