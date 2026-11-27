@@ -1,15 +1,9 @@
 import Link from "next/link";
 import { formatDate } from "@/components/ui";
-import {
-  getIndustry,
-  RESOURCE_TYPES,
-  resourcesFor,
-  type Resource,
-} from "../../../content/catalog";
+import { getIndustry, RESOURCE_TYPES, resourcesFor, type Resource } from "../../../content/catalog";
 import styles from "./nav.module.css";
 
-const typeLabel = (t: Resource["type"]) =>
-  RESOURCE_TYPES.find((r) => r.slug === t)?.one ?? t;
+const typeLabel = (t: Resource["type"]) => RESOURCE_TYPES.find((r) => r.slug === t)?.one ?? t;
 
 /** A plain list of resources from the catalogue. Filters are optional; empty -> a short note. */
 export function ResourceList({

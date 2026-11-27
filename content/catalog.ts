@@ -24,12 +24,7 @@ export type IndustrySlug =
 
 /** Matches the Rust `Industry` enum (crates/cw-domain) used by postings and matching. */
 export type RustIndustry =
-  | "consulting"
-  | "ai"
-  | "data-science"
-  | "private-equity"
-  | "investment-banking"
-  | "big-law";
+  "consulting" | "ai" | "data-science" | "private-equity" | "investment-banking" | "big-law";
 
 /** `live`: hub and sections are published. `preparing`: hub only, marked "en preparación". */
 export type Status = "live" | "preparing";
@@ -254,14 +249,7 @@ export const PREP_GUIDES: readonly PrepGuide[] = [
 /* ---------------------------------------------------------------- resource library */
 
 export type ResourceType =
-  | "guia"
-  | "web-oficial"
-  | "casos"
-  | "libro"
-  | "curso"
-  | "podcast"
-  | "newsletter"
-  | "comunidad";
+  "guia" | "web-oficial" | "casos" | "libro" | "curso" | "podcast" | "newsletter" | "comunidad";
 
 export const RESOURCE_TYPES: readonly { slug: ResourceType; label: string; one: string }[] = [
   { slug: "guia", label: "Guías", one: "Guía" },

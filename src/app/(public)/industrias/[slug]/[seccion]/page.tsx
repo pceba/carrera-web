@@ -76,7 +76,9 @@ export default async function IndustrySection({ params }: { params: Params }) {
 
         <article className={styles.article} aria-labelledby="titulo">
           <header className={styles.articleHead}>
-            {kind === "segment" ? <p className={styles.kind}>Segmento de {industry.title}</p> : null}
+            {kind === "segment" ? (
+              <p className={styles.kind}>Segmento de {industry.title}</p>
+            ) : null}
             <Heading level="h1" as="h1" id="titulo">
               {page.title}
             </Heading>

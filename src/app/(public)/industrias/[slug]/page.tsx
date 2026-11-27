@@ -42,14 +42,19 @@ export default async function IndustryHub({ params }: { params: Promise<{ slug: 
           { href: `/industrias/${industry.slug}`, label: industry.title },
         ]}
       />
-      {industry.status === "live" ? <LiveHub industry={industry} /> : <PreparingHub industry={industry} />}
+      {industry.status === "live" ? (
+        <LiveHub industry={industry} />
+      ) : (
+        <PreparingHub industry={industry} />
+      )}
     </Page>
   );
 }
 
 async function LiveHub({ industry }: { industry: Industry }) {
   const { meta, sources } = await loadMeta(industry.slug);
-  const start = industry.sections.find((s) => s.slug === industry.startHere) ?? industry.sections[0];
+  const start =
+    industry.sections.find((s) => s.slug === industry.startHere) ?? industry.sections[0];
 
   return (
     <>
@@ -65,8 +70,8 @@ async function LiveHub({ industry }: { industry: Industry }) {
         ) : null}
         <p className={styles.hubMeta}>
           {sources.length} fuentes · revisada el{" "}
-          <time dateTime={meta.reviewed_at}>{formatDate(meta.reviewed_at)}</time> · próxima
-          revisión <time dateTime={meta.next_review}>{formatDate(meta.next_review)}</time>
+          <time dateTime={meta.reviewed_at}>{formatDate(meta.reviewed_at)}</time> · próxima revisión{" "}
+          <time dateTime={meta.next_review}>{formatDate(meta.next_review)}</time>
         </p>
       </header>
 
@@ -127,8 +132,8 @@ function PreparingHub({ industry }: { industry: Industry }) {
         <Heading level="display">{industry.title}</Heading>
         <Text variant="lead">{industry.line}</Text>
         <Text>
-          Estamos escribiendo esta guía a partir de fuentes oficiales. Solo publicamos lo que podemos
-          citar, así que de momento aquí no hay más. La guía de{" "}
+          Estamos escribiendo esta guía a partir de fuentes oficiales. Solo publicamos lo que
+          podemos citar, así que de momento aquí no hay más. La guía de{" "}
           <Link href={ROUTES.consulting}>consultoría</Link> te enseña cómo será.
         </Text>
       </header>
