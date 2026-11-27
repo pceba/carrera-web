@@ -1,29 +1,27 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Sonnet 5.5, WS-A session, branch `claude/ws-a-design-system-375be6`)
+Last updated: 2026-11-27 (Claude Sonnet 5.5, WS-D session, branch `claude/ws-d-legal-674ceb`)
 
 ## Current step
 
-WS-A design system + public shell: code done; typecheck, lint, unit, build and e2e (desktop + 375 px) pass locally.
+WS-D legal pages: drafted, all checks pass. Awaiting Pablo's review of the texts and placeholders.
 
 ## Done this session
 
-- Primitives in `src/components/ui/` (CSS modules on tokens): typography, button, card, tag, callout,
-  tabs, accordion, timeline, stat, sources/cite/reviewed-by, header/footer/shell, MDX map, OG card.
-- Home, `/industrias` map, `/dev/ui` showcase, `opengraph-image`, unit + e2e tests.
+- Pages `/legal/privacidad`, `/terminos`, `/cookies`, `/aviso-legal` (`src/app/(public)/legal/`), bodies in `content/legal/*.tsx`.
+- `src/app/(public)/legal/versions.ts` exports `LEGAL_VERSIONS` (privacy, terms) for the consents table.
+- Unit test for versions, e2e for the four pages (desktop + 375 px).
 
 ## Next task
 
-Pablo reviews the preview (look, phone), then Lighthouse >= 90 on home. Merge before WS-B/WS-D start.
+Pablo fills placeholders and checks the legal points. WS-C: use `LEGAL_VERSIONS` from `@/app/(public)/legal/versions`
+instead of the placeholder in `src/lib/supabase/env.ts`. WS-A: add cookies / aviso legal links to the footer.
 
-## Open threads / requests for shared files (not edited here)
+## Placeholders
 
-- `src/mdx-components.tsx` (WS0): spread `uiMdxComponents` from `@/components/ui`.
-- Fonts are system stacks (Georgia display). A webfont would need `next/font` in the root layout.
-- `ROUTES.signUp = "/registro"` and legal paths in `ui/site-data.ts`: align with WS-C / WS-D.
-- OG card mirrors token hex values (satori can't read CSS vars); `metadataBase` is unset in root layout.
-- No new tokens or dependencies were needed.
+`{{CONTROLLER_NAME}}`, `{{CONTACT_EMAIL}}`, `{{CONTROLLER_ID}}`, `{{CONTROLLER_ADDRESS}}`,
+`{{BACKUP_RETENTION_DAYS}}`, `{{COMMUNITY_RULES_URL}}`.
 
 ## Gotchas
 
-- `prettier --write src` rewrites CRLF READMEs/WS0 files on Windows; run it only on owned folders.
+- Worktree `node_modules` is empty: `next build` (Turbopack) fails; `npx next build --webpack` works.
