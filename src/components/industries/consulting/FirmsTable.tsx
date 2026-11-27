@@ -99,24 +99,35 @@ export function FirmsTable({ firms }: { firms: Firm[] }) {
         {rows.length} {rows.length === 1 ? "empresa" : "empresas"}
       </p>
 
-      {/* Phones: cards */}
+      {/* Phones: one collapsed row per firm, details on demand */}
       <ul className={styles.cards}>
         {rows.map((f) => (
           <li key={f.name} className={styles.card}>
-            <p className={styles.type}>{f.type}</p>
-            <h3 className={styles.name}>
-              {f.name}
-              {cites(f)}
-            </h3>
-            <div className={styles.offices}>
-              <Office city="Madrid" value={f.madrid} />
-              <Office city="Barcelona" value={f.barcelona} />
-            </div>
-            <p className={styles.entry}>{f.entry}</p>
-            <a href={f.careersUrl} rel="noopener noreferrer" target="_blank" className={styles.out}>
-              Web oficial de carreras<span className={styles.sr}> de {f.name}</span>
-              <span aria-hidden="true"> ↗</span>
-            </a>
+            <details className={styles.details}>
+              <summary className={styles.summary}>
+                <span className={styles.type}>{f.type}</span>
+                <span className={styles.name}>{f.name}</span>
+              </summary>
+              <div className={styles.body}>
+                <div className={styles.offices}>
+                  <Office city="Madrid" value={f.madrid} />
+                  <Office city="Barcelona" value={f.barcelona} />
+                </div>
+                <p className={styles.entry}>
+                  {f.entry}
+                  {cites(f)}
+                </p>
+                <a
+                  href={f.careersUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  className={styles.out}
+                >
+                  Web oficial de carreras<span className={styles.sr}> de {f.name}</span>
+                  <span aria-hidden="true"> ↗</span>
+                </a>
+              </div>
+            </details>
           </li>
         ))}
       </ul>
