@@ -243,6 +243,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "cw-cv"
+version = "0.1.0"
+dependencies = [
+ "cw-domain",
+ "cw-lexicon",
+ "thiserror",
+]
+
+[[package]]
 name = "cw-domain"
 version = "0.1.0"
 dependencies = [
