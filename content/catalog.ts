@@ -207,8 +207,25 @@ export const INDUSTRIES: readonly Industry[] = [
     title: "Big Law",
     rust: "big-law",
     line: "Los grandes despachos de abogados de negocios: operaciones, litigios y regulación.",
-    status: "preparing",
-    sections: [],
+    status: "live",
+    startHere: "como-funciona",
+    sections: [
+      {
+        slug: "como-funciona",
+        title: "Cómo funciona",
+        summary: "Qué hace un despacho de negocios, cómo gana dinero y cómo se entra en España.",
+      },
+      {
+        slug: "empresas",
+        title: "Empresas en España",
+        summary: "Despachos españoles e internacionales en Madrid y Barcelona, y qué ofrecen.",
+      },
+      {
+        slug: "el-trabajo",
+        title: "El trabajo",
+        summary: "La semana de un júnior, la escalera de niveles y lo que se cobra.",
+      },
+    ],
     segments: [],
   },
 ];
