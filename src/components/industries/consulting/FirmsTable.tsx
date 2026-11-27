@@ -6,7 +6,7 @@ import type { Firm } from "../../../../content/industrias/consultoria/firms";
 import styles from "./firms.module.css";
 
 const ALL = "Todas";
-const yesNo = (v: boolean | null) => (v === null ? "Por verificar" : v ? "Sí" : "No");
+const yesNo = (v: boolean | null) => (v === null ? "Sin confirmar" : v ? "Sí" : "No");
 
 /** Filterable firm list (type + city). Cards instead of a wide table so it works at 375 px. */
 export function FirmsTable({ firms }: { firms: Firm[] }) {

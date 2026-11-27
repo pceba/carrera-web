@@ -88,7 +88,8 @@ export default function ConsultingPage() {
           Empresas en España
         </Heading>
         <Text>
-          Solo fuentes oficiales. «Por verificar» significa que todavía no hemos confirmado el dato.
+          Solo fuentes oficiales. «Sin confirmar» significa que todavía no tenemos una fuente fiable
+          para ese dato.
         </Text>
         <FirmsTable firms={firms} />
       </section>
