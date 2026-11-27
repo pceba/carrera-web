@@ -2,8 +2,8 @@ name: alerts
 
 # Daily digest of new postings by email (crates/cw-alerts), one hour after the postings job.
 # Needs SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, ALERTS_FROM (a sender on a
-# domain verified in Resend) and SITE_URL (for the unsubscribe link). Without the Supabase pair the job runs on fictional demo data; without
-# the Resend pair it only counts what it would send. The log holds counts only: never addresses.
+# domain verified in Resend) and SITE_URL (for the unsubscribe link).
+# Without the Supabase pair the job runs on fictional demo data; without the Resend ones it only counts what it would send. The log holds counts only: never addresses.
 on:
   schedule:
     - cron: "17 6 * * *"

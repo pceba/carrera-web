@@ -104,6 +104,12 @@ async fn execute(cli: Cli) -> anyhow::Result<ExitCode> {
         }
         _ => None,
     };
+    // A real email with a placeholder unsubscribe link would be a legal problem, so sending
+    // requires the real site address.
+    if mailer.is_some() && site_url.is_none() {
+        bail!("RESEND_API_KEY is set but SITE_URL is not (needed for the unsubscribe link)");
+    }
+    let site_url = site_url.unwrap_or_else(|| "https://carrera-web.example".into());
     println!("mode={}", if mailer.is_some() { "send" } else { "dry-run" });
 
     if preview {
