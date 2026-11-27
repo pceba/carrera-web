@@ -6,7 +6,8 @@ at a registrar) and search the OEPM/EUIPO trademark databases. Visual identity: 
 direction **B, "precise tool"** (2026-11-27): Geist for everything, Geist Mono for figures and
 meta, tighter radii, silver-grey `#ECEEF1` ground, near-black ink `#171C24`, cobalt `#3550B0` as the
 one accent; wordmark `path` in lowercase Geist 600. Symbol: point-to-point route in black, white and
-light (glow, shadow), six variants on the design canvas; pick one, flat version for the favicon.
+light: Pablo chose **symbol 1, the single step that lights up** (a double step was tried and
+dropped). Exact values and SVGs: `docs/briefs/ws_brand_path.md`.
 The shortlist below is kept for the record.
 
 Availability was checked on 2026-11-27 with a DNS lookup only. "No DNS record" does **not** prove a
