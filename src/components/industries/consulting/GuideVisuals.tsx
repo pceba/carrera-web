@@ -31,7 +31,9 @@ const DAYS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
 /** An example week laid out on a Monday-to-Friday grid ("Martes-miércoles" spans two days). */
 export function WeekPlan({ steps }: { steps: TimelineStep[] }) {
-  let col = 1;
+  // First grid column of each step: 1 + the days spanned by the steps before it.
+  const spans = steps.map((s) => s.label.split("-").length);
+  const starts = spans.map((_, i) => 1 + spans.slice(0, i).reduce((a, b) => a + b, 0));
   return (
     <div className={styles.week}>
       <div className={styles.weekDays} aria-hidden="true">
@@ -41,9 +43,9 @@ export function WeekPlan({ steps }: { steps: TimelineStep[] }) {
       </div>
       <ol className={styles.weekList}>
         {steps.map((s, i) => {
-          const span = s.label.split("-").length;
-          const style = { "--day-col": `${col} / span ${span}` } as React.CSSProperties;
-          col += span;
+          const style = {
+            "--day-col": `${starts[i]} / span ${spans[i]}`,
+          } as React.CSSProperties;
           return (
             <li key={s.title} className={styles.day} style={style}>
               <p className={styles.dayLabel}>{s.label}</p>
