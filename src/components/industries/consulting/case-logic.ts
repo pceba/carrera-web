@@ -11,8 +11,7 @@ export function parseNumber(raw: string): number | null {
   let normalised: string;
   if (lastComma > -1 && lastDot > -1) {
     // Whichever separator comes last is the decimal one.
-    normalised =
-      lastComma > lastDot ? s.replace(/\./g, "").replace(",", ".") : s.replace(/,/g, "");
+    normalised = lastComma > lastDot ? s.replace(/\./g, "").replace(",", ".") : s.replace(/,/g, "");
   } else if (lastComma > -1) {
     normalised = s.replace(/,/g, ".");
   } else if (lastDot > -1 && /^-?\d{1,3}(\.\d{3})+$/.test(s)) {
@@ -25,8 +24,7 @@ export function parseNumber(raw: string): number | null {
 }
 
 export type MathsResult =
-  | { status: "invalid" }
-  | { status: "correct" | "close" | "wrong"; value: number };
+  { status: "invalid" } | { status: "correct" | "close" | "wrong"; value: number };
 
 /** "correct" within 1 %, "close" within 10 % (rounding along the way), otherwise "wrong". */
 export function checkAnswer(raw: string, expected: number): MathsResult {
