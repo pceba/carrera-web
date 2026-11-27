@@ -132,6 +132,9 @@ remote_words: [remote, remoto, teletrabajo, "work from home", telecommute]
 # junior titles ("Analyst", "Associate") say nothing about the industry by themselves.
 # Keep phrases specific: a bare word like "legal" or "data" would pull in unrelated roles.
 industries:
+  # Big law = law FIRMS. Generic "legal analyst/intern" titles are left out on purpose: they are
+  # mostly in-house roles at companies (a fintech's legal team is not a law firm). Those are only
+  # kept when the firm name matches.
   big-law:
     [
       lawyer,
@@ -146,10 +149,6 @@ industries:
       derecho,
       juridico,
       juridica,
-      "legal assistant",
-      "legal analyst",
-      "legal trainee",
-      "legal intern",
       "clifford chance",
       linklaters,
       "allen & overy",
