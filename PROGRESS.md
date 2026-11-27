@@ -1,6 +1,6 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a/b/c, WS-IA)
+Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a/b/c, WS-IA, WS-F1)
 
 ## Current step
 
@@ -26,15 +26,19 @@ At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_
   editable profile in localStorage, ranked postings with reasons). e2e 63 pass; Playwright now
   also starts `next dev` on :3100 for `/dev/*`. Not done: saving the profile to the account.
 
+- WS-F1 merged: `cw-alerts` (digest top 10, min score 50, Spanish text/HTML, Resend + PostgREST,
+  dry run by default), migration `alert_subscriptions` (NOT yet run on a real Postgres), workflow
+  `alerts.yml` 06:17 UTC, ADR-005. Handover `docs/handover/ws-f-alerts.md`.
+
 ## In flight
 
-- WS-F1: `cw-alerts` core in dry run, migration, alerts workflow (brief `ws_f1_alerts_core.md`).
-- W2 IB slice A: hub, `como-funciona`, `el-trabajo` (brief `docs/briefs/w2_ib_a.md`; Pablo's
-  scope decisions recorded in `docs/research/banca-de-inversion.md` §15).
+- W2 IB slice A (branch `claude/confident-kare-97f997`): hub, `como-funciona`, `el-trabajo` done;
+  fixing page heights (~6k px) by moving "who hires" into `empresas`. Brief `w2_ib_a.md`;
+  Pablo's scope decisions in `docs/research/banca-de-inversion.md` §15.
 
 ## Next after these
 
-WS-F2: `/cuenta/alertas` UI + unsubscribe route. Rework `config/companies.yaml` for the six
+WS-F2: `/cuenta/alertas` UI (consent row, then subscription) + `/alertas/baja?token=` route. Rework `config/companies.yaml` for the six
 industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steria). Fix stale
 `industrias/consultoria/` row in `docs/ownership.md`. (Long consulting sections: wave 2 #2.)
 
