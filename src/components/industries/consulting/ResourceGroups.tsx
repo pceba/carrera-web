@@ -24,7 +24,7 @@ export function ResourceGroups({ industry }: { industry: string }) {
   return (
     <div className={styles.groups}>
       {groups.map((g, i) => {
-        const checked = g.items.map((r) => r.checked).sort()[0];
+        const checked = g.items.map((r) => r.checked).sort()[0] ?? "";
         return (
           <details key={g.slug} className={styles.group} open={i === 0}>
             <summary className={styles.summary}>
