@@ -111,6 +111,24 @@ export const sources: Source[] = [
     publisher: "McKinsey & Company",
     accessed: "2026-11-27",
   },
+  {
+    title: "Digital assessment (Sova / TestGorilla)",
+    url: "https://www.bain.com/careers/hiring-process/digital-assessment/",
+    publisher: "Bain & Company",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "BCG interview process",
+    url: "https://careers.bcg.com/global/en/interview-process",
+    publisher: "BCG",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Using AI in your application process",
+    url: "https://careers.bcg.com/global/en/careers-in-ai/using-ai-application-process",
+    publisher: "BCG",
+    accessed: "2026-11-27",
+  },
 ];
 
 /** Items that still need a source or Pablo's own knowledge. Never publish these as fact. */
@@ -118,5 +136,6 @@ export const todoVerify = [
   "funcionamiento.mdx: pyramid, ladder and up-or-out are general knowledge; need cited sources.",
   "trabajo.mdx: the example week is illustrative; junior pay ranges need a dated source.",
   "firms.ts: Madrid/Barcelona offices not confirmed for Bain Barcelona, Deloitte, PwC Barcelona, Accenture, Capgemini.",
+  "proceso.mdx: McKinsey Solve, BCG Casey and AI-assisted case interviews are not confirmed by an official page we could open (McKinsey interviewing page timed out).",
   "firms.ts: McKinsey and PwC sites block scripts, so their URLs were not opened by a script.",
 ] as const;

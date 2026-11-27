@@ -103,10 +103,18 @@ test("case happy path with the keyboard-friendly controls", async ({ page }) => 
   await expect(page.getByText(/Autoevaluación: 20 %/)).toBeVisible();
 });
 
-test("recruiting calendar shows the published dates with their sources", async ({ page }) => {
+test("proceso lists the 2026 online tests with their sources", async ({ page }) => {
   await page.goto("/industrias/consultoria/proceso");
-  const calendar = page.getByRole("figure").filter({ hasText: "Fechas publicadas" });
-  await expect(calendar.getByText("BCG Women's Boot Camp Spain, octava edición")).toBeVisible();
-  await expect(calendar.getByRole("link", { name: /Fuente \d+/ }).first()).toBeVisible();
-  await expect(calendar.getByText("Sin mes fijo")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Pruebas online y uso de IA" }),
+  ).toBeVisible();
+  await expect(page.getByText(/Sova o TestGorilla/)).toBeVisible();
+  await expect(
+    page.getByRole("region", { name: "Fuentes" }).getByRole("link", { name: /Digital assessment/ }),
+  ).toBeVisible();
+});
+
+test("dated programs live on the strategy page", async ({ page }) => {
+  await page.goto("/industrias/consultoria/estrategia");
+  await expect(page.getByText(/octava edición/)).toBeVisible();
 });
