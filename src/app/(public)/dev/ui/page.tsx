@@ -24,6 +24,7 @@ import {
   Text,
   ThemeToggle,
   Timeline,
+  PathSymbol,
   Wordmark,
 } from "@/components/ui";
 
@@ -73,6 +74,21 @@ export default function UiShowcase() {
           <Wordmark size="lg" />
           <ThemeToggle />
         </div>
+        <div
+          style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--space-6)" }}
+        >
+          <PathSymbol />
+          <PathSymbol variant="flat" />
+          <span style={{ width: 64 }}>
+            <PathSymbol />
+          </span>
+          <span style={{ width: 16 }}>
+            <PathSymbol variant="flat" />
+          </span>
+        </div>
+        <Text variant="muted">
+          Símbolo completo (cabecera, pie, OG) y plano (favicon, menos de 32 px).
+        </Text>
         <div style={{ maxWidth: "22rem" }}>
           <ThemeToggle labels />
         </div>
@@ -91,6 +107,9 @@ export default function UiShowcase() {
         <Heading level="h3" as="h4">
           Título 3
         </Heading>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)", margin: 0 }}>
+          Geist Mono: 0123456789 · 12 % · 45.000 € · LABEL
+        </p>
         <Text variant="lead">Párrafo destacado para abrir una sección.</Text>
         <Text>Párrafo normal con medida de lectura cómoda para textos largos.</Text>
         <Text variant="muted">Texto secundario.</Text>
