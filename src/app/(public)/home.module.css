@@ -1,0 +1,80 @@
+.hero {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-12) 0 var(--space-16);
+  border-bottom: 1px solid var(--color-border);
+}
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.accentWord {
+  font-style: italic;
+  color: var(--color-accent);
+}
+.section {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-12) 0 0;
+}
+.pillars {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--color-text);
+}
+.pillar {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.pillarN {
+  font: 700 var(--text-xl) / 1 var(--font-serif);
+  color: var(--color-accent);
+  font-variant-numeric: lining-nums;
+}
+.pillarTitle {
+  margin: 0 0 var(--space-1);
+  font: 700 var(--text-lg) / 1.2 var(--font-serif);
+}
+.pillarText {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  max-width: 48ch;
+}
+@media (min-width: 48rem) {
+  .pillars {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-12);
+  }
+}
+.cta {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-6);
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-radius: var(--radius-sm);
+}
+.cta h2,
+.cta p {
+  color: inherit;
+}
+.cta .ctaText {
+  margin: 0;
+  max-width: 52ch;
+}
+.industryGrid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
