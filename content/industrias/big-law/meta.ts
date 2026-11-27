@@ -19,8 +19,8 @@ export const sources: Source[] = [
   {
     title:
       "Orden PJC/298/2026, de 24 de marzo, por la que se convoca la prueba de evaluación de aptitud profesional para el ejercicio de la profesión de la abogacía para el año 2026",
-    url: "https://icab.es/es/actualidad/noticias/noticia/Orden-PJC-298-2026-de-24-de-marzo-por-la-que-se-convoca-la-prueba-de-evaluacion-de-aptitud-profesional-para-el-ejercicio-de-la-profesion-de-la-abogacia-para-el-ano-2026/",
-    publisher: "Ilustre Colegio de la Abogacía de Barcelona (ICAB)",
+    url: "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-7323",
+    publisher: "Boletín Oficial del Estado",
     accessed: "2026-11-27",
   },
   {
@@ -76,6 +76,19 @@ export const sources: Source[] = [
     title: "Cuatrecasas sella una alianza estratégica con Harvey para implantar la IA generativa",
     url: "https://www.cuatrecasas.com/es/spain/art/cuatrecasas-sella-una-alianza-estrategica-con-harvey-para-implantar-la-ia-generativa",
     publisher: "Cuatrecasas",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "ELSA Spain: Inicio",
+    url: "https://elsaspain.org/",
+    publisher: "ELSA Spain",
+    accessed: "2026-11-27",
+  },
+  {
+    title:
+      "Uría Menéndez participa en la quinta edición de la ELSA Spain Moot Court Competition (ESMCC) como despacho colaborador",
+    url: "https://www.uria.com/en/prensa/1299-uria-menendez-participa-en-la-quinta-edicion-de-la-elsa-spain-moot-court-competition-esmcc-como-despacho-colaborador",
+    publisher: "Uría Menéndez",
     accessed: "2026-11-27",
   },
 ];
