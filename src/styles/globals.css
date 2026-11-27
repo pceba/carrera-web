@@ -1,0 +1,36 @@
+/* Minimal reset on top of tokens. WS-A owns anything richer (components/ui). */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+.placeholder {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--space-16) var(--gutter);
+}
+
+.placeholder h1 {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  margin: 0 0 var(--space-4);
+}

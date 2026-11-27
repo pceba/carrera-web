@@ -1,0 +1,81 @@
+/*
+ * Design tokens (owner: WS0; WS-A may extend via a tiny PR merged first).
+ * Components read ONLY these variables: never hardcode colours, sizes or radii.
+ * Dark mode follows the OS unless data-theme="light"|"dark" is set on <html>.
+ */
+:root {
+  /* Colour: neutral, high contrast (text on bg >= 7:1). Brand accent is a placeholder until naming. */
+  --color-bg: #fbfaf7;
+  --color-surface: #ffffff;
+  --color-text: #17181c;
+  --color-text-muted: #565a66;
+  --color-border: #dcdad3;
+  --color-accent: #1d4ed8;
+  --color-accent-contrast: #ffffff;
+  --color-focus: #b45309;
+  --color-success: #15803d;
+  --color-danger: #b91c1c;
+
+  /* Type */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 2.75rem;
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --measure: 68ch;
+
+  /* Spacing (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --gutter: 1rem; /* 16px page side gutter on phones */
+
+  /* Shape */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #111216;
+    --color-surface: #1a1c22;
+    --color-text: #f1f1ee;
+    --color-text-muted: #a6a9b3;
+    --color-border: #2f323b;
+    --color-accent: #7aa2ff;
+    --color-accent-contrast: #0b1020;
+    --color-focus: #fbbf24;
+    --color-success: #4ade80;
+    --color-danger: #f87171;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #111216;
+  --color-surface: #1a1c22;
+  --color-text: #f1f1ee;
+  --color-text-muted: #a6a9b3;
+  --color-border: #2f323b;
+  --color-accent: #7aa2ff;
+  --color-accent-contrast: #0b1020;
+  --color-focus: #fbbf24;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+}
