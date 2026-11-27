@@ -22,3 +22,21 @@ test("big law: hub -> como-funciona -> empresas -> el-trabajo", async ({ page })
   await expect(page).toHaveURL(/\/el-trabajo$/);
   await expect(page.getByRole("heading", { level: 1, name: "El trabajo" })).toBeVisible();
 });
+
+test("big law: hub -> proceso -> recursos and the library filter", async ({ page }) => {
+  await page.goto("/industrias/big-law");
+  await page
+    .getByRole("region", { name: "La guía, en orden" })
+    .getByRole("link", { name: /Proceso de selección/ })
+    .click();
+  await expect(page).toHaveURL(/\/proceso$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Proceso de selección" })).toBeVisible();
+  await page
+    .getByRole("navigation", { name: "Anterior y siguiente" })
+    .getByRole("link", { name: /Siguiente/ })
+    .click();
+  await expect(page).toHaveURL(/\/recursos$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Recursos" })).toBeVisible();
+  await page.goto("/recursos?industria=big-law");
+  await expect(page.getByText("Ley 34/2006 sobre el acceso").first()).toBeVisible();
+});

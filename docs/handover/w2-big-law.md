@@ -27,3 +27,11 @@ como-funciona 5108, empresas 4597, el-trabajo 4634 (no horizontal scroll). Total
 - Garrigues (403), London/US firms and pay abroad: not covered.
 - Clifford Chance source URL is the Spanish job portal home; the listing text was seen there.
 - Pay is a mixed-firm average (Signium/UFV, 2025), never per firm.
+
+## Slice B (2026-11-27)
+
+Merged origin/main (Path identity, sources collapsed). Added `sueldos` (pay moved out of `el-trabajo`), `proceso` (access path moved from `como-funciona`, Examen de Estado 2026 from the BOE order BOE-A-2026-7323 opened in full, firm recruiting from firm pages), `recursos` (10 entries in `RESOURCES`, `/recursos?industria=big-law` works), `personas` (ELSA Spain page and Uría's ESMCC note; no named people). Source 2 is now the BOE order itself; sources 12-13 appended. e2e: hub -> proceso -> recursos + library filter.
+
+Heights at 375 px (sources collapsed): como-funciona 4099, empresas 4066, el-trabajo 3491, sueldos 2838, proceso 5083, recursos 2320, personas 3291. `proceso` is long (path + exam + recruiting); could be split or trimmed.
+
+Unverified: only Uría publishes its tests; Part B of the exam (25 points) topics only via the annex, not summarised; ICAM/CGAE and Garrigues pages not opened (403); Ministerio de Justicia page not opened (order text came from BOE). Examen details are for the 2026 call only.
