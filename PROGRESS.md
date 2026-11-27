@@ -1,6 +1,6 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a, WS-R2b, WS-IA)
+Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a/b/c, WS-IA)
 
 ## Current step
 
@@ -22,10 +22,15 @@ At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_
   SEO 100; perf 100 desktop, mobile 93-100 light (noisy on this machine). Screenshots
   `docs/screenshots/v2/`. Handover `docs/handover/ws-ia-calm-structure.md`.
 
+- WS-R2c merged: `/cuenta/encaje` + `/dev/encaje` (CV read in the browser via lazy WASM chunk,
+  editable profile in localStorage, ranked postings with reasons). e2e 63 pass; Playwright now
+  also starts `next dev` on :3100 for `/dev/*`. Not done: saving the profile to the account.
+
 ## In flight
 
-- WS-R2c: `/cuenta/encaje` + `/dev/encaje` (brief `docs/briefs/ws_r2c_encaje.md`).
 - WS-F1: `cw-alerts` core in dry run, migration, alerts workflow (brief `ws_f1_alerts_core.md`).
+- W2 IB slice A: hub, `como-funciona`, `el-trabajo` (brief `docs/briefs/w2_ib_a.md`; Pablo's
+  scope decisions recorded in `docs/research/banca-de-inversion.md` §15).
 
 ## Next after these
 
@@ -37,7 +42,7 @@ industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steri
 
 Gemini report saved (PDF in `docs/research/sources/`, digest `docs/research/gemini-deep-research.md`:
 a lead, not a citation; US/UK-first). Plan `docs/briefs/wave2_plan.md`: two ~1 h slices per
-industry, IB first, then consulting, Big Law, PE, data, AI; starts when WS-R2c/WS-F1 free a slot.
+industry, IB first (running), then consulting, Big Law, PE, data, AI.
 
 ## Open threads
 

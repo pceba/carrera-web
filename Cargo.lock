@@ -406,6 +406,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "cw-alerts"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "clap",
+ "cw-domain",
+ "cw-lexicon",
+ "cw-match",
+ "cw-sources",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+ "wiremock",
+]
+
+[[package]]
 name = "cw-classify"
 version = "0.1.0"
 dependencies = [

@@ -1,0 +1,54 @@
+name: alerts
+
+# Daily digest of new postings by email (crates/cw-alerts), one hour after the postings job.
+# Needs SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RESEND_API_KEY, ALERTS_FROM (a sender on a
+# domain verified in Resend) and SITE_URL (for the unsubscribe link).
+# Without the Supabase pair the job runs on fictional demo data; without the Resend ones it only counts what it would send. The log holds counts only: never addresses.
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: count the digests, send nothing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alerts
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      ALERTS_FROM: ${{ secrets.ALERTS_FROM }}
+      SITE_URL: ${{ secrets.SITE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build (release)
+        run: cargo build --release --locked -p cw-alerts
+      - name: Check secrets
+        id: secrets
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_SERVICE_ROLE_KEY" ] && [ -n "$RESEND_API_KEY" ] && [ -n "$ALERTS_FROM" ] && [ -n "$SITE_URL" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Supabase or Resend secrets not set: dry run only, nothing is sent."
+          fi
+      - name: Send digests
+        if: steps.secrets.outputs.present == 'true' && inputs.dry_run != true
+        run: ./target/release/cw-alerts run
+      - name: Dry run
+        if: steps.secrets.outputs.present != 'true' || inputs.dry_run == true
+        run: ./target/release/cw-alerts run --dry-run
