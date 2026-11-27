@@ -1,6 +1,6 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a)
+Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a and WS-R2b)
 
 ## Current step
 
@@ -12,15 +12,18 @@ At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_
 - M1 + Rust core phase 1 (ADR-001). Editorial UI v1.
 - WS-R2a merged: six-industry taxonomy (ADR-004, parity now covers parsers/level/place only),
   `cw-lexicon`, `cw-match` (score 0-100 + Spanish reasons, builds for wasm32). Dry run keeps 27
-  postings: consulting 19, ai 4, data-science 3, big-law 1 (false positive), PE 0, IB 0.
+  postings: consulting 19, ai 4, data-science 3, PE 0, IB 0 (big-law's one hit was Cabify in-house
+  legal, fixed in WS-R2b).
+- WS-R2b merged: `cw-cv` (TXT/DOCX/PDF, pure Rust: zip, quick-xml, lopdf), `cw-wasm`
+  (`parse_cv`, `rank`), bundle in `src/lib/wasm/` 835 KB gzipped, CI job `wasm` checks
+  `INPUTS.sha256` staleness. Rebuild: `sh crates/cw-wasm/build.sh`.
 
 ## In flight
 
 - WS-IA (branch `claude/nifty-solomon-fc84d8`): build green, home + map + hub/section CSS done.
-  Now slice 2: `/preparacion`, `/recursos`, visual check. Then slice 3: e2e rewrite, Lighthouse,
-  screenshots v2; merge only after that.
-- WS-R2 (branch `claude/sleepy-wilson-35377a`): slice b = big-law rule fix, `cw-cv`, `cw-wasm` +
-  CI staleness job. Then slice c: `/cuenta/encaje` + `/dev/encaje` (after WS-IA merges, it uses UI).
+  Slice 2 (`/preparacion`, `/recursos`) done. Slice 3 running: e2e rewrite, Lighthouse,
+  screenshots v2, merge main in; merge into main only after that.
+- WS-R2c (not started): `/cuenta/encaje` + `/dev/encaje`, after WS-IA merges (it uses the new UI).
 
 ## Next after these
 
