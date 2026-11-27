@@ -45,3 +45,9 @@ Next 16, so ESLint is run directly.
   ever exists in the web app. Export is a JSON download built through RLS-filtered selects.
 - Protected area is `/cuenta/*`; sign-in is `/entrar`. Middleware runs only on `/cuenta/*`.
 - Consent records store legal text versions (`LEGAL_VERSIONS`, placeholder until WS-D publishes texts).
+
+## ADR-001: Rust engine, TypeScript face (2026-11-27)
+
+Owner asked for Rust wherever reasonable. Data logic (collectors, classification, matching, alerts,
+case scoring) moves to a Cargo workspace; the site stays Next.js + MDX on Vercel; no server of our
+own; the CV is processed in the browser via WebAssembly. Full rationale: `docs/architecture.md`.
