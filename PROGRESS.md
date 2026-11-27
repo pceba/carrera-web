@@ -1,64 +1,47 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a/b/c, WS-IA, WS-F1, W2 IB-A)
+Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator)
 
 ## Current step
 
-Phase 2 (plan in `docs/roadmap.md`, six industries). Orchestrator brief: `docs/ORCHESTRATOR_PROMPT.md`.
-At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_*2*`, `ws_ia3_*`).
+Phase 2, wave 2 (content per industry). Orchestrator brief `docs/ORCHESTRATOR_PROMPT.md`; plan
+`docs/briefs/wave2_plan.md`. At most 2 sessions at a time, ~1 h slices, briefs in `docs/briefs/`.
 
-## Done
+## Done (on main, CI green)
 
-- M1 + Rust core phase 1 (ADR-001). Editorial UI v1.
-- WS-R2a merged: six-industry taxonomy (ADR-004, parity now covers parsers/level/place only),
-  `cw-lexicon`, `cw-match` (score 0-100 + Spanish reasons, builds for wasm32). Dry run keeps 27
-  postings: consulting 19, ai 4, data-science 3, PE 0, IB 0 (big-law's one hit was Cabify in-house
-  legal, fixed in WS-R2b).
-- WS-R2b merged: `cw-cv` (TXT/DOCX/PDF, pure Rust: zip, quick-xml, lopdf), `cw-wasm`
-  (`parse_cv`, `rank`), bundle in `src/lib/wasm/` 835 KB gzipped, CI job `wasm` checks
-  `INPUTS.sha256` staleness (green on Linux CI). Rebuild: `sh crates/cw-wasm/build.sh`.
-- WS-IA merged: calm silver-grey tokens, catalog-driven IA (home, map, hubs, sections, segment
-  `estrategia`, `/preparacion`, `/recursos`), nav components, e2e 57 pass. Lighthouse: a11y, BP,
-  SEO 100; perf 100 desktop, mobile 93-100 light (noisy on this machine). Screenshots
-  `docs/screenshots/v2/`. Handover `docs/handover/ws-ia-calm-structure.md`.
+- Wave 1: calm silver-grey design + catalog IA (WS-IA); six-industry taxonomy, `cw-match`,
+  `cw-cv`, `cw-wasm` (835 KB gz), `/cuenta/encaje` (WS-R2a/b/c); `cw-alerts` dry run, migration
+  `alert_subscriptions` (never run on real Postgres), `alerts.yml` (WS-F1, ADR-005).
+- Gemini Deep Research report: PDF in `docs/research/sources/`, digest
+  `docs/research/gemini-deep-research.md` (a lead, not a citation; US/UK-first).
+- Banca de inversión live: hub, como-funciona, empresas, el-trabajo, sueldos, proceso, recursos,
+  personas (`reviewer: "pendiente"`). Pablo's scope decisions in its dossier §15.
+- Consultoría slice A: all sections under 4,000 px at 375 px; 2026 online tests as "según guías
+  de preparación" (no official page confirmed them).
 
-- WS-R2c merged: `/cuenta/encaje` + `/dev/encaje` (CV read in the browser via lazy WASM chunk,
-  editable profile in localStorage, ranked postings with reasons). e2e 63 pass; Playwright now
-  also starts `next dev` on :3100 for `/dev/*`. Not done: saving the profile to the account.
+## Next task
 
-- WS-F1 merged: `cw-alerts` (digest top 10, min score 50, Spanish text/HTML, Resend + PostgREST,
-  dry run by default), migration `alert_subscriptions` (NOT yet run on a real Postgres), workflow
-  `alerts.yml` 06:17 UTC, ADR-005. Handover `docs/handover/ws-f-alerts.md`.
+Wave 2 #3 Big Law slice A (hub, como-funciona with the Spain access path, el-trabajo), using
+`docs/handover/rs1-research-notes.md` + report pp. 27–33. Brief from the template in the plan.
 
-- W2 IB slice A merged: banca de inversión live (hub, `como-funciona`, `empresas`, `el-trabajo`,
-  9 cited sources, `reviewer: "pendiente"`). Heights ~4.2k, 4.3k, 5.3k px (el-trabajo split in B).
-  Handover `docs/handover/w2-banca-de-inversion.md`.
+## Then
 
-## In flight
+Consulting slice B (estrategia refresh, routes from any university; verify Solve/Casey on firm
+pages); PE, data, AI; WS-F2 (`/cuenta/alertas` + `/alertas/baja`); `config/companies.yaml` for
+the six industries; human review of every page marked `pendiente` (check Michael Page table on
+PDF p. 5); stale `industrias/consultoria/` row in `docs/ownership.md`.
 
-Nothing. Next brief ready: `docs/briefs/w2_ib_b.md` (proceso, recursos, personas, `sueldos`).
+## Open threads (Pablo)
 
-## Next after these
-
-WS-F2: `/cuenta/alertas` UI (consent row, then subscription) + `/alertas/baja?token=` route. Rework `config/companies.yaml` for the six
-industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steria). Fix stale
-`industrias/consultoria/` row in `docs/ownership.md`. (Long consulting sections: wave 2 #2.)
-
-## Wave 2 (planned)
-
-Gemini report saved (PDF in `docs/research/sources/`, digest `docs/research/gemini-deep-research.md`:
-a lead, not a citation; US/UK-first). Plan `docs/briefs/wave2_plan.md`: two ~1 h slices per
-industry, IB first (running), then consulting, Big Law, PE, data, AI.
-
-## Open threads
-
-- Pablo: connect Vercel; Supabase EU + migrations + secrets; legal placeholders; site name;
-  Jobicy terms; Adzuna keys optional. 13 stale worktrees in `.claude/worktrees/` (ask before removing).
+Connect Vercel; Supabase EU + migrations + secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+`RESEND_API_KEY`, `ALERTS_FROM`, `SITE_URL`); legal placeholders; site name; Jobicy terms;
+London right-to-work question (IB dossier Q1). 13 stale worktrees in `.claude/worktrees/`.
 
 ## Gotchas
 
-- Windows: no MSVC. `cargo +stable-x86_64-pc-windows-gnu` with WinLibs `mingw64/bin` on PATH.
-- `cargo test` regenerates `src/lib/generated/`; commit the result or CI fails.
-- Worktrees need `npm ci`. Run `npx prettier --write` on docs too (handovers broke format:check).
-- Stale `.next/` can break `tsc` after route moves: `rm -rf .next`.
-- Postings have no description: matching uses titles only; present ranking as a sort, not a verdict.
+- Windows: `cargo +stable-x86_64-pc-windows-gnu` with WinLibs `mingw64/bin` on PATH.
+- `cargo test` regenerates `src/lib/generated/`; commit it. Rebuild WASM: `sh crates/cw-wasm/build.sh`.
+- e2e reuses any server on :3000/:3100: kill orphan `next start` from other worktrees first, or
+  you test the wrong build. `rm -rf .next` after route moves.
+- Worktrees may show CRLF `format:check` noise on untouched files; check on main.
+- Postings have titles only: matching is a sort order, not a verdict. MDX has no GFM tables.
