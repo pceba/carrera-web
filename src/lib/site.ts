@@ -1,6 +1,6 @@
-/** Site-wide constants. The name is a codename until Pablo picks one (see docs/naming.md). */
+/** Site-wide constants. The site name is Path (chosen 2026-11-27). */
 export const SITE = {
-  name: "carrera-web",
+  name: "Path",
   locale: "es",
   description: "La guía abierta y gratuita para empezar tu carrera profesional en España.",
   minAge: 16,

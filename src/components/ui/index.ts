@@ -16,3 +16,4 @@ export { Tabs, type TabItem } from "./Tabs";
 export { Tag } from "./Tag";
 export { Timeline, type TimelineStep } from "./Timeline";
 export { Heading, Kicker, Prose, Text } from "./Typography";
+export { PathSymbol } from "./PathSymbol";

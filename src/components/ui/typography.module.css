@@ -4,24 +4,24 @@
 .h2 {
   margin: 0;
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: var(--weight-display);
   color: var(--color-text);
   text-wrap: balance;
 }
 .display {
   font-size: var(--text-display);
   line-height: var(--leading-display);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-display-lg);
 }
 .h1 {
   font-size: var(--text-3xl);
   line-height: 1.06;
-  letter-spacing: -0.015em;
+  letter-spacing: var(--tracking-display-lg);
 }
 .h2 {
   font-size: var(--text-2xl);
   line-height: 1.12;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-display);
 }
 .h3 {
   margin: 0;

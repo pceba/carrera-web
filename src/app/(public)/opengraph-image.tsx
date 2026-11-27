@@ -8,11 +8,7 @@ export const contentType = "image/png";
 
 export default function Image() {
   return new ImageResponse(
-    <OgCard
-      kicker="Guía abierta"
-      title="Empieza tu carrera sabiendo lo que te espera"
-      siteName={SITE.name}
-    />,
+    <OgCard kicker="Guía abierta" title={SITE.description} siteName={SITE.name} />,
     size,
   );
 }

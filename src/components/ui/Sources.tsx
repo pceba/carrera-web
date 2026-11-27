@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { SourcesDisclosure } from "./SourcesDisclosure";
 import styles from "./sources.module.css";
 
 export type Source = { title: string; url: string; publisher?: string; accessed?: string };
@@ -29,8 +30,7 @@ export function SourceList({
     .map((s, i) => ({ s, n: i + 1 }))
     .filter(({ n }) => !only || only.includes(n));
   return (
-    <section className={styles.sources} aria-label={title}>
-      <h2 className={styles.heading}>{title}</h2>
+    <SourcesDisclosure title={title} count={rows.length}>
       <ol className={styles.list}>
         {rows.map(({ s, n }) => (
           <li key={`${n}-${s.url}`} id={`fuente-${n}`} data-n={n}>
@@ -48,7 +48,7 @@ export function SourceList({
           </li>
         ))}
       </ol>
-    </section>
+    </SourcesDisclosure>
   );
 }
 
