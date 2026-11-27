@@ -1,32 +1,29 @@
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.4em;
   font-size: 1.5rem;
   color: var(--color-text);
 }
 
-.mark {
+/* Geist cap height is ~0.71em; the symbol is cap height x 1.15. */
+.symbol {
   flex: none;
-  width: 0.95em;
-  height: 0.95em;
+  width: 0.82em;
+  height: 0.82em;
 }
 
-.step {
-  fill: var(--color-text);
-}
-
-.top {
-  fill: var(--color-accent);
+/* On dark pages the tile gets a hairline so it does not vanish into the background. */
+:root[data-theme="dark"] .tile {
+  stroke: #2c333d;
+  stroke-width: 1px;
 }
 
 .name {
-  font-family: var(--font-display);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-weight: 600;
   line-height: 1;
-  letter-spacing: -0.01em;
-  /* Optical alignment: the serif's x-height sits low against the square mark. */
-  translate: 0 0.04em;
+  letter-spacing: -0.045em;
 }
 
 .lg {
