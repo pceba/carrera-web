@@ -12,8 +12,10 @@ test("consulting page: sections, sources, no horizontal scroll", async ({ page }
 
 test("firm filter narrows the list", async ({ page }) => {
   await page.goto("/industrias/consultoria");
-  await page.getByLabel("Tipo").selectOption("Big Four");
+  await page.getByRole("radio", { name: "Big Four" }).check();
   await expect(page.getByText("4 empresas")).toBeVisible();
+  await page.getByRole("radio", { name: "Barcelona" }).check();
+  await expect(page.getByText("2 empresas")).toBeVisible();
 });
 
 test("case happy path with the keyboard-friendly controls", async ({ page }) => {
@@ -35,4 +37,35 @@ test("case happy path with the keyboard-friendly controls", async ({ page }) => 
   await expect(page.getByText(/1\.080 cafés al día/)).toBeVisible();
   await page.getByLabel(/Dije cada supuesto/).check();
   await expect(page.getByText(/Autoevaluación: 20 %/)).toBeVisible();
+});
+
+test("section navigation follows the reader", async ({ page, isMobile }) => {
+  await page.goto("/industrias/consultoria");
+  const nav = page.getByRole("navigation", { name: "En esta guía" });
+  if (isMobile) {
+    const toggle = nav.getByRole("button", { name: /Sección actual/ });
+    await toggle.click();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  }
+  await nav.getByRole("link", { name: /Empresas en España/ }).click();
+  await expect(page).toHaveURL(/#empresas$/);
+  if (isMobile) {
+    // The dropdown closes after the jump; the bar now names the section.
+    await expect(nav.getByRole("button", { name: /Sección actual/ })).toContainText(
+      "Empresas en España",
+    );
+  } else {
+    await expect(nav.getByRole("link", { name: /Empresas en España/ })).toHaveAttribute(
+      "aria-current",
+      "location",
+    );
+  }
+});
+
+test("recruiting calendar shows the published dates with their sources", async ({ page }) => {
+  await page.goto("/industrias/consultoria#seleccion");
+  const calendar = page.getByRole("figure").filter({ hasText: "Fechas publicadas" });
+  await expect(calendar.getByText("BCG Women's Boot Camp Spain, octava edición")).toBeVisible();
+  await expect(calendar.getByRole("link", { name: "Fuente 2" })).toBeVisible();
+  await expect(calendar.getByText("Sin mes fijo")).toBeVisible();
 });

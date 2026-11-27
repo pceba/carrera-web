@@ -2,6 +2,7 @@ export { Accordion, type AccordionItem } from "./Accordion";
 export { Button, ButtonLink } from "./Button";
 export { Callout } from "./Callout";
 export { Card } from "./Card";
+export { Checkbox, Field, Fieldset, Input, Notice, Panel } from "./Form";
 export { Footer } from "./Footer";
 export { Header } from "./Header";
 export { uiMdxComponents } from "./mdx";

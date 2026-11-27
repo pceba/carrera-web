@@ -1,14 +1,14 @@
 /**
  * Share-card template (1200x630) for LinkedIn/TikTok/WhatsApp previews, rendered by next/og.
  * Satori cannot read CSS variables, so the light-theme token values are mirrored here.
- * Keep in sync with src/styles/tokens.css (--color-bg, --color-text, --color-accent).
+ * Hex equivalents of the light-theme oklch tokens in src/styles/tokens.css.
  */
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 
-const BG = "#fbfaf7";
-const TEXT = "#17181c";
-const ACCENT = "#1d4ed8";
-const MUTED = "#565a66";
+const BG = "#f9f6f0";
+const TEXT = "#1a1511";
+const ACCENT = "#b94300";
+const MUTED = "#5b544e";
 
 export function OgCard({
   title,
@@ -30,7 +30,6 @@ export function OgCard({
         background: BG,
         color: TEXT,
         padding: 72,
-        borderTop: `16px solid ${ACCENT}`,
         fontFamily: "Georgia, serif",
       }}
     >
@@ -43,7 +42,7 @@ export function OgCard({
           textTransform: "uppercase",
         }}
       >
-        {kicker ? `§ ${kicker}` : ""}
+        {kicker ?? ""}
       </div>
       <div
         style={{
@@ -59,12 +58,19 @@ export function OgCard({
       <div
         style={{
           display: "flex",
-          fontSize: 36,
-          fontWeight: 700,
-          borderTop: `3px solid ${TEXT}`,
-          paddingTop: 24,
+          alignItems: "center",
+          gap: 20,
+          fontSize: 40,
+          borderTop: `2px solid ${TEXT}`,
+          paddingTop: 28,
         }}
       >
+        {/* The wordmark's three rising steps. */}
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 5, height: 40 }}>
+          <div style={{ width: 12, height: 14, background: TEXT, borderRadius: 2 }} />
+          <div style={{ width: 12, height: 25, background: TEXT, borderRadius: 2 }} />
+          <div style={{ width: 12, height: 38, background: ACCENT, borderRadius: 2 }} />
+        </div>
         {siteName}
       </div>
     </div>

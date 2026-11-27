@@ -1,0 +1,113 @@
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+.label {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+.hint {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+.input {
+  inline-size: 100%;
+  min-block-size: 3rem;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+.input:focus-visible {
+  border-color: var(--color-text);
+}
+.input:user-invalid {
+  border-color: var(--color-danger);
+}
+@media (hover: hover) and (pointer: fine) {
+  .input:hover {
+    border-color: color-mix(in oklch, var(--color-text) 50%, var(--color-border));
+  }
+}
+
+.check {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: var(--space-3);
+  min-block-size: var(--tap);
+  padding-block: var(--space-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.check input {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin: 0.1rem 0 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.fieldset {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-5) 0 0;
+  border: 0;
+  border-block-start: 1px solid var(--color-border);
+}
+.legend {
+  float: inline-start;
+  inline-size: 100%;
+  margin-block-end: var(--space-1);
+  padding: 0;
+  font: 500 var(--text-xs) / 1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-muted);
+}
+
+.notice {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border-inline-start: 3px solid var(--color-success);
+  background: color-mix(in oklch, var(--color-success) 10%, var(--color-surface));
+  font-size: var(--text-sm);
+}
+.alert {
+  border-inline-start-color: var(--color-danger);
+  background: color-mix(in oklch, var(--color-danger) 10%, var(--color-surface));
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+@media (min-width: 40rem) {
+  .panel {
+    padding: var(--space-8);
+  }
+}
+.panelTitle {
+  margin: 0;
+  font: 400 var(--text-2xl) / 1.1 var(--font-display);
+}
+.danger {
+  border-color: color-mix(in oklch, var(--color-danger) 45%, var(--color-border));
+}
+.danger .panelTitle {
+  color: var(--color-danger);
+}
+.panel > p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}

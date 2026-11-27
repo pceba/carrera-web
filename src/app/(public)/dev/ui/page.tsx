@@ -5,10 +5,16 @@ import {
   ButtonLink,
   Callout,
   Card,
+  Checkbox,
   Cite,
+  Field,
+  Fieldset,
   Heading,
+  Input,
   Kicker,
+  Notice,
   Page,
+  Panel,
   Prose,
   ReviewedBy,
   SourceList,
@@ -16,7 +22,9 @@ import {
   Tabs,
   Tag,
   Text,
+  ThemeToggle,
   Timeline,
+  Wordmark,
 } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -57,6 +65,19 @@ export default function UiShowcase() {
       <Heading level="h1">Showcase de UI</Heading>
       <Text variant="muted">Página interna: todos los primitivos del sistema de diseño.</Text>
 
+      <Block name="Marca y tema">
+        <div
+          style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "var(--space-6)" }}
+        >
+          <Wordmark />
+          <Wordmark size="lg" />
+          <ThemeToggle />
+        </div>
+        <div style={{ maxWidth: "22rem" }}>
+          <ThemeToggle labels />
+        </div>
+      </Block>
+
       <Block name="Tipografía">
         <Heading level="display" as="h2">
           Display
@@ -89,10 +110,14 @@ export default function UiShowcase() {
       <Block name="Botón">
         <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--space-3)" }}>
           <Button>Principal</Button>
+          <Button variant="accent">Acento</Button>
           <Button variant="secondary">Secundario</Button>
+          <Button variant="danger">Peligro</Button>
           <Button variant="ghost">Fantasma</Button>
           <Button disabled>Desactivado</Button>
-          <ButtonLink href="/industrias">Enlace</ButtonLink>
+          <ButtonLink href="/industrias" arrow>
+            Enlace con flecha
+          </ButtonLink>
         </div>
       </Block>
 
@@ -175,6 +200,21 @@ export default function UiShowcase() {
         >
           <Stat value="3" label="Fases de selección" source="Fuente de ejemplo" />
           <Stat value="24 %" label="Ofertas junior" />
+        </div>
+      </Block>
+
+      <Block name="Formulario">
+        <div style={{ maxWidth: "32rem" }}>
+          <Panel title="Panel de ejemplo">
+            <Notice>Cambios guardados.</Notice>
+            <Notice tone="alert">Escribe un correo válido.</Notice>
+            <Field id="demo-email" label="Correo electrónico" hint="Nunca lo compartimos.">
+              <Input id="demo-email" type="email" aria-describedby="demo-email-hint" />
+            </Field>
+            <Fieldset legend="Grupo de campos">
+              <Checkbox>Acepto las condiciones de ejemplo</Checkbox>
+            </Fieldset>
+          </Panel>
         </div>
       </Block>
 

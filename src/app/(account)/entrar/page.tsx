@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import {
+  Button,
+  Checkbox,
+  Field,
+  Fieldset,
+  Heading,
+  Input,
+  Kicker,
+  Notice,
+  Page,
+  Panel,
+} from "@/components/ui";
 import { requestMagicLink } from "./actions";
+import styles from "../account.module.css";
 
 export const metadata: Metadata = { title: "Entrar", robots: { index: false } };
 
@@ -19,52 +32,62 @@ export default async function EntrarPage({
   const { error, enviado, next } = await searchParams;
 
   return (
-    <main>
-      <h1>Entrar</h1>
-      {enviado ? (
-        <p role="status">
-          Si el correo es válido, te hemos enviado un enlace para entrar. Ábrelo en este mismo
-          navegador. Caduca en poco tiempo.
-        </p>
-      ) : (
-        <form action={requestMagicLink}>
-          {error && ERRORS[error] ? <p role="alert">{ERRORS[error]}</p> : null}
-          <input type="hidden" name="next" value={next ?? "/cuenta"} />
-          <p>
-            <label htmlFor="email">Correo electrónico</label>
-            <br />
-            <input id="email" name="email" type="email" autoComplete="email" required />
+    <Page>
+      <div className={styles.split}>
+        <header className={styles.intro}>
+          <Kicker>Tu cuenta</Kicker>
+          <Heading level="display">Entrar</Heading>
+          <p className={styles.lead}>
+            Toda la guía es pública. La cuenta solo sirve para guardar tu progreso, recibir alertas
+            de ofertas y practicar con tu propia clave de IA.
           </p>
-          <fieldset>
-            <legend>¿Primera vez? Crea tu cuenta</legend>
-            <p>
-              Si ya tienes cuenta, deja estos campos vacíos. Solo pedimos tu año de nacimiento para
-              comprobar la edad mínima; no guardamos tu fecha completa.
-            </p>
-            <p>
-              <label htmlFor="birth_year">Año de nacimiento</label>
-              <br />
-              <input
-                id="birth_year"
-                name="birth_year"
-                inputMode="numeric"
-                pattern="\d{4}"
-                maxLength={4}
-                autoComplete="bday-year"
-              />
-            </p>
-            <p>
-              <label>
-                <input type="checkbox" name="age_ok" /> Confirmo que tengo 16 años o más
-              </label>
-            </p>
-          </fieldset>
-          <p>
-            <button type="submit">Enviarme el enlace</button>
-          </p>
-          <p>No usamos contraseñas: te mandamos un enlace de un solo uso.</p>
-        </form>
-      )}
-    </main>
+          <ul className={styles.points}>
+            <li>Sin contraseñas: te mandamos un enlace de un solo uso.</li>
+            <li>Solo pedimos tu año de nacimiento para comprobar la edad mínima (16).</li>
+            <li>Puedes descargar o borrar tus datos cuando quieras.</li>
+          </ul>
+        </header>
+
+        <Panel>
+          {enviado ? (
+            <Notice>
+              Si el correo es válido, te hemos enviado un enlace para entrar. Ábrelo en este mismo
+              navegador. Caduca en poco tiempo.
+            </Notice>
+          ) : (
+            <form action={requestMagicLink} className={styles.form}>
+              {error && ERRORS[error] ? <Notice tone="alert">{ERRORS[error]}</Notice> : null}
+              <input type="hidden" name="next" value={next ?? "/cuenta"} />
+              <Field id="email" label="Correo electrónico">
+                <Input id="email" name="email" type="email" autoComplete="email" required />
+              </Field>
+              <Fieldset legend="¿Primera vez? Crea tu cuenta">
+                <p className={styles.note}>
+                  Si ya tienes cuenta, deja estos campos vacíos. Solo pedimos tu año de nacimiento
+                  para comprobar la edad mínima; no guardamos tu fecha completa.
+                </p>
+                <Field id="birth_year" label="Año de nacimiento">
+                  <Input
+                    id="birth_year"
+                    name="birth_year"
+                    inputMode="numeric"
+                    pattern="\d{4}"
+                    maxLength={4}
+                    autoComplete="bday-year"
+                  />
+                </Field>
+                <Checkbox name="age_ok">Confirmo que tengo 16 años o más</Checkbox>
+              </Fieldset>
+              <div className={styles.actions}>
+                <Button type="submit">Enviarme el enlace</Button>
+              </div>
+              <p className={styles.note}>
+                No usamos contraseñas: te mandamos un enlace de un solo uso.
+              </p>
+            </form>
+          )}
+        </Panel>
+      </div>
+    </Page>
   );
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import styles from "./button.module.css";
 
-type Variant = "primary" | "accent" | "secondary" | "ghost";
+type Variant = "primary" | "accent" | "secondary" | "ghost" | "danger";
 
 const cls = (v: Variant) => `${styles.button} ${styles[v]}`;
 

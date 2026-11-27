@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { Button, Field, Heading, Input, Kicker, Notice, Page, Panel } from "@/components/ui";
 import { deleteAccount, signOut, updateProfile } from "./actions";
+import styles from "../account.module.css";
 
 export const metadata: Metadata = { title: "Mi cuenta", robots: { index: false } };
 
@@ -30,79 +32,93 @@ export default async function CuentaPage({
   if (!profile?.onboarded_at) redirect("/cuenta/bienvenida");
 
   return (
-    <main>
-      <h1>Mi cuenta</h1>
-      <p>Sesión iniciada como {auth.user.email}.</p>
-      {guardado ? <p role="status">Cambios guardados.</p> : null}
-      {error && MESSAGES[error] ? <p role="alert">{MESSAGES[error]}</p> : null}
+    <Page narrow>
+      <header className={styles.intro}>
+        <Kicker>Tu cuenta</Kicker>
+        <Heading level="h1">Mi cuenta</Heading>
+        <p className={styles.lead}>Sesión iniciada como {auth.user.email}.</p>
+      </header>
 
-      <h2>Mi perfil</h2>
-      <form action={updateProfile}>
-        <p>
-          <label htmlFor="display_name">Nombre</label>
-          <br />
-          <input
-            id="display_name"
-            name="display_name"
-            maxLength={80}
-            defaultValue={profile.display_name ?? ""}
-          />
-        </p>
-        <p>
-          <label htmlFor="degree">Estudios</label>
-          <br />
-          <input id="degree" name="degree" maxLength={120} defaultValue={profile.degree ?? ""} />
-        </p>
-        <p>
-          <label htmlFor="study_year">Curso</label>
-          <br />
-          <input
-            id="study_year"
-            name="study_year"
-            type="number"
-            min={1}
-            max={8}
-            defaultValue={profile.study_year ?? ""}
-          />
-        </p>
-        <p>
-          <label htmlFor="target_industries">Sectores (separados por comas)</label>
-          <br />
-          <input
-            id="target_industries"
-            name="target_industries"
-            defaultValue={(profile.target_industries ?? []).join(", ")}
-          />
-        </p>
-        <p>
-          <button type="submit">Guardar cambios</button>
-        </p>
-      </form>
+      <div className={styles.stack}>
+        {guardado ? <Notice>Cambios guardados.</Notice> : null}
+        {error && MESSAGES[error] ? <Notice tone="alert">{MESSAGES[error]}</Notice> : null}
 
-      <h2>Mis datos</h2>
-      <p>
-        Descarga una copia de todo lo que guardamos sobre ti.{" "}
-        <a href="/cuenta/exportar">Descargar mis datos (JSON)</a>
-      </p>
+        <Panel title="Mi perfil">
+          <form action={updateProfile} className={styles.form}>
+            <Field id="display_name" label="Nombre">
+              <Input
+                id="display_name"
+                name="display_name"
+                maxLength={80}
+                defaultValue={profile.display_name ?? ""}
+              />
+            </Field>
+            <Field id="degree" label="Estudios">
+              <Input
+                id="degree"
+                name="degree"
+                maxLength={120}
+                defaultValue={profile.degree ?? ""}
+              />
+            </Field>
+            <Field id="study_year" label="Curso">
+              <Input
+                id="study_year"
+                name="study_year"
+                type="number"
+                min={1}
+                max={8}
+                defaultValue={profile.study_year ?? ""}
+              />
+            </Field>
+            <Field id="target_industries" label="Sectores" hint="Separados por comas.">
+              <Input
+                id="target_industries"
+                name="target_industries"
+                aria-describedby="target_industries-hint"
+                defaultValue={(profile.target_industries ?? []).join(", ")}
+              />
+            </Field>
+            <div className={styles.actions}>
+              <Button type="submit">Guardar cambios</Button>
+            </div>
+          </form>
+        </Panel>
 
-      <h2>Cerrar sesión</h2>
-      <form action={signOut}>
-        <button type="submit">Cerrar sesión</button>
-      </form>
+        <Panel title="Mis datos">
+          <p>Descarga una copia de todo lo que guardamos sobre ti.</p>
+          <div className={styles.actions}>
+            <a href="/cuenta/exportar" className={styles.download}>
+              Descargar mis datos (JSON)
+            </a>
+          </div>
+        </Panel>
 
-      <h2>Eliminar mi cuenta</h2>
-      <p>
-        Se borrarán tu cuenta, tu perfil, tus consentimientos y tus elementos guardados. No se puede
-        deshacer.
-      </p>
-      <form action={deleteAccount}>
-        <p>
-          <label htmlFor="confirm">Escribe ELIMINAR para confirmar</label>
-          <br />
-          <input id="confirm" name="confirm" autoComplete="off" required />
-        </p>
-        <button type="submit">Eliminar mi cuenta definitivamente</button>
-      </form>
-    </main>
+        <Panel title="Cerrar sesión">
+          <form action={signOut} className={styles.actions}>
+            <Button type="submit" variant="secondary">
+              Cerrar sesión
+            </Button>
+          </form>
+        </Panel>
+
+        <Panel title="Eliminar mi cuenta" tone="danger">
+          <p>
+            Se borrarán tu cuenta, tu perfil, tus consentimientos y tus elementos guardados. No se
+            puede deshacer.
+          </p>
+          <form action={deleteAccount} className={styles.form}>
+            <Field id="confirm" label="Escribe ELIMINAR para confirmar">
+              <Input id="confirm" name="confirm" autoComplete="off" required />
+            </Field>
+            <div className={styles.actions}>
+              <Button type="submit" variant="danger">
+                Eliminar mi cuenta definitivamente
+              </Button>
+            </div>
+          </form>
+        </Panel>
+      </div>
+    </Page>
   );
 }

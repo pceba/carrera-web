@@ -31,6 +31,11 @@
   background: transparent;
   color: var(--color-text);
 }
+.danger {
+  background: transparent;
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
 .ghost {
   min-height: var(--tap);
   padding-inline: var(--space-2);
@@ -59,6 +64,10 @@
   }
   .ghost:hover {
     color: var(--color-accent);
+  }
+  .danger:hover {
+    background: var(--color-danger);
+    color: var(--color-bg);
   }
 }
 
