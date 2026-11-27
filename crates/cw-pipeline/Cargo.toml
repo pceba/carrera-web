@@ -1,0 +1,28 @@
+[package]
+name = "cw-pipeline"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = "1.0.105"
+chrono = "0.4.45"
+clap = { version = "4.6.10", features = ["derive"] }
+cw-classify = { version = "0.1.0", path = "../cw-classify" }
+cw-domain = { version = "0.1.0", path = "../cw-domain" }
+cw-sources = { version = "0.1.0", path = "../cw-sources" }
+futures = "0.3.34"
+reqwest = { version = "0.13.5", default-features = false, features = ["json", "query", "rustls-no-provider"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+serde_yaml_ng = "0.10.0"
+tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread"] }
+
+[dev-dependencies]
+tempfile = "3.27.0"
+tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread"] }
+wiremock = "0.6.5"

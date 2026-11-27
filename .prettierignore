@@ -9,3 +9,6 @@ LICENSE
 content/LICENSE
 .claude
 tsconfig.json
+crates
+src/lib/generated
+config
