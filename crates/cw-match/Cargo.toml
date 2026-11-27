@@ -1,0 +1,19 @@
+[package]
+name = "cw-match"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+cw-classify = { version = "0.1.0", path = "../cw-classify" }
+cw-domain = { version = "0.1.0", path = "../cw-domain" }
+cw-lexicon = { version = "0.1.0", path = "../cw-lexicon" }
+serde = { version = "1.0.229", features = ["derive"] }
+ts-rs = { version = "12.0.1", features = ["serde-compat"] }
+
+[dev-dependencies]
+chrono = { version = "0.4.45", default-features = false }

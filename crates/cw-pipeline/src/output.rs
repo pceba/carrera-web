@@ -66,7 +66,7 @@ mod tests {
             city: Some("Madrid".into()),
             remote: false,
             level: Level::Junior,
-            industry: Industry::Other,
+            industry: Industry::Consulting,
             posted_at: None,
         };
         let mut stats = Stats::new();
@@ -86,6 +86,6 @@ mod tests {
         assert_eq!(summary["total_kept"], 1);
         assert_eq!(summary["by_source"]["greenhouse"]["kept"], 1);
         assert_eq!(summary["by_level"]["junior"], 1);
-        assert_eq!(summary["by_industry"]["other"], 1);
+        assert_eq!(summary["by_industry"]["consulting"], 1);
     }
 }

@@ -3,8 +3,10 @@
 //! and the same `config/rules.yaml` always give the same answer, and every decision can be
 //! explained by pointing at a keyword in that file.
 //!
-//! This is a faithful port of the Python `pipeline/classify.py` it replaces; the parity test in
-//! `cw-pipeline` replays the Python results to prove it.
+//! Level and location rules still behave exactly like the Python `pipeline/classify.py` this crate
+//! replaced (the parity test in `cw-pipeline` replays those results). The industry taxonomy does
+//! **not**: phase 2 narrowed it to six industries (`docs/roadmap.md`) and drops every posting
+//! outside them, so parity with Python is no longer a goal for industry tags.
 
 mod rules;
 mod text;
@@ -30,6 +32,7 @@ impl Rules {
         }
         let level = self.detect_level(raw)?;
         let place = self.detect_place(raw)?;
+        let industry = self.detect_industry(raw)?;
         Some(Posting {
             source: raw.source,
             external_id: raw.external_id.clone(),
@@ -40,7 +43,7 @@ impl Rules {
             city: place.city,
             remote: place.remote,
             level,
-            industry: self.detect_industry(raw),
+            industry,
             posted_at: raw.posted_at,
         })
     }
@@ -104,7 +107,8 @@ impl Rules {
     }
 
     /// First industry (in `rules.yaml` order) with a word in company + title + department.
-    pub fn detect_industry(&self, raw: &RawPosting) -> Industry {
+    /// `None` means the posting belongs to none of the six industries and is dropped.
+    pub fn detect_industry(&self, raw: &RawPosting) -> Option<Industry> {
         let text = norm(&format!(
             "{} {} {}",
             raw.company,
@@ -114,7 +118,7 @@ impl Rules {
         self.industries
             .iter()
             .find(|(_, words)| words.iter().any(|word| contains_word(&text, word)))
-            .map_or(Industry::Other, |(industry, _)| *industry)
+            .map(|(industry, _)| *industry)
     }
 }
 
@@ -127,7 +131,7 @@ mod tests {
         RawPosting {
             source: Source::Greenhouse,
             external_id: "1".into(),
-            company: "Acme".into(),
+            company: "Deloitte".into(),
             title: title.into(),
             url: "https://example.com/1".into(),
             location: location.map(str::to_owned),
@@ -150,6 +154,9 @@ mod tests {
             ("Marketing Intern", Level::Intern),
             ("Becario/a de Finanzas", Level::Intern),
             ("Graduate Programme 2027", Level::Trainee),
+            ("Law Firm Intern, Summer Associate", Level::Intern),
+            ("Vacation Scheme", Level::Intern),
+            ("Paralegal", Level::Junior),
             ("Software Engineer, New Grad", Level::Graduate),
             ("Financial Analyst", Level::Analyst),
             ("Management Trainee", Level::Trainee),
@@ -172,7 +179,7 @@ mod tests {
 
     #[test]
     fn intern_can_come_from_the_employment_type() {
-        let mut posting = raw("Risk Support", Some("Madrid, Spain"));
+        let mut posting = raw("Strategy Support", Some("Madrid, Spain"));
         posting.employment_type = Some("Internship".into());
         let kept = Rules::bundled().classify(&posting).unwrap();
         assert_eq!(kept.level, Level::Intern);
@@ -213,19 +220,66 @@ mod tests {
         let industry = |title: &str, company: &str| {
             let mut posting = raw(title, Some("Madrid, Spain"));
             posting.company = company.into();
-            Rules::bundled().classify(&posting).unwrap().industry
+            Rules::bundled().classify(&posting).map(|p| p.industry)
         };
-        assert_eq!(industry("Junior Consultant", "Acme"), Industry::Consulting);
-        assert_eq!(industry("Junior Software Engineer", "Acme"), Industry::Tech);
-        assert_eq!(
-            industry("Junior Risk Analyst", "Banco Ejemplo"),
-            Industry::Banking
-        );
-        assert_eq!(
-            industry("Becario de Producción", "Acme"),
-            Industry::Industrial
-        );
-        assert_eq!(industry("Junior Receptionist", "Acme"), Industry::Other);
+        let cases = [
+            ("Junior Consultant", "Acme", Industry::Consulting),
+            ("Analyst", "McKinsey & Company", Industry::Consulting),
+            ("Junior Machine Learning Engineer", "Acme", Industry::Ai),
+            ("Graduate Software Engineer", "OpenAI", Industry::Ai),
+            ("Junior Data Scientist", "Acme", Industry::DataScience),
+            ("Junior Data Analyst", "Deloitte", Industry::DataScience),
+            (
+                "Summer Analyst",
+                "Private Equity Fund",
+                Industry::PrivateEquity,
+            ),
+            ("Analyst", "KKR", Industry::PrivateEquity),
+            (
+                "Investment Banking Analyst",
+                "Acme",
+                Industry::InvestmentBanking,
+            ),
+            (
+                "Summer Analyst",
+                "Goldman Sachs",
+                Industry::InvestmentBanking,
+            ),
+            ("Abogado Junior", "Acme", Industry::BigLaw),
+            ("Trainee Lawyer", "Garrigues", Industry::BigLaw),
+            ("Paralegal", "Clifford Chance", Industry::BigLaw),
+        ];
+        for (title, company, expected) in cases {
+            assert_eq!(
+                industry(title, company),
+                Some(expected),
+                "{title} @ {company}"
+            );
+        }
+    }
+
+    #[test]
+    fn postings_outside_the_six_industries_are_dropped() {
+        for (title, company) in [
+            ("Junior Software Engineer", "Acme"),
+            ("Becario de Producción", "Bosch"),
+            ("Marketing Intern", "Acme"),
+            ("Junior Receptionist", "Acme"),
+            ("Financial Analyst", "Acme"),
+        ] {
+            let mut posting = raw(title, Some("Madrid, Spain"));
+            posting.company = company.into();
+            assert!(Rules::bundled().classify(&posting).is_none(), "{title}");
+        }
+    }
+
+    #[test]
+    fn first_matching_industry_wins() {
+        // "Data Scientist" is more specific than the consulting firm it works for.
+        let mut posting = raw("Junior Data Scientist", Some("Madrid, Spain"));
+        posting.company = "Accenture".into();
+        let kept = Rules::bundled().classify(&posting).unwrap();
+        assert_eq!(kept.industry, Industry::DataScience);
     }
 
     #[test]

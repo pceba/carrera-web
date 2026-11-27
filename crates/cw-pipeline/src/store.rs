@@ -174,7 +174,7 @@ mod tests {
             city: Some("Madrid".into()),
             remote: false,
             level: Level::Junior,
-            industry: Industry::Other,
+            industry: Industry::Consulting,
             posted_at: None,
         }
     }

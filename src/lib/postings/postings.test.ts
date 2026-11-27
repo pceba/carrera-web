@@ -5,8 +5,8 @@ import { parseFilters, sourceLabel } from "./types";
 describe("parseFilters", () => {
   it("keeps known values and drops everything else", () => {
     expect(
-      parseFilters({ industria: "tech", nivel: "junior", ciudad: "Madrid", remoto: "1" }),
-    ).toEqual({ industry: "tech", level: "junior", city: "Madrid", remote: true });
+      parseFilters({ industria: "data-science", nivel: "junior", ciudad: "Madrid", remoto: "1" }),
+    ).toEqual({ industry: "data-science", level: "junior", city: "Madrid", remote: true });
     expect(
       parseFilters({ industria: "x;drop table", nivel: ["intern", "junior"], ciudad: "Narnia" }),
     ).toEqual({ industry: undefined, level: "intern", city: undefined, remote: undefined });
@@ -18,8 +18,8 @@ describe("buildQuery", () => {
     const base = new URLSearchParams(buildQuery({}));
     expect(base.get("active")).toBe("eq.true");
     expect(base.has("industry")).toBe(false);
-    const q = new URLSearchParams(buildQuery({ industry: "tech", remote: true }));
-    expect(q.get("industry")).toBe("eq.tech");
+    const q = new URLSearchParams(buildQuery({ industry: "data-science", remote: true }));
+    expect(q.get("industry")).toBe("eq.data-science");
     expect(q.get("remote")).toBe("eq.true");
   });
 });
