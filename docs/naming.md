@@ -2,8 +2,11 @@
 
 Status: **decided 2026-11-27: the site is called "Path"** (Pablo's choice). Still to do before the
 public deploy: pick a domain (one-word `path.*` domains are almost certainly taken; check variants
-at a registrar) and search the OEPM/EUIPO trademark databases. Visual identity directions are being
-explored on a design canvas; the chosen one goes into `src/styles/tokens.css` and the wordmark.
+at a registrar) and search the OEPM/EUIPO trademark databases. Visual identity: Pablo chose
+direction **B, "precise tool"** (2026-11-27): Geist for everything, Geist Mono for figures and
+meta, tighter radii, silver-grey `#ECEEF1` ground, near-black ink `#171C24`, cobalt `#3550B0` as the
+one accent; wordmark `path` in lowercase Geist 600. Symbol: point-to-point route in black, white and
+light (glow, shadow), six variants on the design canvas; pick one, flat version for the favicon.
 The shortlist below is kept for the record.
 
 Availability was checked on 2026-11-27 with a DNS lookup only. "No DNS record" does **not** prove a
