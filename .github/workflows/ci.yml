@@ -55,3 +55,33 @@ jobs:
             git diff -- src/lib/generated
             exit 1
           fi
+
+  wasm:
+    # Vercel has no Rust, so the browser bundle is committed (ADR-001). This job fails if the
+    # Rust it is built from changed without rebuilding it, and checks that it still builds.
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: wasm-pack
+      - name: Committed WASM bundle is up to date
+        run: |
+          expected="$(cat src/lib/wasm/INPUTS.sha256)"
+          actual="$(sh crates/cw-wasm/inputs-hash.sh)"
+          if [ "$expected" != "$actual" ]; then
+            echo "::error::src/lib/wasm is stale. Run 'sh crates/cw-wasm/build.sh' and commit the result."
+            exit 1
+          fi
+      - name: Bundle builds, exposes the committed API and stays under 1 MB gzipped
+        run: |
+          wasm-pack build crates/cw-wasm --release --target web --out-dir "$RUNNER_TEMP/wasm" --out-name cw_wasm
+          diff "$RUNNER_TEMP/wasm/cw_wasm.d.ts" src/lib/wasm/cw_wasm.d.ts
+          size="$(gzip -9 -c "$RUNNER_TEMP/wasm/cw_wasm_bg.wasm" | wc -c)"
+          echo "gzipped wasm: $size bytes"
+          [ "$size" -lt 1048576 ]

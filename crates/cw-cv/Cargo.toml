@@ -1,0 +1,20 @@
+[package]
+name = "cw-cv"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+cw-domain = { version = "0.1.0", path = "../cw-domain" }
+cw-lexicon = { version = "0.1.0", path = "../cw-lexicon" }
+lopdf = "0.47.0"
+quick-xml = "0.42.0"
+thiserror = "2.0.21"
+zip = { version = "9.8.2", default-features = false, features = ["deflate"] }
+
+[dev-dependencies]
+zip = { version = "9.8.2", default-features = false, features = ["deflate"] }

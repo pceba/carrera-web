@@ -1,0 +1,16 @@
+{
+  "name": "cw-wasm",
+  "type": "module",
+  "version": "0.1.0",
+  "license": "MIT",
+  "files": [
+    "cw_wasm_bg.wasm",
+    "cw_wasm.js",
+    "cw_wasm.d.ts"
+  ],
+  "main": "cw_wasm.js",
+  "types": "cw_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

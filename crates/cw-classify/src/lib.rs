@@ -248,6 +248,7 @@ mod tests {
             ("Abogado Junior", "Acme", Industry::BigLaw),
             ("Trainee Lawyer", "Garrigues", Industry::BigLaw),
             ("Paralegal", "Clifford Chance", Industry::BigLaw),
+            ("Legal Analyst", "Linklaters", Industry::BigLaw),
         ];
         for (title, company, expected) in cases {
             assert_eq!(
@@ -256,6 +257,14 @@ mod tests {
                 "{title} @ {company}"
             );
         }
+    }
+
+    #[test]
+    fn in_house_legal_roles_are_not_big_law() {
+        // Real dry-run hit: a fintech's own legal team is not a law firm.
+        let mut posting = raw("Legal Analyst (Temporal)", Some("Madrid"));
+        posting.company = "Cabify".into();
+        assert_eq!(Rules::bundled().classify(&posting), None);
     }
 
     #[test]

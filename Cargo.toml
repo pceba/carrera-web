@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/cw-domain", "crates/cw-sources", "crates/cw-classify", "crates/cw-lexicon", "crates/cw-match", "crates/cw-pipeline"]
+members = ["crates/cw-domain", "crates/cw-sources", "crates/cw-classify", "crates/cw-lexicon", "crates/cw-wasm", "crates/cw-cv", "crates/cw-match", "crates/cw-pipeline"]
 
 [workspace.package]
 version = "0.1.0"
@@ -13,3 +13,10 @@ unsafe_code = "forbid"
 
 [workspace.lints.clippy]
 all = { level = "warn", priority = -1 }
+
+# Release builds are mostly the WASM bundle that ships to browsers, where size matters more than
+# raw speed: optimise for size and let the linker drop what is unused.
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
