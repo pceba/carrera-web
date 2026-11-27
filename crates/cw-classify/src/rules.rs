@@ -124,10 +124,10 @@ mod tests {
                 Level::Analyst
             ]
         );
-        assert_eq!(rules.industries.keys().next(), Some(&Industry::Consulting));
+        // Every industry has rules, and the broad consulting bucket comes last.
+        assert_eq!(rules.industries.len(), Industry::ALL.len());
+        assert_eq!(rules.industries.keys().last(), Some(&Industry::Consulting));
         assert!(rules.cities.iter().any(|c| c.norm == "a coruna"));
-        // "it " in the YAML must lose its trailing space, as the Python normalisation did.
-        assert!(rules.industries[&Industry::Tech].contains(&"it".to_owned()));
     }
 
     #[test]

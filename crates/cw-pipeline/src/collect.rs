@@ -162,15 +162,15 @@ mod tests {
     #[test]
     fn counts_kept_postings_and_drops_duplicates() {
         let items = [
-            raw("1", "Junior Analyst"),
-            raw("1", "Junior Analyst (copy)"),
+            raw("1", "Junior Data Analyst"),
+            raw("1", "Junior Data Analyst (copy)"),
             raw("2", "Senior Analyst"),
-            raw("3", "Marketing Intern"),
+            raw("3", "Data Science Intern"),
         ];
         let mut stats = Stats::new();
         let kept = classify_all(&items, &Rules::bundled(), &mut stats);
         assert_eq!(kept.len(), 2);
-        assert_eq!(kept[0].title, "Junior Analyst");
+        assert_eq!(kept[0].title, "Junior Data Analyst");
         assert_eq!(stats[&Source::Lever].kept, 2);
     }
 }

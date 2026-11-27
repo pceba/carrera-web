@@ -8,9 +8,11 @@
 mod industry;
 mod level;
 mod posting;
+mod profile;
 mod source;
 
 pub use industry::Industry;
 pub use level::Level;
 pub use posting::{Posting, RawPosting};
+pub use profile::{Profile, RemotePreference};
 pub use source::Source;

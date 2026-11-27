@@ -5,9 +5,14 @@
 //! and over a matrix of 605 synthetic postings (titles x companies x locations x metadata,
 //! seeded sample). These tests assert that the Rust code returns exactly the same postings, with
 //! the same tags, and the same plain text for HTML titles.
+//!
+//! Phase 2 narrowed the industry taxonomy to six industries and drops the rest (see
+//! `docs/decisions.md`), so **industry is no longer compared**: only the parsers, the level and
+//! the location decisions still have to equal Python. A posting Python kept may now be dropped for
+//! having no industry; the tests below check that the level/place verdict alone still agrees.
 
 use cw_classify::Rules;
-use cw_domain::{Industry, Level, Posting, RawPosting};
+use cw_domain::{Level, RawPosting};
 use cw_sources::{
     html_to_text, parse_adzuna, parse_ashby, parse_greenhouse, parse_jobicy, parse_lever,
     parse_remotive, parse_smartrecruiters, parse_workable,
@@ -24,10 +29,29 @@ fn fixture(name: &str) -> Value {
     serde_json::from_str(&read(&format!("../cw-sources/tests/fixtures/{name}.json"))).unwrap()
 }
 
+/// What Python decided about a posting apart from its industry: level, city and remote flag, or
+/// `None` when it was rejected for level or location.
+fn verdict(rules: &Rules, raw: &RawPosting) -> Option<(Level, Option<String>, bool)> {
+    if !raw.url.starts_with("http") || raw.title.is_empty() {
+        return None;
+    }
+    let level = rules.detect_level(raw)?;
+    let place = rules.detect_place(raw)?;
+    Some((level, place.city, place.remote))
+}
+
 #[derive(Deserialize)]
 struct GoldenFixture {
     raw: Vec<RawPosting>,
-    kept: Vec<Posting>,
+    kept: Vec<GoldenKept>,
+}
+
+/// A Python-kept posting; the old `industry` tag is ignored on purpose (see module docs).
+#[derive(Deserialize)]
+struct GoldenKept {
+    level: Level,
+    city: Option<String>,
+    remote: bool,
 }
 
 #[test]
@@ -64,9 +88,14 @@ fn parsers_and_classifier_match_python_on_the_recorded_fixtures() {
             raw, expected.raw,
             "{name}: parsed postings differ from Python"
         );
-        let kept: Vec<Posting> = raw.iter().filter_map(|r| rules.classify(r)).collect();
+        let kept: Vec<_> = raw.iter().filter_map(|r| verdict(&rules, r)).collect();
+        let expected_kept: Vec<_> = expected
+            .kept
+            .iter()
+            .map(|p| (p.level, p.city.clone(), p.remote))
+            .collect();
         assert_eq!(
-            kept, expected.kept,
+            kept, expected_kept,
             "{name}: kept postings differ from Python"
         );
         kept_total += kept.len();
@@ -84,7 +113,6 @@ struct MatrixCase {
 #[derive(Deserialize)]
 struct MatrixKept {
     level: Level,
-    industry: Industry,
     city: Option<String>,
     remote: bool,
 }
@@ -99,27 +127,16 @@ fn classifier_matches_python_on_the_synthetic_matrix() {
     let mut kept_count = 0;
     let mut failures = Vec::new();
     for case in &cases {
-        let got = rules.classify(&case.raw);
-        let same = match (&got, &case.kept) {
-            (None, None) => true,
-            (Some(g), Some(k)) => {
-                g.level == k.level
-                    && g.industry == k.industry
-                    && g.city == k.city
-                    && g.remote == k.remote
-            }
-            _ => false,
-        };
+        let got = verdict(&rules, &case.raw);
+        let expected = case
+            .kept
+            .as_ref()
+            .map(|k| (k.level, k.city.clone(), k.remote));
         kept_count += usize::from(got.is_some());
-        if !same {
+        if got != expected {
             failures.push(format!(
-                "{:?} @ {:?} -> rust {:?}, python {:?}",
-                case.raw.title,
-                case.raw.location,
-                got.map(|g| (g.level, g.industry, g.city, g.remote)),
-                case.kept
-                    .as_ref()
-                    .map(|k| (k.level, k.industry, &k.city, k.remote)),
+                "{:?} @ {:?} -> rust {got:?}, python {expected:?}",
+                case.raw.title, case.raw.location,
             ));
         }
     }
