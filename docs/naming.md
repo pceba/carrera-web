@@ -1,6 +1,10 @@
 # Naming shortlist
 
-Status: **open**, Pablo decides before the public deploy. Until then the codename is `carrera-web`.
+Status: **decided 2026-11-27: the site is called "Path"** (Pablo's choice). Still to do before the
+public deploy: pick a domain (one-word `path.*` domains are almost certainly taken; check variants
+at a registrar) and search the OEPM/EUIPO trademark databases. Visual identity directions are being
+explored on a design canvas; the chosen one goes into `src/styles/tokens.css` and the wordmark.
+The shortlist below is kept for the record.
 
 Availability was checked on 2026-11-27 with a DNS lookup only. "No DNS record" does **not** prove a
 domain is free (it can be registered but unused). Confirm at a registrar (e.g. dominios.es, Porkbun)

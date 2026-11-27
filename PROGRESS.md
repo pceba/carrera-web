@@ -34,7 +34,8 @@ PDF p. 5); stale `industrias/consultoria/` row in `docs/ownership.md`.
 ## Open threads (Pablo)
 
 Connect Vercel; Supabase EU + migrations + secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
-`RESEND_API_KEY`, `ALERTS_FROM`, `SITE_URL`); legal placeholders; site name; Jobicy terms;
+`RESEND_API_KEY`, `ALERTS_FROM`, `SITE_URL`); legal placeholders; name chosen: **Path** (domain and
+trademark check pending; pick one of three visual directions A/B/C + a symbol); Jobicy terms;
 London right-to-work question (IB dossier Q1). 13 stale worktrees in `.claude/worktrees/`.
 
 ## Gotchas
