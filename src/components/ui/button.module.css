@@ -3,13 +3,13 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 3rem;
-  padding: var(--space-2) var(--space-6);
-  font: 600 var(--text-base) / 1.2 var(--font-sans);
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-5);
+  font: 600 var(--text-sm) / 1.2 var(--font-sans);
   text-decoration: none;
   cursor: pointer;
-  border: 1px solid var(--color-text);
-  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
   user-select: none;
 }
 .button svg {
@@ -24,11 +24,11 @@
 }
 .accent {
   background: var(--color-accent);
-  border-color: var(--color-accent);
   color: var(--color-accent-contrast);
 }
 .secondary {
-  background: transparent;
+  background: var(--color-surface);
+  border-color: var(--color-border);
   color: var(--color-text);
 }
 .danger {
@@ -37,33 +37,32 @@
   color: var(--color-danger);
 }
 .ghost {
-  min-height: var(--tap);
   padding-inline: var(--space-2);
   background: transparent;
   color: var(--color-text);
-  border-color: transparent;
   text-decoration: underline;
+  text-decoration-color: var(--color-rule);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
 }
 
 .button:active {
-  scale: 0.97;
+  scale: 0.98;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .primary:hover {
-    background: color-mix(in oklch, var(--color-text), var(--color-accent) 35%);
-    border-color: color-mix(in oklch, var(--color-text), var(--color-accent) 35%);
+    background: color-mix(in oklch, var(--color-text), var(--color-bg) 18%);
   }
   .accent:hover {
-    background: color-mix(in oklch, var(--color-accent), var(--color-text) 18%);
+    background: color-mix(in oklch, var(--color-accent), var(--color-text) 20%);
   }
   .secondary:hover {
-    background: var(--color-sunken);
+    border-color: var(--color-rule);
+    background: var(--color-bg);
   }
   .ghost:hover {
-    color: var(--color-accent);
+    text-decoration-color: currentcolor;
   }
   .danger:hover {
     background: var(--color-danger);
@@ -89,7 +88,6 @@
   scale: 1;
 }
 
-/* Trailing arrow that nudges on hover. */
 .arrow {
   display: inline-block;
 }
@@ -98,6 +96,6 @@
     transition: translate var(--dur) var(--ease-out);
   }
   .button:hover .arrow {
-    translate: 0.2em 0;
+    translate: 0.15em 0;
   }
 }

@@ -1,11 +1,9 @@
 .accordion {
   max-width: var(--measure);
-  border-block-start: 1px solid var(--color-text);
-  counter-reset: acc;
+  border-block-start: 1px solid var(--color-border);
 }
 .item {
   border-block-end: 1px solid var(--color-border);
-  counter-increment: acc;
 }
 .item::details-content {
   block-size: 0;
@@ -23,7 +21,7 @@
 }
 .summary {
   display: grid;
-  grid-template-columns: 2.25rem 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: var(--space-3);
   min-height: 3.5rem;
@@ -35,11 +33,6 @@
 }
 .summary::-webkit-details-marker {
   display: none;
-}
-.summary::before {
-  content: counter(acc, upper-alpha);
-  font: 400 var(--text-xl) / 1 var(--font-display);
-  color: var(--color-accent);
 }
 /* Plus that turns into a minus. */
 .summary::after {
@@ -55,11 +48,13 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .summary:hover {
-    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--color-rule);
+    text-underline-offset: 0.25em;
   }
 }
 .content {
-  padding: 0 0 var(--space-6) calc(2.25rem + var(--space-3));
+  padding: 0 0 var(--space-6);
   color: var(--color-text-muted);
 }
 .content > :first-child {

@@ -1,4 +1,8 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+import { INDUSTRIES } from "../content/catalog";
+
+const noOverflow = (page: Page) =>
+  page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
 
 test("home renders in Spanish with landmarks and a single h1", async ({ page }) => {
   await page.goto("/");
@@ -9,13 +13,51 @@ test("home renders in Spanish with landmarks and a single h1", async ({ page }) 
   await expect(page.getByRole("contentinfo")).toBeVisible();
 });
 
-test("no horizontal scroll on home, industries and /dev/ui", async ({ page }) => {
-  for (const path of ["/", "/industrias", "/dev/ui", "/ofertas", "/entrar"]) {
+test("home links the six industries and has no year-of-degree entry", async ({ page }) => {
+  await page.goto("/");
+  const main = page.getByRole("main");
+  for (const i of INDUSTRIES) {
+    await expect(main.locator(`a[href="/industrias/${i.slug}"]`).first()).toBeVisible();
+  }
+  await expect(page.getByText("¿En qué curso estás?")).toHaveCount(0);
+});
+
+test("industry map lists the six industries and marks the ones in preparation", async ({
+  page,
+}) => {
+  await page.goto("/industrias");
+  const main = page.getByRole("main");
+  for (const i of INDUSTRIES) {
+    await expect(main.locator(`a[href="/industrias/${i.slug}"]`)).toBeVisible();
+  }
+  await expect(main.getByText("En preparación", { exact: true })).toHaveCount(
+    INDUSTRIES.filter((i) => i.status === "preparing").length,
+  );
+});
+
+test("an industry in preparation has a hub and no sections", async ({ page }) => {
+  await page.goto("/industrias/private-equity");
+  await expect(page.getByRole("heading", { level: 1, name: "Private equity" })).toBeVisible();
+  await expect(page.getByText("En preparación").first()).toBeVisible();
+  const missing = await page.goto("/industrias/private-equity/proceso");
+  expect(missing?.status()).toBe(404);
+});
+
+test("no horizontal scroll on the main pages", async ({ page }) => {
+  for (const path of [
+    "/",
+    "/industrias",
+    "/industrias/consultoria",
+    "/industrias/consultoria/proceso",
+    "/preparacion",
+    "/preparacion/entrevistas-de-caso",
+    "/recursos",
+    "/dev/ui",
+    "/ofertas",
+    "/entrar",
+  ]) {
     await page.goto(path);
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
-    );
-    expect(overflow, path).toBe(false);
+    expect(await noOverflow(page), path).toBe(true);
   }
 });
 
@@ -28,14 +70,6 @@ test("skip link is the first tab stop and moves focus to main", async ({ page })
   await expect(page).toHaveURL(/#contenido$/);
 });
 
-test("industry map links only the live industry", async ({ page }) => {
-  await page.goto("/industrias");
-  const main = page.getByRole("main");
-  await expect(main.getByRole("link", { name: "Consultoría" })).toBeVisible();
-  await expect(page.getByText("Próximamente")).not.toHaveCount(0);
-  await expect(main.getByRole("link", { name: "Marketing" })).toHaveCount(0);
-});
-
 test("tabs work with the keyboard", async ({ page }) => {
   await page.goto("/dev/ui");
   const first = page.getByRole("tab", { name: "Primero" });
@@ -45,45 +79,56 @@ test("tabs work with the keyboard", async ({ page }) => {
   await expect(page.getByText("Contenido del segundo panel.")).toBeVisible();
 });
 
-test("main navigation reaches industries, consulting and offers", async ({ page, isMobile }) => {
-  await page.goto("/");
-  if (isMobile) {
-    const menuButton = page.getByRole("button", { name: "Menú" });
-    await menuButton.click();
-    const menu = page.getByRole("navigation", { name: "Principal (móvil)" });
-    await expect(menu).toBeVisible();
-    await expect(menu.getByRole("link", { name: "Industrias" })).toBeVisible();
-    await page.keyboard.press("Escape");
-    await expect(menu).toBeHidden();
-    await menuButton.click();
-    await menu.getByRole("link", { name: "Ofertas" }).click();
-  } else {
-    const nav = page.getByRole("navigation", { name: "Principal", exact: true });
-    await expect(nav.getByRole("link", { name: "Industrias" })).toBeVisible();
-    await expect(nav.getByRole("link", { name: "Consultoría" })).toBeVisible();
-    await nav.getByRole("link", { name: "Ofertas" }).click();
+test("header reaches Industrias, Preparación, Recursos and Ofertas", async ({ page, isMobile }) => {
+  const targets = [
+    ["Industrias", /\/industrias$/],
+    ["Preparación", /\/preparacion$/],
+    ["Recursos", /\/recursos$/],
+    ["Ofertas", /\/ofertas$/],
+  ] as const;
+
+  for (const [label, url] of targets) {
+    await page.goto("/");
+    let nav;
+    if (isMobile) {
+      await page.getByRole("button", { name: "Menú" }).click();
+      nav = page.getByRole("navigation", { name: "Principal (móvil)" });
+      await expect(nav).toBeVisible();
+    } else {
+      nav = page.getByRole("navigation", { name: "Principal", exact: true });
+    }
+    await nav.getByRole("link", { name: label }).click();
+    await expect(page).toHaveURL(url);
+    await expect(page.locator('header a[aria-current="page"]').first()).toHaveText(label);
   }
-  await expect(page).toHaveURL(/\/ofertas$/);
-  const current = page.locator('header a[aria-current="page"]');
-  await expect(current.first()).toHaveText("Ofertas");
 });
 
-test("theme switch overrides the system theme and survives a reload", async ({ page }) => {
+test("the mobile menu closes with Escape", async ({ page, isMobile }) => {
+  test.skip(!isMobile, "phone-only menu");
+  await page.goto("/");
+  await page.getByRole("button", { name: "Menú" }).click();
+  const menu = page.getByRole("navigation", { name: "Principal (móvil)" });
+  await expect(menu).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(menu).toBeHidden();
+});
+
+test("dark theme is opt-in and survives a reload", async ({ page, isMobile }) => {
   await page.emulateMedia({ colorScheme: "light" });
-  await page.goto("/dev/ui");
-  const group = page.getByRole("main").getByRole("group", { name: "Tema de color" }).first();
-  await group.getByRole("button", { name: "Oscuro" }).click();
+  await page.goto("/");
+  // Light by default for everyone.
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
+
+  if (isMobile) await page.getByRole("button", { name: "Menú" }).click();
+  await page.getByRole("button", { name: "Tema oscuro" }).first().click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await group.getByRole("button", { name: "Automático" }).click();
-  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
-});
 
-test("home offers an entry by year of degree", async ({ page }) => {
-  await page.goto("/");
-  await expect(page.getByRole("heading", { name: "¿En qué curso estás?" })).toBeVisible();
-  await page.getByRole("link", { name: "Toca buscar prácticas" }).click();
-  await expect(page).toHaveURL(/\/industrias\/consultoria#c3$/);
-  await expect(page.getByRole("tab", { name: "3.º" })).toHaveAttribute("aria-selected", "true");
+  if (isMobile) await page.getByRole("button", { name: "Menú" }).click();
+  const toggle = page.getByRole("button", { name: "Tema oscuro" }).first();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await toggle.click();
+  await expect(page.locator("html")).not.toHaveAttribute("data-theme", /.+/);
 });

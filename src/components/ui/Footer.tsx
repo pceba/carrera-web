@@ -9,11 +9,10 @@ export function Footer() {
       <div className={styles.inner}>
         <div className={styles.lead}>
           <Link href={ROUTES.home} className={styles.brand} aria-label="Inicio">
-            <Wordmark size="lg" />
+            <Wordmark />
           </Link>
           <p className={styles.motto}>
-            Guía abierta y gratuita para empezar tu carrera en España. Escrita a mano, con fuentes y
-            sin rastreo.
+            Guía abierta y gratuita para empezar tu carrera en España. Con fuentes y sin rastreo.
           </p>
         </div>
 
@@ -32,24 +31,14 @@ export function Footer() {
               </ul>
             </div>
           ))}
-          <div className={styles.group}>
-            <h2 className={styles.groupTitle}>Proyecto</h2>
-            <ul className={styles.list}>
-              <li>
-                <a href={REPO_URL} className={styles.link} rel="noopener noreferrer">
-                  Código en GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
         </nav>
 
-        <div className={styles.base}>
-          <p>
-            Código con licencia MIT · contenidos CC BY-SA 4.0. Sin cookies de seguimiento. Las
-            funciones de IA usan tu propia clave, que no sale de tu navegador.
-          </p>
-        </div>
+        <p className={styles.base}>
+          Código MIT y contenidos CC BY-SA 4.0 ·{" "}
+          <a href={REPO_URL} rel="noopener noreferrer">
+            Código en GitHub
+          </a>
+        </p>
       </div>
     </footer>
   );

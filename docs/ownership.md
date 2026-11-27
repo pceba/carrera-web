@@ -5,6 +5,8 @@ Each folder has exactly one owning stream. A session edits only its own folders.
 | Folder                                                                                                                        | Owner                                           | Milestone |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | --------- |
 | `src/components/ui/`                                                                                                          | WS-A Design system + shell                      | M1        |
+| `src/components/nav/`, `content/catalog.ts`                                                                                   | WS-A Design system + shell                      | M1        |
+| `src/app/(public)/preparacion/`, `src/app/(public)/recursos/`                                                                 | WS-A Design system + shell                      | M1        |
 | `src/components/industries/consulting/`                                                                                       | WS-B Consulting                                 | M1        |
 | `src/app/(public)/industrias/`                                                                                                | WS-A Design system + shell                      | M1        |
 | `src/app/(public)/industrias/consultoria/`                                                                                    | WS-B Consulting                                 | M1        |

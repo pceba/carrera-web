@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { Accordion } from "./Accordion";
 import { Callout } from "./Callout";
 import { Card } from "./Card";
-import { PILLARS, INDUSTRIES } from "./site-data";
+import { NAV_LINKS } from "./site-data";
 import { formatDate, ReviewedBy, SourceList } from "./Sources";
 import { Tabs } from "./Tabs";
 import { Timeline } from "./Timeline";
@@ -83,10 +83,12 @@ describe("primitives", () => {
 });
 
 describe("site data", () => {
-  it("has six pillars and consulting is the only live industry", () => {
-    expect(PILLARS).toHaveLength(6);
-    expect(INDUSTRIES.filter((i) => i.status === "live").map((i) => i.slug)).toEqual([
-      "consultoria",
+  it("has exactly four main navigation items", () => {
+    expect(NAV_LINKS.map((l) => l.label)).toEqual([
+      "Industrias",
+      "Preparación",
+      "Recursos",
+      "Ofertas",
     ]);
   });
 });

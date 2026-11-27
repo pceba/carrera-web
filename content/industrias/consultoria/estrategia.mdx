@@ -1,0 +1,30 @@
+import { FirmsTable } from "@/components/industries/consulting/FirmsTable";
+import { firms } from "./firms";
+
+export const strategy = firms.filter((f) => f.type === "Estrategia");
+
+// Sources cited by the table rows, so the page lists them under "Fuentes".
+export const cites = strategy.flatMap((f) => f.cite);
+
+McKinsey, BCG y Bain asesoran a la alta dirección en decisiones de estrategia. En España tienen
+oficina en Madrid; McKinsey y BCG también en Barcelona <Cite n={1} />. Se describen como las más
+selectivas: una guía de carreras de IE habla de expedientes muy altos (media por encima de 8,5/10) y
+experiencia previa valorada <Cite n={4} />.
+
+## Firmas de estrategia en España
+
+<FirmsTable firms={strategy} />
+
+## Programas con fecha publicada
+
+- **BCG Women's Boot Camp Spain, octava edición:** plazo de candidatura hasta el 26 de abril de
+  2026 <Cite n={2} />.
+- **Oliver Wyman International Mentorship Program (España):** de septiembre a diciembre de 2026,
+  con plazas en Madrid <Cite n={15} />.
+
+## Sigue por aquí
+
+- Cómo se organizan las firmas y cómo se sube de nivel:
+  [Cómo funciona](/industrias/consultoria/como-funciona).
+- Fases y fechas de los procesos: [Proceso de selección](/industrias/consultoria/proceso).
+- Practica: [caso práctico](/industrias/consultoria/caso-practico) de estimación de mercado.

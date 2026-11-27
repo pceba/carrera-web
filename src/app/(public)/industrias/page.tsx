@@ -1,77 +1,61 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Heading, INDUSTRIES, Kicker, Page, PILLARS, Tag, Text } from "@/components/ui";
+import { Heading, Page, Text } from "@/components/ui";
+import { INDUSTRIES, industryHref, PREP_GUIDES } from "../../../../content/catalog";
 import styles from "./industrias.module.css";
 
 export const metadata: Metadata = {
   title: "Industrias",
-  description: "El mapa de industrias: cuáles tienen guía ya y cuáles llegan pronto.",
+  description: "Las seis industrias de la guía, en una línea cada una, y cómo se relacionan.",
 };
 
-export default function IndustriesPage() {
-  const live = INDUSTRIES.filter((i) => i.status === "live");
-  const soon = INDUSTRIES.filter((i) => i.status === "soon");
+/** Industries that share preparation guides with `slug`, to explain how the map connects. */
+function sharedWith(slug: string): string[] {
+  const names = new Set<string>();
+  for (const g of PREP_GUIDES) {
+    if (!g.industries.some((s) => s === slug)) continue;
+    // Guides that apply to every industry say nothing about proximity: skip them.
+    if (g.industries.length === INDUSTRIES.length) continue;
+    for (const other of g.industries) {
+      if (other !== slug) names.add(INDUSTRIES.find((i) => i.slug === other)?.title ?? other);
+    }
+  }
+  return [...names];
+}
 
+export default function IndustriesPage() {
   return (
     <Page>
-      <header className={styles.hero}>
-        <Kicker>El mapa</Kicker>
+      <header className={styles.hubHead}>
         <Heading level="display">Industrias</Heading>
         <Text variant="lead">
-          Cada industria tiene su propia guía, diseñada a medida de cómo se entra en ese sector.
-          Empezamos por consultoría; el resto llega una a una.
+          Seis industrias, cada una con su guía. Las que tienen sello «En preparación» solo muestran
+          lo que ya podemos citar.
         </Text>
       </header>
 
-      <section aria-labelledby="disponibles" className={styles.section}>
-        <h2 id="disponibles" className={styles.label}>
-          Disponible ahora
+      <section aria-labelledby="mapa" className={styles.block}>
+        <h2 id="mapa" className={styles.blockTitle}>
+          El mapa
         </h2>
-        <ul className={styles.liveList}>
-          {live.map((i, idx) => (
-            <li key={i.slug} className={styles.live}>
-              <span className={styles.index} aria-hidden="true">
-                {String(idx + 1).padStart(2, "0")}
-              </span>
-              <div className={styles.liveBody}>
-                <Tag tone="success">Disponible</Tag>
-                <h3 className={styles.liveName}>
-                  <Link href={`/industrias/${i.slug}`}>{i.name}</Link>
-                </h3>
-                <p className={styles.blurb}>{i.blurb}</p>
-              </div>
-              <ol className={styles.pillars} aria-label={`Qué incluye la guía de ${i.name}`}>
-                {PILLARS.map((p) => (
-                  <li key={p.n}>
-                    <span aria-hidden="true">{p.n}</span> {p.title}
-                  </li>
-                ))}
-              </ol>
-              <span className={styles.go} aria-hidden="true">
-                Abrir la guía →
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section aria-labelledby="pronto" className={styles.section}>
-        <h2 id="pronto" className={styles.label}>
-          Próximamente
-        </h2>
-        <ul className={styles.soonList}>
-          {soon.map((i, idx) => (
-            <li key={i.slug} className={styles.soon}>
-              <span className={styles.index} aria-hidden="true">
-                {String(live.length + idx + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <h3 className={styles.soonName}>{i.name}</h3>
-                <p className={styles.blurb}>{i.blurb}</p>
-              </div>
-              <Tag tone="muted">Próximamente</Tag>
-            </li>
-          ))}
+        <ul className={styles.toc}>
+          {INDUSTRIES.map((i) => {
+            const near = sharedWith(i.slug);
+            return (
+              <li key={i.slug}>
+                <Link href={industryHref(i.slug)} className={styles.tocLink}>
+                  <span className={styles.tocTitle}>{i.title}</span>
+                  <span className={styles.tocText}>
+                    {i.line}
+                    {near.length ? ` Comparte preparación con ${near.join(", ")}.` : ""}
+                  </span>
+                  {i.status === "preparing" ? (
+                    <span className={styles.kind}>En preparación</span>
+                  ) : null}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </Page>

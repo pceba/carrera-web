@@ -26,12 +26,10 @@ export const metadata: Metadata = {
   description: SITE.description,
 };
 
+// Light is the default for everyone; dark is an opt-in toggle (see theme-script.ts).
 export const viewport: Viewport = {
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f9f6f0" },
-    { media: "(prefers-color-scheme: dark)", color: "#110f0d" },
-  ],
+  colorScheme: "light",
+  themeColor: "#eceef1",
 };
 
 // Shared root layout. Navigation/footer shell lives in (public)/layout.tsx and (account)/layout.tsx.

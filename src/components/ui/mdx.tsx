@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { MDXComponents } from "mdx/types";
 import { Accordion } from "./Accordion";
 import { Callout } from "./Callout";
@@ -29,6 +30,15 @@ export const uiMdxComponents: MDXComponents = {
       {p.children}
     </Heading>
   ),
+  // Internal links go through next/link (prefetch, client navigation); external ones stay <a>.
+  a: ({ href = "", children, ...rest }) =>
+    href.startsWith("/") ? (
+      <Link href={href}>{children}</Link>
+    ) : (
+      <a href={href} {...rest}>
+        {children}
+      </a>
+    ),
   Accordion,
   Button: ButtonLink,
   Callout,

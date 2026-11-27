@@ -4,7 +4,8 @@
 .cite a {
   display: inline-block;
   padding: 0 0.15em;
-  font: 500 0.75em / 1 var(--font-mono);
+  font: 500 0.75em / 1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
   color: var(--color-accent);
   text-decoration: none;
   position: relative;
@@ -23,26 +24,20 @@
 
 .sources {
   padding-block-start: var(--space-4);
-  border-block-start: 1px solid var(--color-text);
+  border-block-start: 1px solid var(--color-border);
 }
 .heading {
   margin: 0 0 var(--space-4);
-  font: 500 var(--text-xs) / 1 var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
+  font: 500 var(--text-sm) / 1 var(--font-sans);
   color: var(--color-text-muted);
 }
 .list {
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: src;
   font-size: var(--text-sm);
-  columns: 2 26rem;
-  column-gap: var(--space-10);
 }
 .list li {
-  counter-increment: src;
   display: grid;
   grid-template-columns: 2.25rem 1fr;
   padding-block: var(--space-2);
@@ -51,8 +46,9 @@
   border-radius: var(--radius-sm);
 }
 .list li::before {
-  content: counter(src);
-  font: 500 var(--text-xs) / 1.9 var(--font-mono);
+  content: attr(data-n);
+  font: 500 var(--text-xs) / 1.9 var(--font-sans);
+  font-variant-numeric: tabular-nums;
   color: var(--color-text-muted);
 }
 .list li:target {

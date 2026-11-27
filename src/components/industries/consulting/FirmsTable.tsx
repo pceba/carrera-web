@@ -77,7 +77,16 @@ export function FirmsTable({ firms }: { firms: Firm[] }) {
   return (
     <div className={styles.wrap}>
       <div className={styles.filters}>
-        <Chips name={`${uid}-type`} legend="Tipo" options={types} value={type} onChange={setType} />
+        {/* A pre-filtered list (e.g. strategy firms only) needs no type filter. */}
+        {types.length > 2 ? (
+          <Chips
+            name={`${uid}-type`}
+            legend="Tipo"
+            options={types}
+            value={type}
+            onChange={setType}
+          />
+        ) : null}
         <Chips
           name={`${uid}-city`}
           legend="Oficina confirmada en"
