@@ -1,51 +1,43 @@
 {
- "apiVersion": "2.3.05",
- "documentationUrl": "https://jobi.cy/apidocs",
- "friendlyNotice": "Thanks for using Jobicy API! Please ensure Jobicy is clearly credited with a direct link to the source, and all application buttons redirect to the original job URL provided in this feed. That’s all! You might be building something amazing, we wish you the best of luck!",
- "jobCount": 2,
- "lastUpdate": "2026-11-26T15:03:32+00:00",
- "nextCursor": "AwAAAABrCQjxAAAAAGsIQ6sAAAAAAAKCQE6hiQEfvIrP8UmV5-cS3AxGakBO7c4lP6QUKaVwitNKCZKfnE1vuoTe_NS27_IsYQf_f5ElI4S0tdpovHoawhQ",
- "hasMore": true,
- "appliedFilters": {
-  "count": 2,
-  "geo": "spain"
- },
- "jobs": [
-  {
-   "id": 164447,
-   "url": "https://jobicy.com/jobs/164447-personal-assistant",
-   "jobSlug": "164447-personal-assistant",
-   "jobTitle": "Personal Assistant",
-   "companyName": "Ruby Labs",
-   "companyLogo": "https://jobicy.com/data/server-nyc0409/galaxy/mercury/2025/06/0799a7b7-221-1.jpeg",
-   "jobIndustry": [
-    "Admin & Virtual Assistance"
-   ],
-   "jobType": [
-    "Contract"
-   ],
-   "jobGeo": "Europe",
-   "jobLevel": "Senior",
-   "pubDate": "2026-11-26T15:03:32+00:00"
+  "apiVersion": "2.3.05",
+  "documentationUrl": "https://jobi.cy/apidocs",
+  "friendlyNotice": "Thanks for using Jobicy API! Please ensure Jobicy is clearly credited with a direct link to the source, and all application buttons redirect to the original job URL provided in this feed. That’s all! You might be building something amazing, we wish you the best of luck!",
+  "jobCount": 2,
+  "lastUpdate": "2026-11-26T15:03:32+00:00",
+  "nextCursor": "AwAAAABrCQjxAAAAAGsIQ6sAAAAAAAKCQE6hiQEfvIrP8UmV5-cS3AxGakBO7c4lP6QUKaVwitNKCZKfnE1vuoTe_NS27_IsYQf_f5ElI4S0tdpovHoawhQ",
+  "hasMore": true,
+  "appliedFilters": {
+    "count": 2,
+    "geo": "spain"
   },
-  {
-   "id": 164416,
-   "url": "https://jobicy.com/jobs/164416-cobalt-core-pentester-2",
-   "jobSlug": "164416-cobalt-core-pentester-2",
-   "jobTitle": "Cobalt Core Pentester",
-   "companyName": "Cobalt",
-   "companyLogo": "https://jobicy.com/data/server-nyc0409/galaxy/mercury/2025/06/7a1fbbfd-221.jpg",
-   "jobIndustry": [
-    "Cybersecurity"
-   ],
-   "jobType": [
-    "Part-Time"
-   ],
-   "jobGeo": "APAC,  EMEA,  LATAM,  Canada",
-   "jobLevel": "Senior",
-   "pubDate": "2026-11-26T14:35:23+00:00"
-  }
- ],
- "statusCode": 200,
- "success": true
+  "jobs": [
+    {
+      "id": 164447,
+      "url": "https://jobicy.com/jobs/164447-personal-assistant",
+      "jobSlug": "164447-personal-assistant",
+      "jobTitle": "Personal Assistant",
+      "companyName": "Ruby Labs",
+      "companyLogo": "https://jobicy.com/data/server-nyc0409/galaxy/mercury/2025/06/0799a7b7-221-1.jpeg",
+      "jobIndustry": ["Admin & Virtual Assistance"],
+      "jobType": ["Contract"],
+      "jobGeo": "Europe",
+      "jobLevel": "Senior",
+      "pubDate": "2026-11-26T15:03:32+00:00"
+    },
+    {
+      "id": 164416,
+      "url": "https://jobicy.com/jobs/164416-cobalt-core-pentester-2",
+      "jobSlug": "164416-cobalt-core-pentester-2",
+      "jobTitle": "Cobalt Core Pentester",
+      "companyName": "Cobalt",
+      "companyLogo": "https://jobicy.com/data/server-nyc0409/galaxy/mercury/2025/06/7a1fbbfd-221.jpg",
+      "jobIndustry": ["Cybersecurity"],
+      "jobType": ["Part-Time"],
+      "jobGeo": "APAC,  EMEA,  LATAM,  Canada",
+      "jobLevel": "Senior",
+      "pubDate": "2026-11-26T14:35:23+00:00"
+    }
+  ],
+  "statusCode": 200,
+  "success": true
 }

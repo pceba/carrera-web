@@ -1,38 +1,34 @@
 [
- {
-  "categories": {
-   "commitment": "Permanent",
-   "department": "Sales",
-   "location": "Barcelona",
-   "team": "Business Development",
-   "allLocations": [
-    "Barcelona"
-   ]
+  {
+    "categories": {
+      "commitment": "Permanent",
+      "department": "Sales",
+      "location": "Barcelona",
+      "team": "Business Development",
+      "allLocations": ["Barcelona"]
+    },
+    "createdAt": 1782853243768,
+    "id": "c876fa31-7d59-481b-8427-067b4deae071",
+    "text": "Account Manager - Travel (W/M/X)",
+    "country": "ES",
+    "workplaceType": "hybrid",
+    "hostedUrl": "https://jobs.lever.co/veepee/c876fa31-7d59-481b-8427-067b4deae071",
+    "applyUrl": "https://jobs.lever.co/veepee/c876fa31-7d59-481b-8427-067b4deae071/apply"
   },
-  "createdAt": 1782853243768,
-  "id": "c876fa31-7d59-481b-8427-067b4deae071",
-  "text": "Account Manager - Travel (W/M/X)",
-  "country": "ES",
-  "workplaceType": "hybrid",
-  "hostedUrl": "https://jobs.lever.co/veepee/c876fa31-7d59-481b-8427-067b4deae071",
-  "applyUrl": "https://jobs.lever.co/veepee/c876fa31-7d59-481b-8427-067b4deae071/apply"
- },
- {
-  "categories": {
-   "commitment": "Permanent",
-   "department": "Sales",
-   "location": "Saint-Denis",
-   "team": "Business Development",
-   "allLocations": [
-    "Saint-Denis"
-   ]
-  },
-  "createdAt": 1774426282429,
-  "id": "545ea845-0e27-4dab-a878-341e707f1c48",
-  "text": "Account Manager Media (F/H/X) - CDI",
-  "country": "FR",
-  "workplaceType": "hybrid",
-  "hostedUrl": "https://jobs.lever.co/veepee/545ea845-0e27-4dab-a878-341e707f1c48",
-  "applyUrl": "https://jobs.lever.co/veepee/545ea845-0e27-4dab-a878-341e707f1c48/apply"
- }
+  {
+    "categories": {
+      "commitment": "Permanent",
+      "department": "Sales",
+      "location": "Saint-Denis",
+      "team": "Business Development",
+      "allLocations": ["Saint-Denis"]
+    },
+    "createdAt": 1774426282429,
+    "id": "545ea845-0e27-4dab-a878-341e707f1c48",
+    "text": "Account Manager Media (F/H/X) - CDI",
+    "country": "FR",
+    "workplaceType": "hybrid",
+    "hostedUrl": "https://jobs.lever.co/veepee/545ea845-0e27-4dab-a878-341e707f1c48",
+    "applyUrl": "https://jobs.lever.co/veepee/545ea845-0e27-4dab-a878-341e707f1c48/apply"
+  }
 ]
