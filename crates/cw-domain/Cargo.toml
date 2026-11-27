@@ -1,0 +1,17 @@
+[package]
+name = "cw-domain"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+chrono = { version = "0.4.45", default-features = false, features = ["serde", "clock"] }
+serde = { version = "1.0.229", features = ["derive"] }
+ts-rs = { version = "12.0.1", features = ["chrono-impl", "serde-compat"] }
+
+[dev-dependencies]
+serde_json = "1.0.154"

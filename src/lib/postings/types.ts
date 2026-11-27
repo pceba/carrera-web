@@ -1,21 +1,24 @@
-/** Shared constants and filter parsing for the public postings page. */
+/**
+ * Shared constants and filter parsing for the public postings page.
+ *
+ * `Industry`, `Level`, `Source` and the posting shape come from the Rust engine (`cw-domain`),
+ * generated into `src/lib/generated/` by `cargo test`. Do not redefine them here.
+ */
 
-export type Posting = {
+import type { Industry } from "@/lib/generated/Industry";
+import type { Level } from "@/lib/generated/Level";
+import type { Posting as PostingFields } from "@/lib/generated/Posting";
+import type { Source } from "@/lib/generated/Source";
+
+export type { Industry, Level, Source };
+
+/** A row of the `postings` table: what the pipeline writes plus what the database adds. */
+export type Posting = PostingFields & {
   id: string;
-  source: string;
-  source_url: string;
-  company: string;
-  title: string;
-  location: string | null;
-  city: string | null;
-  remote: boolean;
-  level: string;
-  industry: string;
-  posted_at: string | null;
   first_seen_at: string;
 };
 
-export const LEVELS: Record<string, string> = {
+export const LEVELS: Record<Level, string> = {
   intern: "Prácticas / becario",
   trainee: "Trainee",
   graduate: "Graduate",
@@ -23,7 +26,7 @@ export const LEVELS: Record<string, string> = {
   analyst: "Analista",
 };
 
-export const INDUSTRY_LABELS: Record<string, string> = {
+export const INDUSTRY_LABELS: Record<Industry, string> = {
   consulting: "Consultoría",
   banking: "Banca y finanzas",
   tech: "Tecnología",
@@ -46,15 +49,15 @@ export const CITIES: { value: string; label: string }[] = [
 ];
 
 /** Name and home page shown next to every card (each source's terms require it). */
-export const SOURCES: Record<string, { name: string; url: string }> = {
+export const SOURCES: Partial<Record<Source, { name: string; url: string }>> = {
   remotive: { name: "Remotive", url: "https://remotive.com" },
   jobicy: { name: "Jobicy", url: "https://jobicy.com" },
   adzuna: { name: "Adzuna", url: "https://www.adzuna.es" },
 };
 
 export type Filters = {
-  industry?: string;
-  level?: string;
+  industry?: Industry;
+  level?: Level;
   city?: string;
   remote?: boolean;
 };
@@ -65,14 +68,22 @@ function one(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;
 }
 
+function isIndustry(value: string | undefined): value is Industry {
+  return value !== undefined && Object.hasOwn(INDUSTRY_LABELS, value);
+}
+
+function isLevel(value: string | undefined): value is Level {
+  return value !== undefined && Object.hasOwn(LEVELS, value);
+}
+
 /** Keeps only known values, so nothing from the URL reaches the database query unchecked. */
 export function parseFilters(params: Params): Filters {
   const industry = one(params.industria);
   const level = one(params.nivel);
   const city = one(params.ciudad);
   return {
-    industry: industry && industry in INDUSTRY_LABELS ? industry : undefined,
-    level: level && level in LEVELS ? level : undefined,
+    industry: isIndustry(industry) ? industry : undefined,
+    level: isLevel(level) ? level : undefined,
     city: city && CITIES.some((c) => c.value === city) ? city : undefined,
     remote: one(params.remoto) === "1" ? true : undefined,
   };

@@ -1,0 +1,62 @@
+[
+ {
+  "in": "&lt;p&gt;Hola&lt;/p&gt;&lt;li&gt;uno&lt;/li&gt;",
+  "out": "Hola\nuno"
+ },
+ {
+  "in": "Becario/a de <strong>Finanzas</strong>",
+  "out": "Becario/a de Finanzas"
+ },
+ {
+  "in": "A &amp; B &nbsp; C",
+  "out": "A & B C"
+ },
+ {
+  "in": "<script>x()</script>Title<style>a{}</style>",
+  "out": "Title"
+ },
+ {
+  "in": "  spaced \t out  ",
+  "out": "spaced out"
+ },
+ {
+  "in": "<br>line1<br/>line2",
+  "out": "line1\nline2"
+ },
+ {
+  "in": "Caf&eacute; &#233;",
+  "out": "Café é"
+ },
+ {
+  "in": "<div>One</div><div>Two</div>",
+  "out": "One\nTwo"
+ },
+ {
+  "in": "Plain text",
+  "out": "Plain text"
+ },
+ {
+  "in": "",
+  "out": ""
+ },
+ {
+  "in": null,
+  "out": ""
+ },
+ {
+  "in": "5 < 6 and 7 > 3",
+  "out": "5 < 6 and 7 > 3"
+ },
+ {
+  "in": "<!-- c -->Visible",
+  "out": "Visible"
+ },
+ {
+  "in": "a b",
+  "out": "a b"
+ },
+ {
+  "in": "x<p>y</p>z",
+  "out": "x\ny\nz"
+ }
+]

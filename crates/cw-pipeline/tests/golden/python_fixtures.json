@@ -1,0 +1,289 @@
+{
+ "greenhouse": {
+  "raw": [
+   {
+    "source": "greenhouse",
+    "external_id": "7981557003",
+    "company": "Celonis",
+    "title": "Associate (AI) Solution Consultant (Nordics) - Orbit Program",
+    "url": "https://job-boards.greenhouse.io/celonis/jobs/7981557003?gh_jid=7981557003",
+    "location": "Madrid, Spain",
+    "department": null,
+    "employment_type": null,
+    "workplace_type": null,
+    "posted_at": "2026-08-31T10:31:09+00:00"
+   },
+   {
+    "source": "greenhouse",
+    "external_id": "8199108003",
+    "company": "Celonis",
+    "title": "Associate (AI) Solution Consultant - Orbit Program",
+    "url": "https://job-boards.greenhouse.io/celonis/jobs/8199108003?gh_jid=8199108003",
+    "location": "Madrid, Spain",
+    "department": null,
+    "employment_type": null,
+    "workplace_type": null,
+    "posted_at": "2026-11-09T16:18:34+00:00"
+   },
+   {
+    "source": "greenhouse",
+    "external_id": "8042632003",
+    "company": "Celonis",
+    "title": "Account Executive - Cross Industries",
+    "url": "https://job-boards.greenhouse.io/celonis/jobs/8042632003?gh_jid=8042632003",
+    "location": "Zürich, Switzerland",
+    "department": null,
+    "employment_type": null,
+    "workplace_type": null,
+    "posted_at": "2026-11-18T11:28:56+00:00"
+   }
+  ],
+  "kept": []
+ },
+ "lever": {
+  "raw": [
+   {
+    "source": "lever",
+    "external_id": "c876fa31-7d59-481b-8427-067b4deae071",
+    "company": "Veepee",
+    "title": "Account Manager - Travel (W/M/X)",
+    "url": "https://jobs.lever.co/veepee/c876fa31-7d59-481b-8427-067b4deae071",
+    "location": "Barcelona",
+    "department": "Business Development",
+    "employment_type": "Permanent",
+    "workplace_type": "hybrid",
+    "posted_at": "2026-06-30T21:00:43.768000+00:00"
+   },
+   {
+    "source": "lever",
+    "external_id": "545ea845-0e27-4dab-a878-341e707f1c48",
+    "company": "Veepee",
+    "title": "Account Manager Media (F/H/X) - CDI",
+    "url": "https://jobs.lever.co/veepee/545ea845-0e27-4dab-a878-341e707f1c48",
+    "location": "Saint-Denis",
+    "department": "Business Development",
+    "employment_type": "Permanent",
+    "workplace_type": "hybrid",
+    "posted_at": "2026-03-25T08:11:22.429000+00:00"
+   }
+  ],
+  "kept": []
+ },
+ "ashby": {
+  "raw": [
+   {
+    "source": "ashby",
+    "external_id": "8fb1615c-34bf-47c4-a1d1-b7b2f836bbd3",
+    "company": "OpenAI",
+    "title": "Technical Program Manager, Compute Infrastructure",
+    "url": "https://jobs.ashbyhq.com/openai/8fb1615c-34bf-47c4-a1d1-b7b2f836bbd3",
+    "location": "San Francisco",
+    "department": "Technical Program Management",
+    "employment_type": "FullTime",
+    "workplace_type": "remote",
+    "posted_at": "2026-11-05T02:20:02.702000+00:00"
+   },
+   {
+    "source": "ashby",
+    "external_id": "240d459b-696d-43eb-8497-fab3e56ecd9b",
+    "company": "OpenAI",
+    "title": "Research Engineer",
+    "url": "https://jobs.ashbyhq.com/openai/240d459b-696d-43eb-8497-fab3e56ecd9b",
+    "location": "San Francisco",
+    "department": "Research",
+    "employment_type": "FullTime",
+    "workplace_type": null,
+    "posted_at": "2025-04-05T00:03:20.653000+00:00"
+   }
+  ],
+  "kept": []
+ },
+ "workable": {
+  "raw": [
+   {
+    "source": "workable",
+    "external_id": "ABC123",
+    "company": "Example",
+    "title": "Junior Data Analyst",
+    "url": "https://apply.workable.com/example/j/ABC123/",
+    "location": "Madrid, Spain",
+    "department": "Data",
+    "employment_type": "Full-time",
+    "workplace_type": null,
+    "posted_at": "2026-11-20T00:00:00+00:00"
+   }
+  ],
+  "kept": [
+   {
+    "source": "workable",
+    "external_id": "ABC123",
+    "source_url": "https://apply.workable.com/example/j/ABC123/",
+    "company": "Example",
+    "title": "Junior Data Analyst",
+    "location": "Madrid, Spain",
+    "city": "Madrid",
+    "remote": false,
+    "level": "junior",
+    "industry": "tech",
+    "posted_at": "2026-11-20T00:00:00+00:00"
+   }
+  ]
+ },
+ "smartrecruiters": {
+  "raw": [
+   {
+    "source": "smartrecruiters",
+    "external_id": "744000163443318",
+    "company": "Bosch",
+    "title": "Estudiante en prácticas - Departamento de Marketing HC (Bosch Home Comfort)",
+    "url": "https://jobs.smartrecruiters.com/BoschGroup/744000163443318",
+    "location": "Madrid, MD, Spain",
+    "department": null,
+    "employment_type": "Full-time",
+    "workplace_type": null,
+    "posted_at": "2026-11-24T11:56:07.009000+00:00"
+   },
+   {
+    "source": "smartrecruiters",
+    "external_id": "744000163304279",
+    "company": "Bosch",
+    "title": "Estudiante en prácticas - Departamento de Compliance (H/M/D)",
+    "url": "https://jobs.smartrecruiters.com/BoschGroup/744000163304279",
+    "location": "Madrid, MD, Spain",
+    "department": null,
+    "employment_type": "Intern",
+    "workplace_type": null,
+    "posted_at": "2026-11-23T19:14:51.191000+00:00"
+   },
+   {
+    "source": "smartrecruiters",
+    "external_id": "744000163164621",
+    "company": "Bosch",
+    "title": "Vendedor/a de Canal Moderno para Bosch Home Confort (m/h/d)",
+    "url": "https://jobs.smartrecruiters.com/BoschGroup/744000163164621",
+    "location": "Madrid, MD, Spain",
+    "department": null,
+    "employment_type": "Full-time",
+    "workplace_type": "remote",
+    "posted_at": "2026-11-23T09:01:54.058000+00:00"
+   }
+  ],
+  "kept": [
+   {
+    "source": "smartrecruiters",
+    "external_id": "744000163443318",
+    "source_url": "https://jobs.smartrecruiters.com/BoschGroup/744000163443318",
+    "company": "Bosch",
+    "title": "Estudiante en prácticas - Departamento de Marketing HC (Bosch Home Comfort)",
+    "location": "Madrid, MD, Spain",
+    "city": "Madrid",
+    "remote": false,
+    "level": "intern",
+    "industry": "industrial",
+    "posted_at": "2026-11-24T11:56:07.009000+00:00"
+   },
+   {
+    "source": "smartrecruiters",
+    "external_id": "744000163304279",
+    "source_url": "https://jobs.smartrecruiters.com/BoschGroup/744000163304279",
+    "company": "Bosch",
+    "title": "Estudiante en prácticas - Departamento de Compliance (H/M/D)",
+    "location": "Madrid, MD, Spain",
+    "city": "Madrid",
+    "remote": false,
+    "level": "intern",
+    "industry": "industrial",
+    "posted_at": "2026-11-23T19:14:51.191000+00:00"
+   }
+  ]
+ },
+ "remotive": {
+  "raw": [
+   {
+    "source": "remotive",
+    "external_id": "2091179",
+    "company": "Steward Web Development",
+    "title": "WordPress Theme & Plugin Developer",
+    "url": "https://remotive.com/remote-jobs/software-development/wordpress-theme-plugin-developer-2091179",
+    "location": "Remote, Americas, LATAM, Canada, USA timezones",
+    "department": "Software Development",
+    "employment_type": "contract",
+    "workplace_type": "remote",
+    "posted_at": "2026-11-24T10:31:32+00:00"
+   },
+   {
+    "source": "remotive",
+    "external_id": "2091177",
+    "company": "TELUS Digital",
+    "title": "Content Reviewer - United States",
+    "url": "https://remotive.com/remote-jobs/all-others/content-reviewer-united-states-2091177",
+    "location": "Remote, USA",
+    "department": "All others",
+    "employment_type": "part time",
+    "workplace_type": "remote",
+    "posted_at": "2026-11-19T14:58:42+00:00"
+   }
+  ],
+  "kept": []
+ },
+ "jobicy": {
+  "raw": [
+   {
+    "source": "jobicy",
+    "external_id": "164447",
+    "company": "Ruby Labs",
+    "title": "Personal Assistant",
+    "url": "https://jobicy.com/jobs/164447-personal-assistant",
+    "location": "Remote, Europe",
+    "department": "Admin & Virtual Assistance",
+    "employment_type": "Contract",
+    "workplace_type": "remote",
+    "posted_at": "2026-11-26T15:03:32+00:00"
+   },
+   {
+    "source": "jobicy",
+    "external_id": "164416",
+    "company": "Cobalt",
+    "title": "Cobalt Core Pentester",
+    "url": "https://jobicy.com/jobs/164416-cobalt-core-pentester-2",
+    "location": "Remote, APAC, EMEA, LATAM, Canada",
+    "department": "Cybersecurity",
+    "employment_type": "Part-Time",
+    "workplace_type": "remote",
+    "posted_at": "2026-11-26T14:35:23+00:00"
+   }
+  ],
+  "kept": []
+ },
+ "adzuna": {
+  "raw": [
+   {
+    "source": "adzuna",
+    "external_id": "4711",
+    "company": "Ejemplo SA",
+    "title": "Becario/a de Finanzas",
+    "url": "https://www.adzuna.es/land/ad/4711",
+    "location": "Barcelona, Cataluña",
+    "department": "Finance Jobs",
+    "employment_type": "full_time",
+    "workplace_type": null,
+    "posted_at": "2026-11-25T09:00:00+00:00"
+   }
+  ],
+  "kept": [
+   {
+    "source": "adzuna",
+    "external_id": "4711",
+    "source_url": "https://www.adzuna.es/land/ad/4711",
+    "company": "Ejemplo SA",
+    "title": "Becario/a de Finanzas",
+    "location": "Barcelona, Cataluña",
+    "city": "Barcelona",
+    "remote": false,
+    "level": "intern",
+    "industry": "banking",
+    "posted_at": "2026-11-25T09:00:00+00:00"
+   }
+  ]
+ }
+}
