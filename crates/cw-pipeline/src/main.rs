@@ -22,7 +22,7 @@ use cw_sources::{AdzunaCredentials, HttpClient};
 #[command(
     name = "cw-pipeline",
     version,
-    about = "Junior postings collector for carrera-web"
+    about = "Junior postings collector for Path"
 )]
 struct Cli {
     #[command(subcommand)]

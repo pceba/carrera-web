@@ -1,4 +1,4 @@
-# AGENTS.md — carrera-web (codename)
+# AGENTS.md — Path (repo `path`, formerly `carrera-web`)
 
 Public, free, open-source website in **Spanish** for young people in Spain starting a career:
 a hand-crafted guide per industry, selection-process prep, postings, alerts, BYOK practice, mentors.

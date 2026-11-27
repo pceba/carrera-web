@@ -1,5 +1,5 @@
 # Minimal local config for `supabase start`. The hosted project is configured in the dashboard.
-project_id = "carrera-web"
+project_id = "path"
 
 [api]
 port = 54321

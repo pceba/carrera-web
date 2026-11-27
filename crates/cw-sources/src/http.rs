@@ -4,8 +4,7 @@ use serde_json::Value;
 
 use crate::error::FetchError;
 
-pub const USER_AGENT: &str =
-    "carrera-web-postings/0.1 (open-source career guide; github.com/pceba/carrera-web)";
+pub const USER_AGENT: &str = "path-postings/0.1 (open-source career guide; github.com/pceba/path)";
 
 /// reqwest is built without a bundled crypto provider (the default one needs cmake and NASM to
 /// compile on Windows), so `ring` is installed process-wide instead. Call it before building any

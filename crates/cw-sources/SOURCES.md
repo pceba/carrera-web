@@ -1,6 +1,6 @@
 # Sources and their terms
 
-Re-read on **2026-11-27** for public display on carrera-web (free, non-commercial, no sign-up needed to
+Re-read on **2026-11-27** for public display on Path (free, non-commercial, no sign-up needed to
 view listings). job-hunter only checked personal use, so each source was checked again. Rule for all of
 them: show the source name on every card and link to the **original** listing (`source_url`); never copy
 descriptions (the pipeline does not even fetch them). Re-check the terms before adding a new use

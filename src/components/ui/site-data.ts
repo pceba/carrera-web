@@ -20,7 +20,7 @@ export const ROUTES = {
 } as const;
 
 /** Public source code. Content is CC BY-SA 4.0, code MIT. */
-export const REPO_URL = "https://github.com/pceba/carrera-web";
+export const REPO_URL = "https://github.com/pceba/path";
 
 /** Main navigation: four items. `match` marks the link as current for every path under it. */
 export const NAV_LINKS = [

@@ -119,3 +119,8 @@ Consequences:
   or the token (column grants). Unsubscribe without login is `unsubscribe_alerts(token)`.
 - A run sends at most 90 emails; the rest wait a day because their `last_sent_at` does not move.
 - `last_sent_at` moves only after Resend accepted the email, so a failure repeats, never loses.
+
+## 009 — Renamed to Path (2026-11-27)
+
+The site, repo (`pceba/path`), package and Supabase project id are now `path`. The localStorage key
+`carrera-web.profile.v1` keeps its old name on purpose: renaming it would drop profiles users saved.

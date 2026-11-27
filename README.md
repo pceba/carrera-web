@@ -1,4 +1,4 @@
-# carrera-web (codename)
+# Path
 
 Open, free guide in Spanish for young people in Spain starting their career. Work in progress.
 

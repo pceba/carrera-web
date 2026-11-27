@@ -19,7 +19,7 @@ use cw_alerts::{demo, render, resend};
 #[command(
     name = "cw-alerts",
     version,
-    about = "Daily digest of new postings for carrera-web"
+    about = "Daily digest of new postings for Path"
 )]
 struct Cli {
     #[command(subcommand)]
@@ -109,7 +109,7 @@ async fn execute(cli: Cli) -> anyhow::Result<ExitCode> {
     if mailer.is_some() && site_url.is_none() {
         bail!("RESEND_API_KEY is set but SITE_URL is not (needed for the unsubscribe link)");
     }
-    let site_url = site_url.unwrap_or_else(|| "https://carrera-web.example".into());
+    let site_url = site_url.unwrap_or_else(|| "https://path.example".into());
     println!("mode={}", if mailer.is_some() { "send" } else { "dry-run" });
 
     if preview {
