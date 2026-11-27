@@ -12,3 +12,4 @@ tsconfig.json
 crates
 src/lib/generated
 config
+src/lib/wasm

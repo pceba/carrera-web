@@ -12,5 +12,6 @@ export default defineConfig([
     "coverage/**",
     "playwright-report/**",
     "next-env.d.ts",
+    "src/lib/wasm/**",
   ]),
 ]);
