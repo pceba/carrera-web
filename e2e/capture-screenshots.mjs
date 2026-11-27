@@ -1,5 +1,5 @@
 // Captures full-page screenshots of the key pages at 375 px and 1280 px, light and dark.
-// Usage: start the built app, then `node e2e/capture-screenshots.mjs <outDir> [baseURL]`.
+// Usage: start the built app, then `node e2e/capture-screenshots.mjs <outDir> [baseURL] [pages]`.
 // Not a test: Playwright's runner ignores it (no .spec suffix).
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
@@ -7,6 +7,8 @@ import { chromium } from "@playwright/test";
 
 const outDir = process.argv[2] ?? "docs/screenshots/after";
 const baseURL = process.argv[3] ?? "http://localhost:3000";
+/** Optional comma-separated page names to limit the run, e.g. "home,ofertas". */
+const only = process.argv[4]?.split(",");
 
 const PAGES = [
   ["home", "/"],
@@ -32,7 +34,7 @@ for (const [vpName, viewport] of VIEWPORTS) {
       reducedMotion: "reduce",
     });
     const page = await context.newPage();
-    for (const [name, path] of PAGES) {
+    for (const [name, path] of PAGES.filter(([n]) => !only || only.includes(n))) {
       await page.goto(baseURL + path, { waitUntil: "load" });
       await page.evaluate(() => document.fonts.ready);
       const file = join(outDir, `${name}-${vpName}-${theme}.jpg`);

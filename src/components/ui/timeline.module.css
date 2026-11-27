@@ -1,42 +1,72 @@
 .timeline {
   list-style: none;
   margin: 0;
-  padding: 0 0 0 var(--space-6);
-  border-left: 2px solid var(--color-text);
+  padding: 0;
   max-width: var(--measure);
+  counter-reset: step;
 }
 .step {
   position: relative;
-  padding-bottom: var(--space-8);
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  column-gap: var(--space-4);
+  padding-block-end: var(--space-8);
+  counter-increment: step;
 }
 .step:last-child {
-  padding-bottom: 0;
+  padding-block-end: 0;
 }
+/* Numbered node */
 .step::before {
+  content: counter(step, decimal-leading-zero);
+  grid-row: 1 / span 3;
+  display: grid;
+  place-items: center;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  font: 500 var(--text-xs) / 1 var(--font-mono);
+  color: var(--color-text);
+  position: relative;
+  z-index: 1;
+}
+.step:first-child::before {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+/* Connector */
+.step:not(:last-child)::after {
   content: "";
   position: absolute;
-  left: calc(-1 * var(--space-6) - 7px);
-  top: 0.25rem;
-  width: 12px;
-  height: 12px;
-  background: var(--color-bg);
-  border: 2px solid var(--color-accent);
-  border-radius: var(--radius-full);
+  inset-inline-start: calc(1.25rem - 0.5px);
+  inset-block: 2.5rem 0;
+  inline-size: 1px;
+  background: var(--color-border);
 }
 .label {
-  font: var(--text-xs) / 1 var(--font-mono);
+  grid-column: 2;
+  padding-block-start: 0.15rem;
+  font: 500 var(--text-xs) / 1.3 var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: var(--tracking-label);
   color: var(--color-text-muted);
 }
 .title {
-  margin: var(--space-1) 0 var(--space-2);
-  font: 700 var(--text-lg) / 1.2 var(--font-serif);
+  grid-column: 2;
+  margin: var(--space-1) 0 0;
+  font: 600 var(--text-lg) / 1.3 var(--font-sans);
+  letter-spacing: -0.01em;
 }
 .content {
+  grid-column: 2;
+  margin-block-start: var(--space-2);
   color: var(--color-text-muted);
-  font-size: var(--text-sm);
 }
 .content > :first-child {
-  margin-top: 0;
+  margin-block-start: 0;
+}
+.content > :last-child {
+  margin-block-end: 0;
 }
