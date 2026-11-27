@@ -30,13 +30,14 @@ At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_
 ## Next after these
 
 WS-F2: `/cuenta/alertas` UI + unsubscribe route. Rework `config/companies.yaml` for the six
-industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steria). Consulting
-content slice: split five sections over 4,000 px at 375 px (como-funciona, empresas, proceso,
-recursos, estrategia); fix stale `industrias/consultoria/` row in `docs/ownership.md`.
+industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steria). Fix stale
+`industrias/consultoria/` row in `docs/ownership.md`. (Long consulting sections: wave 2 #2.)
 
-## On hold
+## Wave 2 (planned)
 
-Industry research: wait for Pablo's Gemini Deep Research report, then plan wave 2.
+Gemini report saved (PDF in `docs/research/sources/`, digest `docs/research/gemini-deep-research.md`:
+a lead, not a citation; US/UK-first). Plan `docs/briefs/wave2_plan.md`: two ~1 h slices per
+industry, IB first, then consulting, Big Law, PE, data, AI; starts when WS-R2c/WS-F1 free a slot.
 
 ## Open threads
 

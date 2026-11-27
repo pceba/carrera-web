@@ -59,6 +59,9 @@ bespoke components from `src/components/industries/<slug>/`: one consistent fram
 
 **Wave 2 (after wave 1 merges):** one content session per industry turns its research dossier into
 the industry hub, sections, resources and one interactive piece; then a review pass.
+Status 2026-11-27: wave 1 merged (WS-IA, WS-R2a/b). Gemini Deep Research report received
+(`docs/research/gemini-deep-research.md`); detailed plan and brief template in
+`docs/briefs/wave2_plan.md` (two slices per industry, IB first).
 
 **Wave 3:** `cw-alerts` (daily digest), BYOK practice (case feedback, CV/letter), then connect
 Vercel, Supabase and secrets with Pablo.
