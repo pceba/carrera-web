@@ -51,12 +51,72 @@ export const sources: Source[] = [
     publisher: "Capgemini España",
     accessed: "2026-11-27",
   },
+  {
+    title: "Oficina de Madrid",
+    url: "https://www.bain.com/es-es/offices/madrid/",
+    publisher: "Bain & Company",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Oficinas de KPMG en España",
+    url: "https://www.kpmg.com/es/es/sobre-kpmg/oficinas.html",
+    publisher: "KPMG España",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Glow Up: programa de prácticas",
+    url: "https://www.deloitte.com/es/es/careers/programa-de-practicas-glow-up.html",
+    publisher: "Deloitte España",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "EY incorpora más de 550 nuevos profesionales en 15 oficinas de España (2023)",
+    url: "https://www.ey.com/es_es/newsroom/2023/10/ey-incorpora-mas-550-nuevos-profesionales-15-oficinas-espana",
+    publisher: "EY España",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Prácticas en Accenture",
+    url: "https://www.accenture.com/es-es/careers/life-at-accenture/internships-careers",
+    publisher: "Accenture España",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Oficina de Madrid",
+    url: "https://www.oliverwyman.com/our-expertise/global-locations/europe-middle-east-africa/spain/madrid.html",
+    publisher: "Oliver Wyman",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Oficina de Barcelona",
+    url: "https://www.oliverwyman.com/our-expertise/global-locations/europe-middle-east-africa/spain/barcelona.html",
+    publisher: "Oliver Wyman",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "International Mentorship Program: Spain",
+    url: "https://www.oliverwyman.com/careers/recruiting-events/international-mentorship-program/spain.html",
+    publisher: "Oliver Wyman",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Bases legales PwC Excellence (quinta edición, 2022)",
+    url: "https://www.pwc.es/es/excellence/bases-legales-pwc-excellence-quinta-edicion-2022.pdf",
+    publisher: "PwC España",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Business Analyst Intern, Tech & AI",
+    url: "https://www.mckinsey.com/careers/search-jobs/jobs/businessanalystintern-techai-110126",
+    publisher: "McKinsey & Company",
+    accessed: "2026-11-27",
+  },
 ];
 
-/** Open verification items (also listed in the WS-B report). Never publish these as fact. */
+/** Items that still need a source or Pablo's own knowledge. Never publish these as fact. */
 export const todoVerify = [
   "funcionamiento.mdx: pyramid, ladder and up-or-out are general knowledge; need cited sources.",
   "trabajo.mdx: the example week is illustrative; junior pay ranges need a dated source.",
-  "seleccion.mdx: recruiting calendar months, tests per firm, final-round format, books and case libraries.",
-  "firms.ts: Madrid/Barcelona offices for KPMG, Deloitte, EY, PwC, Accenture, Capgemini, Oliver Wyman, Bain Barcelona; McKinsey and PwC careers URLs.",
+  "firms.ts: Madrid/Barcelona offices not confirmed for Bain Barcelona, Deloitte, PwC Barcelona, Accenture, Capgemini.",
+  "firms.ts: McKinsey and PwC sites block scripts, so their URLs were not opened by a script.",
 ] as const;
