@@ -59,13 +59,15 @@ export function SourcesDisclosure({
   }, []);
 
   return (
-    <details ref={ref} className={styles.sources}>
-      <summary className={styles.summary}>
-        <h2 className={styles.heading}>
-          {title} ({count})
-        </h2>
-      </summary>
-      {children}
-    </details>
+    <section className={styles.sources} aria-label={title}>
+      <details ref={ref} className={styles.details}>
+        <summary className={styles.summary}>
+          <h2 className={styles.heading}>
+            {title} ({count})
+          </h2>
+        </summary>
+        {children}
+      </details>
+    </section>
   );
 }

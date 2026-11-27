@@ -48,7 +48,7 @@
   rotate: 45deg;
   transition: rotate var(--dur-fast) var(--ease-out);
 }
-.sources[open] > .summary::after {
+.details[open] > .summary::after {
   rotate: 225deg;
 }
 .heading {
@@ -67,7 +67,7 @@
   .summary::after {
     display: none;
   }
-  .sources::details-content {
+  .details::details-content {
     content-visibility: visible;
     display: block;
   }

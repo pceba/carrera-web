@@ -110,9 +110,14 @@ test("proceso lists the 2026 online tests with their sources", async ({ page }) 
     page.getByRole("heading", { level: 2, name: "Pruebas online y uso de IA" }),
   ).toBeVisible();
   await expect(page.getByText(/Sova o TestGorilla/)).toBeVisible();
-  await expect(
-    page.getByRole("region", { name: "Fuentes" }).getByRole("link", { name: /Digital assessment/ }),
-  ).toBeVisible();
+  const sources = page.getByRole("region", { name: "Fuentes" });
+  // On phones the list starts collapsed in a <details>; open it like a reader would.
+  const summary = sources.locator("summary");
+  if (await summary.isVisible()) {
+    const details = sources.locator("details");
+    if ((await details.getAttribute("open")) === null) await summary.click();
+  }
+  await expect(sources.getByRole("link", { name: /Digital assessment/ })).toBeVisible();
 });
 
 test("dated programs live on the strategy page", async ({ page }) => {
