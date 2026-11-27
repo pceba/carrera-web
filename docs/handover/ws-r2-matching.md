@@ -20,7 +20,14 @@ consulting 19 (Sopra Steria 18, Celonis 1) · ai 4 · data-science 3 · big-law 
 investment-banking 0**. By source: smartrecruiters 19, greenhouse 5, lever 2, ashby 1; remotive,
 jobicy, workable kept 0; Adzuna skipped (no keys). 7,000+ fetched, so the filter is very strict.
 
-## Left / next (WS-R2b)
+## WS-R2b (done)
+- big-law now means law firms: removed generic "legal analyst/intern/trainee/assistant" keywords; Cabify regression test.
+- `cw-cv`: TXT, DOCX (zip + quick-xml) and PDF (lopdf), 20 MB inflate cap; `detect_profile` drafts skills, languages, locations, education, up to 3 industries (needs 2 skills each); roles never inferred. Fictional CV in `tests/fixtures/`; DOCX/PDF test files are built in memory. Scanned PDFs yield an empty draft.
+- `cw-wasm`: `parse_cv(bytes, kind) -> JSON Profile`, `rank(profileJson, postingsJson) -> JSON Ranked[]`; errors are strings. Bundle in `src/lib/wasm/`: 1.94 MB raw, **835 KB gzipped**. Rebuild with `sh crates/cw-wasm/build.sh`; staleness is checked via `INPUTS.sha256` (hash of the Rust inputs, because the .wasm is not byte-reproducible across OSes). CI job `wasm` added to ci.yml. Release profile now opt-level s + LTO (affects cw-pipeline too).
+- Root config touched: eslint ignore and .prettierignore for `src/lib/wasm`.
+- Dependencies added with Pablo approval: zip, quick-xml, lopdf, wasm-bindgen, serde_json.
+
+## Left (WS-R2c)
 - `config/companies.yaml` rework: PE, IB and big-law have no boards at all; consulting is almost all
   Sopra Steria. Big firms use Workday (no public API); look for firms on Greenhouse/Lever/Ashby/
   SmartRecruiters, or accept thin postings and lean on the guides.
