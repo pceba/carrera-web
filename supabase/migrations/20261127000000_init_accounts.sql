@@ -67,17 +67,17 @@ security definer
 set search_path = ''
 as $$
 declare
-  by integer;
+  v_birth_year integer;
 begin
   begin
-    by := (new.raw_user_meta_data ->> 'birth_year')::integer;
+    v_birth_year := (new.raw_user_meta_data ->> 'birth_year')::integer;
   exception when others then
-    by := null;
+    v_birth_year := null;
   end;
-  if not public.is_old_enough(by) then
+  if not public.is_old_enough(v_birth_year) then
     raise exception 'age_gate: accounts require age 16 or over';
   end if;
-  insert into public.profiles (id, birth_year) values (new.id, by);
+  insert into public.profiles (id, birth_year) values (new.id, v_birth_year);
   return new;
 end;
 $$;
