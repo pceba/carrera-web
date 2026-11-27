@@ -1,6 +1,6 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a and WS-R2b)
+Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a, WS-R2b, WS-IA)
 
 ## Current step
 
@@ -16,19 +16,23 @@ At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_
   legal, fixed in WS-R2b).
 - WS-R2b merged: `cw-cv` (TXT/DOCX/PDF, pure Rust: zip, quick-xml, lopdf), `cw-wasm`
   (`parse_cv`, `rank`), bundle in `src/lib/wasm/` 835 KB gzipped, CI job `wasm` checks
-  `INPUTS.sha256` staleness. Rebuild: `sh crates/cw-wasm/build.sh`.
+  `INPUTS.sha256` staleness (green on Linux CI). Rebuild: `sh crates/cw-wasm/build.sh`.
+- WS-IA merged: calm silver-grey tokens, catalog-driven IA (home, map, hubs, sections, segment
+  `estrategia`, `/preparacion`, `/recursos`), nav components, e2e 57 pass. Lighthouse: a11y, BP,
+  SEO 100; perf 100 desktop, mobile 93-100 light (noisy on this machine). Screenshots
+  `docs/screenshots/v2/`. Handover `docs/handover/ws-ia-calm-structure.md`.
 
 ## In flight
 
-- WS-IA (branch `claude/nifty-solomon-fc84d8`): build green, home + map + hub/section CSS done.
-  Slice 2 (`/preparacion`, `/recursos`) done. Slice 3 running: e2e rewrite, Lighthouse,
-  screenshots v2, merge main in; merge into main only after that.
-- WS-R2c (not started): `/cuenta/encaje` + `/dev/encaje`, after WS-IA merges (it uses the new UI).
+- WS-R2c: `/cuenta/encaje` + `/dev/encaje` (brief `docs/briefs/ws_r2c_encaje.md`).
+- WS-F1: `cw-alerts` core in dry run, migration, alerts workflow (brief `ws_f1_alerts_core.md`).
 
 ## Next after these
 
-`cw-alerts` (Resend digest via GitHub Actions); rework `config/companies.yaml` for the six
-industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steria).
+WS-F2: `/cuenta/alertas` UI + unsubscribe route. Rework `config/companies.yaml` for the six
+industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steria). Consulting
+content slice: split five sections over 4,000 px at 375 px (como-funciona, empresas, proceso,
+recursos, estrategia); fix stale `industrias/consultoria/` row in `docs/ownership.md`.
 
 ## On hold
 
