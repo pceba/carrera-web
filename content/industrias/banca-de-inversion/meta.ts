@@ -66,4 +66,41 @@ export const sources: Source[] = [
     publisher: "IE Business School",
     accessed: "2026-11-27",
   },
+  {
+    title:
+      "BBVA busca recién graduadas para incorporar a su banca de inversión (Female Graduate Training Program)",
+    url: "https://www.bbva.com/es/sostenibilidad/bbva-busca-el-mejor-talento-femenino-recien-graduado-para-incorporar-a-su-banca-de-inversion/",
+    publisher: "BBVA",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Santander to make more than 400 job offers to young people in 10 countries",
+    url: "https://www.santander.com/en/press-room/press-releases/2026/04/santander-to-make-more-than-400-job-offers-to-young-people-in-10-countries",
+    publisher: "Banco Santander",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Graduates & early careers",
+    url: "https://www.santandercib.com/about-us/careers/graduates-young-talent",
+    publisher: "Santander Corporate & Investment Banking",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "IE Finance Clubs",
+    url: "https://ieconnects.ie.edu/iefinanceclubs/",
+    publisher: "IE University",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Investment Society: actividades",
+    url: "https://www.unav.edu/web/investment-society/actividades",
+    publisher: "Universidad de Navarra",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "CFA Society Spain",
+    url: "https://www.cfasociety.org/spain/home",
+    publisher: "CFA Society Spain",
+    accessed: "2026-11-27",
+  },
 ];
