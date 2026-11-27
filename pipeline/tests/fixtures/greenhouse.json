@@ -1,0 +1,54 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/celonis/jobs/7981557003?gh_jid=7981557003",
+   "education": "education_required",
+   "internal_job_id": 5833542003,
+   "location": {
+    "name": "Madrid, Spain"
+   },
+   "id": 7981557003,
+   "updated_at": "2026-11-18T13:05:52-05:00",
+   "requisition_id": "R15180",
+   "title": "Associate (AI) Solution Consultant (Nordics) - Orbit Program",
+   "company_name": "Celonis",
+   "first_published": "2026-08-31T06:31:09-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/celonis/jobs/8199108003?gh_jid=8199108003",
+   "education": "education_required",
+   "internal_job_id": 5882230003,
+   "location": {
+    "name": "Madrid, Spain"
+   },
+   "id": 8199108003,
+   "updated_at": "2026-11-18T13:05:52-05:00",
+   "requisition_id": "R15146",
+   "title": "Associate (AI) Solution Consultant - Orbit Program",
+   "company_name": "Celonis",
+   "first_published": "2026-11-09T11:18:34-05:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/celonis/jobs/8042632003?gh_jid=8042632003",
+   "internal_job_id": 5906915003,
+   "location": {
+    "name": "Zürich, Switzerland"
+   },
+   "id": 8042632003,
+   "updated_at": "2026-11-18T13:05:52-05:00",
+   "requisition_id": "R15632",
+   "title": "Account Executive - Cross Industries",
+   "company_name": "Celonis",
+   "first_published": "2026-11-18T06:28:56-05:00",
+   "language": "en",
+   "application_deadline": null
+  }
+ ],
+ "meta": {
+  "total": 258
+ }
+}
