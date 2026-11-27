@@ -18,8 +18,9 @@ Phase 2, wave 2 (content per industry). Orchestrator brief `docs/ORCHESTRATOR_PR
   personas (`reviewer: "pendiente"`). Pablo's scope decisions in its dossier §15.
 - Consultoría slices A+B: shorter pages, McKinsey Solve confirmed on its site (BCG Casey and AI
   case interviews still "según guías de preparación"), estrategia refresh, routes from any uni.
-- Big Law slice A: hub, como-funciona (Spain access path), empresas, el-trabajo. Heights 4.6–5.1k px
-  (11 sources); Examen de Estado details and Garrigues not verified (`docs/handover/w2-big-law.md`).
+- Big Law slices A+B: hub, como-funciona (Spain access path), empresas, el-trabajo, proceso,
+  sueldos, recursos, personas; pages ~4.1k px or less. Examen de Estado details and Garrigues not
+  verified (`docs/handover/w2-big-law.md`). IB pages all under 4,000 px.
 
 - Identity "Path" applied (WS-BRAND): Geist/Geist Mono, direction B tokens (AA ratios in
   `docs/handover/ws-brand.md`), single-step symbol, favicon, OG card, sources collapsed on phones.
@@ -27,12 +28,12 @@ Phase 2, wave 2 (content per industry). Orchestrator brief `docs/ORCHESTRATOR_PR
 
 ## Next task
 
-Big Law slice B (proceso, recursos, personas) and bring its pages under 4,000 px (como-funciona
-4464, el-trabajo 4178, empresas 4150); IB proceso (4932) and el-trabajo (4122) need a split too.
+Wave 2 #4 private equity slice A (hub, como-funciona, empresas, el-trabajo) from
+`docs/research/private-equity.md` (partial) + report pp. 23–26; brief from the plan's template.
 
 ## Then
 
-Big Law slice B; PE, data, AI; WS-F2 (`/cuenta/alertas` + `/alertas/baja`); `config/companies.yaml` for
+PE slice B; data science; AI; WS-F2 (`/cuenta/alertas` + `/alertas/baja`); `config/companies.yaml` for
 the six industries; human review of every page marked `pendiente` (check Michael Page table on
 PDF p. 5); stale `industrias/consultoria/` row in `docs/ownership.md`.
 
