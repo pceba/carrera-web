@@ -64,7 +64,7 @@ async fn execute(cli: Cli) -> anyhow::Result<ExitCode> {
         max_emails,
     } = cli.command;
     let now = Utc::now();
-    let site_url = secret("SITE_URL").unwrap_or_else(|| "https://carrera-web.example".into());
+    let site_url = secret("SITE_URL");
 
     let store = match (secret("SUPABASE_URL"), secret("SUPABASE_SERVICE_ROLE_KEY")) {
         (Some(url), Some(key)) => Some(Store::new(&url, &key)?),
