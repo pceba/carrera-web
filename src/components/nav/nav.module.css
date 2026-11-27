@@ -45,6 +45,15 @@
 .crumbs [aria-current="page"] {
   color: var(--color-text);
 }
+/* Phones: drop "Inicio" (the logo goes home) so the trail stays on one line, with no stray "/". */
+@media (max-width: 39.99rem) {
+  .crumbs li:first-child {
+    display: none;
+  }
+  .crumbs li:nth-child(2)::before {
+    display: none;
+  }
+}
 
 /* ------------------------------------------------------------ section nav */
 .sectionList {
