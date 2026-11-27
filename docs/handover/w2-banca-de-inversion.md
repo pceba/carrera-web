@@ -25,3 +25,18 @@ Dossier sections 8-12 hold the calendar, selection process and prep plan, but mo
 ## Unverified / not published
 
 London pay and right-to-work for Spanish students; years per level; exits; Spanish hours; JPM/Citi/BofA/MS Madrid listings (only Goldman's page was opened, and only its title); Houlihan Lokey size; Big Four intake and careers pages (only the generic IE page on entry routes); BBVA/CaixaBank CIB programmes (dossier R, not opened); Santander 2026-27 call dates (only the 2025 release was read).
+
+## Slice B (2026-11-27)
+
+Added `sueldos` (pay moved out of `el-trabajo`; `sueldos` added to `SECTION_SLUGS`), `proceso`, `recursos`, `personas`; `empresas` extended; 12 resources appended to `RESOURCES` (types web-oficial, newsletter, guia, curso, comunidad). Sources 10-15 appended to `meta.ts`.
+
+Heights at 375 px (total / body without sources+related footer): como-funciona 4241/~2.3k, empresas 4545/~2.2k, el-trabajo ~4.4k/~2.6k, sueldos 3099/~1.4k, proceso 5552/~3.4k, recursos 2559/~1.1k, personas 3203/~1.6k. Totals over 4k are mostly sources + site chrome.
+
+Gotchas and unverified:
+
+- The CaixaBank page the dossier cites is a 2020 press note about corporate services, not CIB: dropped. BBVA's page gives no year for the call (20 women, 1 year, starts October).
+- Santander: only the April 2026 release (SCIB calls open Aug-Sep) and the 2025 call (closed 30 Nov) were read; no 2026-27 closing date.
+- Selection stages and test content: no firm page publishes them; Prospect Rock (the dossier's source) blocks scripts. `proceso` only has a flagged "lo que cuentan candidatos" box. The "CFA/FMVA is not the way in" myth is left out (no citable source).
+- London calendar, right to work, Big Four intake dates and Esade/CNMV/Cinco Días links (blocked or 500 to scripts) are not published.
+- Books are listed as text without links (no verified URL).
+- A server from another session listens on :3000, so `playwright` reuses it; run e2e with `BASE_URL` pointing at your own `next start -p <port>`.
