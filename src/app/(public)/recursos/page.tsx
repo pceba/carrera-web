@@ -73,7 +73,12 @@ export default async function ResourcesPage({ searchParams }: { searchParams: Se
       </nav>
 
       <div className={styles.results}>
-        <ResourceList industry={industria ?? undefined} type={tipo ?? undefined} showIndustry />
+        <ResourceList
+          industry={industria ?? undefined}
+          type={tipo ?? undefined}
+          showIndustry
+          headingLevel="h2"
+        />
         {industria || tipo ? (
           <p>
             <Link href={ROUTES.resources} className={styles.clear}>

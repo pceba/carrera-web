@@ -17,13 +17,13 @@ test("/recursos shows everything, then filters by industry and type with plain l
   page,
 }) => {
   await page.goto("/recursos");
-  const all = await page.getByRole("main").getByRole("heading", { level: 3 }).count();
+  const all = await page.getByRole("main").getByRole("heading", { level: 2 }).count();
   expect(all).toBeGreaterThan(3);
 
   const filters = page.getByRole("navigation", { name: "Filtros" });
   await filters.getByRole("link", { name: "Webs oficiales" }).click();
   await expect(page).toHaveURL(/\?tipo=web-oficial$/);
-  const official = await page.getByRole("main").getByRole("heading", { level: 3 }).count();
+  const official = await page.getByRole("main").getByRole("heading", { level: 2 }).count();
   expect(official).toBeGreaterThan(0);
   expect(official).toBeLessThan(all);
 
@@ -38,7 +38,7 @@ test("/recursos shows everything, then filters by industry and type with plain l
 
 test("/recursos?industria=...&tipo=... works as a direct link", async ({ page }) => {
   await page.goto("/recursos?industria=consultoria&tipo=casos");
-  const items = page.getByRole("main").getByRole("heading", { level: 3 });
+  const items = page.getByRole("main").getByRole("heading", { level: 2 });
   await expect(items).toHaveCount(1);
   await expect(items.first()).toContainText("estimación de mercado");
 });
@@ -54,5 +54,5 @@ test("/recursos explains an empty result in Spanish and offers a way out", async
 
 test("/recursos ignores unknown filter values", async ({ page }) => {
   await page.goto("/recursos?industria=nada&tipo=nada");
-  await expect(page.getByRole("main").getByRole("heading", { level: 3 }).first()).toBeVisible();
+  await expect(page.getByRole("main").getByRole("heading", { level: 2 }).first()).toBeVisible();
 });

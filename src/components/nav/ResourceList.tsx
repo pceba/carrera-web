@@ -11,12 +11,16 @@ export function ResourceList({
   type,
   prep,
   showIndustry = false,
+  headingLevel = "h3",
 }: {
   industry?: string;
   type?: string;
   prep?: string;
   showIndustry?: boolean;
+  /** Heading level of each title: one below the heading that introduces the list. */
+  headingLevel?: "h2" | "h3";
 }) {
+  const Heading = headingLevel;
   const items = resourcesFor({ industry, type, prep });
   if (!items.length) {
     return <p className={styles.empty}>Todavía no hay recursos revisados con estos filtros.</p>;
@@ -35,7 +39,7 @@ export function ResourceList({
         return (
           <li key={r.id} className={styles.resource}>
             <p className={styles.resourceMeta}>{meta}</p>
-            <h3 className={styles.resourceTitle}>
+            <Heading className={styles.resourceTitle}>
               {internal ? (
                 <Link href={r.url}>{r.title}</Link>
               ) : (
@@ -44,7 +48,7 @@ export function ResourceList({
                   <span className={styles.sr}> (se abre en otra pestaña)</span>
                 </a>
               )}
-            </h3>
+            </Heading>
             <p className={styles.resourceNote}>{r.note}</p>
             <p className={styles.resourceChecked}>
               Revisado el <time dateTime={r.checked}>{formatDate(r.checked)}</time>
