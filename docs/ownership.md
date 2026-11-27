@@ -15,7 +15,7 @@ Each folder has exactly one owning stream. A session edits only its own folders.
 | `supabase/`                                                                                        | WS-C Auth + data                                | M1        |
 | `content/industrias/consultoria/`                                                                  | WS-B Consulting                                 | M1        |
 | `content/legal/`                                                                                   | WS-D Legal/GDPR                                 | M1        |
-| `pipeline/`                                                                                        | WS-E Postings pipeline                          | M2        |
+| `pipeline/`, `src/app/(public)/ofertas/`, `src/lib/postings/`                                      | WS-E Postings pipeline                          | M2        |
 | `emails/`                                                                                          | WS-F Alerts                                     | M2        |
 | `.github/workflows/`                                                                               | WS0 Foundation (ci.yml); WS-E owns postings.yml | M0        |
 | `src/styles/tokens.css`, `package.json`, repo root config, `src/app/layout.tsx`, `src/lib/site.ts` | WS0 Foundation (shared: tiny PR merged first)   | M0        |
