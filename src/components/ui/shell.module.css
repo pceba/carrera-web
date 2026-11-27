@@ -1,0 +1,112 @@
+.skip {
+  position: absolute;
+  left: var(--space-2);
+  top: -4rem;
+  z-index: 10;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-weight: 600;
+}
+.skip:focus {
+  top: var(--space-2);
+}
+
+.header {
+  border-bottom: 2px solid var(--color-text);
+  background: var(--color-bg);
+}
+.headerInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-3) var(--gutter);
+}
+.logo {
+  font: 700 var(--text-lg) / 1 var(--font-serif);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  text-decoration: none;
+}
+.nav {
+  order: 3;
+  width: 100%;
+}
+.navList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-underline-offset: 0.3em;
+}
+.navLink:hover {
+  color: var(--color-accent);
+}
+@media (min-width: 40rem) {
+  .nav {
+    order: 0;
+    width: auto;
+    flex: 1;
+  }
+}
+
+.footer {
+  margin-top: var(--space-16);
+  border-top: 2px solid var(--color-text);
+}
+.footerInner {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter) var(--space-12);
+}
+@media (min-width: 48rem) {
+  .footerInner {
+    grid-template-columns: 2fr 1fr 2fr;
+  }
+}
+.footerName {
+  margin: 0 0 var(--space-2);
+  font: 700 var(--text-lg) / 1 var(--font-serif);
+}
+.footerText {
+  margin: 0;
+  max-width: 44ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+.footerList {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footerList a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter) 0;
+}
