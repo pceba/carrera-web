@@ -264,6 +264,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "cw-match"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "cw-classify",
+ "cw-domain",
+ "cw-lexicon",
+ "serde",
+ "ts-rs",
+]
+
+[[package]]
 name = "cw-pipeline"
 version = "0.1.0"
 dependencies = [

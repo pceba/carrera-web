@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/cw-domain", "crates/cw-sources", "crates/cw-classify", "crates/cw-lexicon", "crates/cw-pipeline"]
+members = ["crates/cw-domain", "crates/cw-sources", "crates/cw-classify", "crates/cw-lexicon", "crates/cw-match", "crates/cw-pipeline"]
 
 [workspace.package]
 version = "0.1.0"
