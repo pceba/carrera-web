@@ -129,6 +129,18 @@ export const sources: Source[] = [
     publisher: "BCG",
     accessed: "2026-11-27",
   },
+  {
+    title: "Interviewing at McKinsey",
+    url: "https://www.mckinsey.com/careers/interviewing",
+    publisher: "McKinsey & Company",
+    accessed: "2026-11-27",
+  },
+  {
+    title: "Jobs in Spain",
+    url: "https://careers.bcg.com/global/en/locations/spain",
+    publisher: "BCG",
+    accessed: "2026-11-27",
+  },
 ];
 
 /** Items that still need a source or Pablo's own knowledge. Never publish these as fact. */
@@ -136,6 +148,6 @@ export const todoVerify = [
   "funcionamiento.mdx: pyramid, ladder and up-or-out are general knowledge; need cited sources.",
   "trabajo.mdx: the example week is illustrative; junior pay ranges need a dated source.",
   "firms.ts: Madrid/Barcelona offices not confirmed for Bain Barcelona, Deloitte, PwC Barcelona, Accenture, Capgemini.",
-  "proceso.mdx: McKinsey Solve, BCG Casey and AI-assisted case interviews are not confirmed by an official page we could open (McKinsey interviewing page timed out).",
+  "proceso.mdx: BCG Casey and AI-assisted case interviews are not confirmed by any official page (BCG pages checked name neither).",
   "firms.ts: McKinsey and PwC sites block scripts, so their URLs were not opened by a script.",
 ] as const;

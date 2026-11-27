@@ -1,10 +1,8 @@
 import { FirmsTable } from "@/components/industries/consulting/FirmsTable";
 import { firms } from "./firms";
 
-// Sources cited by the table rows, so the page lists them under "Fuentes".
 export const cites = firms.flatMap((f) => f.cite);
 
-Solo fuentes oficiales. «Sin confirmar» significa que todavía no tenemos una fuente fiable para ese
-dato.
+«Sin confirmar»: todavía no hay una fuente fiable para ese dato.
 
 <FirmsTable firms={firms} />

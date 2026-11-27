@@ -29,3 +29,25 @@
 - `RecruitingCalendar` is now unused in consulting (kept in `GuideVisuals`).
 - No new slug needed.
 - `format:check` flags 17 untouched files here (CRLF checkout); files I changed pass.
+
+## Slice B (strategy segment and routes in)
+
+- **Verified in the browser pane:** McKinsey interviewing page (Solve is a step in most consulting
+  roles; AI rules: prep encouraged, real-time answers and AI in assessments not allowed), BCG
+  interview-process, case-prep and Spain pages, Bain digital assessment (global and `/es-es/`, same
+  English content), Oliver Wyman Spain mentorship page (applications closed 6 Sep 2026).
+- **Still unconfirmed:** BCG Casey and AI-assisted case interviews. No official page names them;
+  `proceso` says so and `todoVerify` keeps it.
+- New sources 21 (McKinsey interviewing) and 22 (BCG Spain). `estrategia` now has "Otras firmas y
+  qué cambia" (names from the 2022 Consultancy.eu ranking; no official tiers); `personas` has
+  "Vías de entrada que no dependen de tu universidad" (BCG all-year internships, Bain internships,
+  OW mentorship, BCG Boot Camp).
+- Not written, no primary source: "Tier 2 / Big Four strategy → MBB later" and boutiques.
+- **Bug fixed:** the `// ...` comment before `export const cites` in `empresas`/`estrategia` stopped
+  the export from being read, so the firm sources were missing from "Fuentes". Removing it adds the
+  sources back (about +1,000 px on empresas), so the firm filters now sit in a collapsed
+  "Filtrar por tipo y oficina" block (e2e updated). Other industries with `cites` exports and a
+  comment above them may have the same bug.
+- Heights (total / body): como-funciona 3919 / 3146, empresas 3988 / 3215, proceso 4060 / 3287,
+  personas 3808 / 3035, estrategia 4184 / 3411. Proceso and estrategia are slightly over 4,000
+  because of the longer source lists.

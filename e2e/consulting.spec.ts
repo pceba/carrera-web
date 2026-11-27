@@ -76,6 +76,7 @@ test("segment page estrategia is reachable from the section nav", async ({ page,
 
 test("firm filter narrows the list", async ({ page }) => {
   await page.goto("/industrias/consultoria/empresas");
+  await page.getByText("Filtrar por tipo y oficina").click();
   await page.getByRole("radio", { name: "Big Four" }).check();
   await expect(page.getByText("4 empresas")).toBeVisible();
   await page.getByRole("radio", { name: "Barcelona" }).check();
