@@ -21,10 +21,14 @@ Phase 2, wave 2 (content per industry). Orchestrator brief `docs/ORCHESTRATOR_PR
 - Big Law slice A: hub, como-funciona (Spain access path), empresas, el-trabajo. Heights 4.6–5.1k px
   (11 sources); Examen de Estado details and Garrigues not verified (`docs/handover/w2-big-law.md`).
 
+- Identity "Path" applied (WS-BRAND): Geist/Geist Mono, direction B tokens (AA ratios in
+  `docs/handover/ws-brand.md`), single-step symbol, favicon, OG card, sources collapsed on phones.
+  Screenshots `docs/screenshots/v3/` (light only).
+
 ## Next task
 
-Apply the identity (direction B + chosen symbol): tokens, Geist fonts, wordmark, favicon, OG image,
-name in `src/lib/site.ts`; plus a compact sources footer on phones so pages fit ~4,000 px.
+Big Law slice B (proceso, recursos, personas) and bring its pages under 4,000 px (como-funciona
+4464, el-trabajo 4178, empresas 4150); IB proceso (4932) and el-trabajo (4122) need a split too.
 
 ## Then
 
@@ -36,8 +40,7 @@ PDF p. 5); stale `industrias/consultoria/` row in `docs/ownership.md`.
 
 Connect Vercel; Supabase EU + migrations + secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
 `RESEND_API_KEY`, `ALERTS_FROM`, `SITE_URL`); legal placeholders; name chosen: **Path** (domain and
-trademark check pending); visual direction B chosen (see `docs/naming.md`), symbol variant still to
-pick, then one session applies it; Jobicy terms;
+trademark check pending; identity in `docs/naming.md`); Jobicy terms;
 London right-to-work question (IB dossier Q1). 13 stale worktrees in `.claude/worktrees/`.
 
 ## Gotchas
