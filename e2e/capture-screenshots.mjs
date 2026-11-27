@@ -12,8 +12,11 @@ const only = process.argv[4]?.split(",");
 
 const PAGES = [
   ["home", "/"],
-  ["consultoria", "/industrias/consultoria"],
   ["industrias", "/industrias"],
+  ["consultoria", "/industrias/consultoria"],
+  ["seccion", "/industrias/consultoria/el-trabajo"],
+  ["preparacion", "/preparacion"],
+  ["recursos", "/recursos"],
   ["ofertas", "/ofertas"],
   ["entrar", "/entrar"],
 ];
@@ -21,7 +24,8 @@ const VIEWPORTS = [
   ["375", { width: 375, height: 812 }],
   ["1280", { width: 1280, height: 800 }],
 ];
-const THEMES = ["light", "dark"];
+/** Light by default; pass THEMES=light,dark to capture both. */
+const THEMES = (process.env.THEMES ?? "light").split(",");
 
 mkdirSync(outDir, { recursive: true });
 const browser = await chromium.launch();
@@ -39,7 +43,8 @@ for (const [vpName, viewport] of VIEWPORTS) {
       await page.evaluate(() => document.fonts.ready);
       const file = join(outDir, `${name}-${vpName}-${theme}.jpg`);
       await page.screenshot({ path: file, fullPage: true, type: "jpeg", quality: 70 });
-      console.log(file);
+      const height = await page.evaluate(() => document.documentElement.scrollHeight);
+      console.log(`${file} ${height}px`);
     }
     await context.close();
   }
