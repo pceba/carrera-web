@@ -4,6 +4,11 @@
   border-block-start: 1px solid var(--color-border);
 }
 
+/* A page that ends on a full-bleed inverse band sits flush on the footer. */
+:global(main:has(> .inverse:last-child)) + .footer {
+  margin-block-start: 0;
+}
+
 .inner {
   display: grid;
   gap: var(--space-10);

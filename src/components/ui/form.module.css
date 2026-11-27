@@ -43,8 +43,8 @@
   cursor: pointer;
 }
 .check input {
-  inline-size: 1.25rem;
-  block-size: 1.25rem;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
   margin: 0.1rem 0 0;
   accent-color: var(--color-accent);
   cursor: pointer;
