@@ -15,3 +15,5 @@ next-env.d.ts
 
 # Rust
 target/
+*.egg-info/
+__pycache__/
