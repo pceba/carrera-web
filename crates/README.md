@@ -10,6 +10,7 @@ The Cargo workspace behind the site's data (see `docs/architecture.md` and ADR-0
 | `cw-sources`  | One client per official API, with each source's terms (`SOURCES.md`).           |
 | `cw-classify` | Spain / junior / industry rules from `config/rules.yaml`. No network.           |
 | `cw-pipeline` | `cw-pipeline run [--dry-run] [--only a,b]`: collect, classify, upsert, expire.  |
+| `cw-alerts`   | `cw-alerts run [--dry-run] [--preview]`: daily digest by email through Resend.   |
 
 ```powershell
 cargo test --workspace                       # also regenerates src/lib/generated/

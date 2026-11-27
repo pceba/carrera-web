@@ -98,3 +98,24 @@ and place decisions equal the recorded Python output, so the source parsers keep
 industry is covered by the classifier's own tests. Do not regenerate the golden files to "fix" a
 parity failure on industry. ADR-003's "must reproduce it exactly" now applies to parsers, level and
 place only.
+
+## ADR-005: Alerts are one daily digest, sent by a GitHub Actions job through Resend (2026-11-27)
+
+Decision: `cw-alerts` builds at most one email per person per day with postings first seen since
+their last digest (`first_seen_at > last_sent_at`; first digest looks back 7 days), ranked by
+`cw-match`, top 10, only postings scoring 50 or more, never an empty email. It runs in
+`.github/workflows/alerts.yml` one hour after the postings job and sends through Resend's HTTP API
+only when `RESEND_API_KEY`, `ALERTS_FROM` and `SITE_URL` are present; otherwise it is a dry run.
+
+Why: per-posting emails burn Resend's free tier (100 a day, 3,000 a month) and train people to
+ignore us. A job in Actions keeps the cost at zero and keeps the service-role key out of Vercel.
+
+Consequences:
+
+- Addresses live in `auth.users`, which PostgREST does not expose, so the job calls the
+  `alert_recipients()` SQL function (service role only). The log holds counts only.
+- Consent is a `consents` row with `marketing_opt_in`; `alert_subscriptions.consent_id` points to
+  it and the insert policy checks it belongs to the same user. Users cannot edit `last_sent_at`
+  or the token (column grants). Unsubscribe without login is `unsubscribe_alerts(token)`.
+- A run sends at most 90 emails; the rest wait a day because their `last_sent_at` does not move.
+- `last_sent_at` moves only after Resend accepted the email, so a failure repeats, never loses.
