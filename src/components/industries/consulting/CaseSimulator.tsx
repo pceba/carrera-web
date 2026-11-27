@@ -49,7 +49,11 @@ function SingleChoice({
     <fieldset className={styles.fieldset}>
       <legend>{legend}</legend>
       {choices.map((c) => (
-        <label key={c.id} className={styles.option}>
+        <label
+          key={c.id}
+          className={styles.option}
+          data-verdict={value === c.id ? (c.good ? "good" : "bad") : undefined}
+        >
           <input
             type="radio"
             name={name}
@@ -59,10 +63,54 @@ function SingleChoice({
           <span>{c.label}</span>
         </label>
       ))}
-      <p role="status" className={styles.feedback}>
+      <p
+        role="status"
+        className={styles.feedback}
+        data-verdict={picked ? (picked.good ? "good" : "bad") : undefined}
+      >
         {picked ? picked.feedback : ""}
       </p>
     </fieldset>
+  );
+}
+
+/** The demand funnel of the model answer, drawn to scale (same fictional numbers as the exhibit). */
+function Funnel() {
+  const stages = [
+    { label: "Viajeros al día", value: PASSENGERS_PER_DAY, share: null },
+    {
+      label: "Compran alguna bebida",
+      value: PASSENGERS_PER_DAY * SHARE_BUY_DRINK,
+      share: SHARE_BUY_DRINK,
+    },
+    {
+      label: "Esa bebida es café",
+      value: PASSENGERS_PER_DAY * SHARE_BUY_DRINK * SHARE_COFFEE,
+      share: SHARE_COFFEE,
+    },
+    { label: "Eligen nuestro local", value: EXPECTED_COFFEES, share: SHARE_CAPTURE },
+  ];
+  return (
+    <ol className={styles.funnel} aria-label="Embudo de demanda">
+      {stages.map((st, i) => (
+        <li key={st.label} className={styles.funnelRow}>
+          <span className={styles.funnelLabel}>
+            {st.share !== null ? (
+              <span className={styles.funnelShare}>× {pct(st.share)}</span>
+            ) : null}
+            {st.label}
+          </span>
+          <span className={styles.funnelTrack} aria-hidden="true">
+            <span
+              className={styles.funnelBar}
+              data-last={i === stages.length - 1}
+              style={{ inlineSize: `${(st.value / PASSENGERS_PER_DAY) * 100}%` }}
+            />
+          </span>
+          <span className={styles.funnelValue}>{fmt(Math.round(st.value))}</span>
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -106,19 +154,26 @@ export function CaseSimulator() {
 
   return (
     <section className={styles.case} aria-label="Caso interactivo de estimación de mercado">
-      <ol className={styles.progress} aria-label="Progreso del caso">
-        {STEPS.map((s, i) => (
-          <li key={s} aria-current={i === step ? "step" : undefined} data-done={i < step}>
-            {s}
-          </li>
-        ))}
-      </ol>
+      <div className={styles.head}>
+        <p className={styles.stepLabel}>
+          <span className={styles.stepCount}>
+            Paso {step + 1} de {STEPS.length}
+          </span>
+          <span className={styles.stepName}>{STEPS[step]}</span>
+        </p>
+        <ol className={styles.progress} aria-label="Progreso del caso">
+          {STEPS.map((s, i) => (
+            <li key={s} aria-current={i === step ? "step" : undefined} data-done={i < step}>
+              <span className={styles.progressText}>{s}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
 
       <div className={styles.body}>
         {step === 0 && (
           <>
-            <h3 className={styles.h}>Enunciado</h3>
-            <p>{PROMPT}</p>
+            <p className={styles.prompt}>{PROMPT}</p>
             <Callout tone="info" title="Cómo funciona">
               Sin IA, sin cuenta y sin enviar nada: todo ocurre en tu navegador. Cada paso te da
               pistas inmediatas.
@@ -130,7 +185,11 @@ export function CaseSimulator() {
           <fieldset className={styles.fieldset}>
             <legend>Marca las preguntas que harías al entrevistador (algunas no sirven)</legend>
             {CLARIFYING.map((c) => (
-              <label key={c.id} className={styles.option}>
+              <label
+                key={c.id}
+                className={styles.option}
+                data-verdict={questions.includes(c.id) ? (c.good ? "good" : "bad") : undefined}
+              >
                 <input
                   type="checkbox"
                   checked={questions.includes(c.id)}
@@ -163,7 +222,9 @@ export function CaseSimulator() {
 
         {step === 3 && (
           <table className={styles.table}>
-            <caption>Exhibit 1: datos de la estación (ficticios)</caption>
+            <caption>
+              <span className={styles.exhibitN}>Exhibit 1</span> Datos de la estación (ficticios)
+            </caption>
             <thead>
               <tr>
                 <th scope="col">Dato</th>
@@ -212,7 +273,19 @@ export function CaseSimulator() {
                 Comprobar
               </button>
             </div>
-            <p role="status" className={styles.feedback}>
+            <p
+              role="status"
+              className={styles.feedback}
+              data-verdict={
+                result
+                  ? passed
+                    ? "good"
+                    : result.status === "invalid"
+                      ? undefined
+                      : "bad"
+                  : undefined
+              }
+            >
               {result?.status === "invalid" && "Escribe solo un número, por ejemplo 1080."}
               {result?.status === "correct" && "Correcto."}
               {result?.status === "close" &&
@@ -236,6 +309,7 @@ export function CaseSimulator() {
         {step === 6 && (
           <>
             <h3 className={styles.h}>Respuesta modelo</h3>
+            <Funnel />
             <p>
               {fmt(PASSENGERS_PER_DAY)} × {pct(SHARE_BUY_DRINK)} × {pct(SHARE_COFFEE)} ×{" "}
               {pct(SHARE_CAPTURE)} = <strong>{fmt(EXPECTED_COFFEES)} cafés al día</strong>.
@@ -268,7 +342,7 @@ export function CaseSimulator() {
         )}
       </div>
 
-      <div className={styles.row}>
+      <div className={styles.nav}>
         {step > 0 && (
           <button type="button" className={styles.btnGhost} onClick={() => setStep(step - 1)}>
             Atrás

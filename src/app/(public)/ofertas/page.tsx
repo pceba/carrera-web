@@ -119,7 +119,9 @@ export default async function OffersPage({ searchParams }: { searchParams: Searc
     <Page>
       <header className={styles.hero}>
         <Kicker>Ofertas</Kicker>
-        <Heading level="display">Ofertas junior en España</Heading>
+        <Heading level="display">
+          Ofertas junior <em>en España</em>
+        </Heading>
         <Text variant="lead">
           Prácticas, trainee y puestos junior de webs de empleo oficiales de empresas y de portales
           que permiten mostrar sus anuncios. Se actualizan cada día; cada tarjeta enlaza al anuncio
@@ -146,7 +148,9 @@ export default async function OffersPage({ searchParams }: { searchParams: Searc
           <span>Solo remoto</span>
         </label>
         <div className={styles.actions}>
-          <Button type="submit">Filtrar</Button>
+          <Button type="submit" variant="accent">
+            Filtrar
+          </Button>
           {filtered ? (
             <a className={styles.reset} href="/ofertas">
               Quitar filtros

@@ -1,0 +1,34 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.mark {
+  flex: none;
+  width: 0.95em;
+  height: 0.95em;
+}
+
+.step {
+  fill: var(--color-text);
+}
+
+.top {
+  fill: var(--color-accent);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  /* Optical alignment: the serif's x-height sits low against the square mark. */
+  translate: 0 0.04em;
+}
+
+.lg {
+  font-size: 2.25rem;
+}

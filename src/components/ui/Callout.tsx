@@ -13,7 +13,7 @@ export function Callout({
   children: ReactNode;
 }) {
   return (
-    <aside className={`${styles.callout} ${tone === "info" ? "" : styles[tone]}`}>
+    <aside className={`${styles.callout} ${styles[tone]}`}>
       <p className={styles.title}>{title ?? LABELS[tone]}</p>
       <div className={styles.body}>{children}</div>
     </aside>

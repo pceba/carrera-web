@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import styles from "./button.module.css";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "accent" | "secondary" | "ghost" | "danger";
 
 const cls = (v: Variant) => `${styles.button} ${styles[v]}`;
 
@@ -18,15 +18,23 @@ export function Button({
 export function ButtonLink({
   href,
   variant = "primary",
+  arrow = false,
   children,
 }: {
   href: string;
   variant?: Variant;
+  /** Adds a trailing arrow: use for the one forward action in a view. */
+  arrow?: boolean;
   children: ReactNode;
 }) {
   return (
     <Link href={href} className={cls(variant)}>
       {children}
+      {arrow ? (
+        <span className={styles.arrow} aria-hidden="true">
+          →
+        </span>
+      ) : null}
     </Link>
   );
 }

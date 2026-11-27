@@ -4,15 +4,51 @@ export const ROUTES = {
   home: "/",
   industries: "/industrias",
   consulting: "/industrias/consultoria",
-  /** Owned by WS-C; link only. Update here if WS-C picks a different path. */
-  signUp: "/registro",
+  offers: "/ofertas",
+  /** Owned by WS-C: magic-link sign-in, which also creates the account on first use. */
+  signIn: "/entrar",
+  account: "/cuenta",
   privacy: "/legal/privacidad",
   terms: "/legal/terminos",
+  cookies: "/legal/cookies",
+  legalNotice: "/legal/aviso-legal",
 } as const;
 
+/** Public source code. Content is CC BY-SA 4.0, code MIT. */
+export const REPO_URL = "https://github.com/pceba/carrera-web";
+
+/** Main navigation. `match` marks the link as current for every path under it. */
 export const NAV_LINKS = [
-  { href: ROUTES.industries, label: "Industrias" },
-  { href: "/#pilares", label: "Qué encontrarás" },
+  { href: ROUTES.industries, label: "Industrias", match: "/industrias" },
+  { href: ROUTES.consulting, label: "Consultoría", match: "/industrias/consultoria" },
+  { href: ROUTES.offers, label: "Ofertas", match: "/ofertas" },
+] as const;
+
+export const FOOTER_GROUPS = [
+  {
+    title: "La guía",
+    links: [
+      { href: ROUTES.industries, label: "Mapa de industrias" },
+      { href: ROUTES.consulting, label: "Consultoría" },
+      { href: ROUTES.offers, label: "Ofertas junior" },
+    ],
+  },
+  {
+    title: "Tu cuenta",
+    links: [
+      { href: ROUTES.signIn, label: "Entrar o crear cuenta" },
+      { href: ROUTES.account, label: "Mi cuenta" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { href: ROUTES.privacy, label: "Privacidad" },
+      { href: ROUTES.terms, label: "Términos de uso" },
+      { href: ROUTES.cookies, label: "Cookies" },
+      { href: ROUTES.legalNotice, label: "Aviso legal" },
+    ],
+  },
 ] as const;
 
 export const PILLARS = [

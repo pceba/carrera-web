@@ -11,7 +11,7 @@ export function Shell({ children }: { children: ReactNode }) {
         Saltar al contenido
       </a>
       <Header />
-      <main id="contenido" tabIndex={-1}>
+      <main id="contenido" tabIndex={-1} className={styles.main}>
         {children}
       </main>
       <Footer />
@@ -20,6 +20,6 @@ export function Shell({ children }: { children: ReactNode }) {
 }
 
 /** Centered max-width column used by pages for consistent gutters. */
-export function Page({ children }: { children: ReactNode }) {
-  return <div className={styles.page}>{children}</div>;
+export function Page({ children, narrow = false }: { children: ReactNode; narrow?: boolean }) {
+  return <div className={`${styles.page} ${narrow ? styles.narrow : ""}`}>{children}</div>;
 }

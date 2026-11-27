@@ -36,13 +36,49 @@ Solo describimos lo que hemos podido confirmar. Cada firma tiene su proceso: mir
 No hay un calendario único: cada firma publica sus plazos y cambian cada año. Estos son los que hemos
 podido confirmar:
 
-- BCG Women's Boot Camp Spain, octava edición: plazo de candidatura hasta el 26 de abril de 2026
-  <Cite n={2} />.
-- Oliver Wyman International Mentorship Program (España): de septiembre a diciembre de 2026, con
-  plazas en Madrid <Cite n={15} />.
-- Prácticas de Deloitte (Glow Up) y de EY: se anuncian por convocatorias en sus webs de carreras
-  <Cite n={10} />
-  <Cite n={11} />.
+<RecruitingCalendar
+  year={2026}
+  events={[
+    {
+      id: "bcg-boot-camp",
+      title: "BCG Women's Boot Camp Spain, octava edición",
+      from: 4,
+      to: 4,
+      kind: "plazo",
+      detail: (
+        <p>
+          Plazo de candidatura hasta el 26 de abril de 2026
+          <Cite n={2} />.
+        </p>
+      ),
+    },
+    {
+      id: "ow-mentorship",
+      title: "Oliver Wyman International Mentorship Program (España)",
+      from: 9,
+      to: 12,
+      kind: "programa",
+      detail: (
+        <p>
+          De septiembre a diciembre de 2026, con plazas en Madrid <Cite n={15} />.
+        </p>
+      ),
+    },
+  ]}
+  undated={[
+    {
+      id: "big-four-practicas",
+      title: "Prácticas de Deloitte (Glow Up) y de EY",
+      detail: (
+        <p>
+          Se anuncian por convocatorias en sus webs de carreras
+          <Cite n={10} />
+          <Cite n={11} />.
+        </p>
+      ),
+    },
+  ]}
+/>
 
 <Callout tone="warning" title="Revisa siempre la web oficial">
   Todavía no tenemos un calendario completo de prácticas frente a jornada completa. No te fíes de

@@ -1,0 +1,160 @@
+/* ---------- Hero ---------- */
+.hero {
+  display: grid;
+  gap: var(--space-8);
+  padding-block: clamp(1.5rem, 0.5rem + 4vw, 4.5rem) var(--space-10);
+}
+.heroText {
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+}
+.lead {
+  margin: 0;
+  max-width: 44ch;
+  font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  line-height: 1.5;
+}
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+}
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-self: end;
+  margin: 0;
+  border-block-start: 1px solid var(--color-text);
+}
+.facts > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-3) var(--space-4) 0;
+}
+.facts > div + div:not(.factWide) {
+  padding-inline-start: var(--space-3);
+  border-inline-start: 1px solid var(--color-border);
+}
+.facts dt {
+  font: 500 var(--text-xs) / 1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+.facts dd {
+  margin: 0;
+  font: 400 clamp(2.25rem, 1.75rem + 2vw, 3.25rem) / 1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+.facts .factDate {
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  line-height: 1.1;
+}
+.factWide {
+  grid-column: 1 / -1;
+  border-block-start: 1px solid var(--color-border);
+}
+@media (min-width: 60rem) {
+  .hero {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(2.5rem, 5vw, 6rem);
+    align-items: end;
+  }
+}
+
+/* ---------- Layout: rail + content ---------- */
+.layout {
+  display: grid;
+  border-block-start: 1px solid var(--color-border);
+}
+.content {
+  min-width: 0;
+}
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: 12.5rem minmax(0, 1fr);
+    column-gap: clamp(2.5rem, 4vw, 5rem);
+    align-items: start;
+    padding-block-start: var(--space-10);
+    border-block-start: 0;
+  }
+  .content {
+    max-width: 52rem;
+  }
+}
+
+/* ---------- Sections ---------- */
+.section {
+  display: grid;
+  gap: var(--space-6);
+  padding-block-start: var(--space-section);
+  scroll-margin-block-start: var(--space-4);
+}
+.layout .section:first-child {
+  padding-block-start: var(--space-10);
+}
+@media (min-width: 64rem) {
+  .layout .section:first-child {
+    padding-block-start: 0;
+  }
+}
+.sectionHead {
+  display: grid;
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--color-text);
+}
+.sectionN {
+  margin: 0;
+  font: 400 var(--text-xl) / 1 var(--font-display);
+  color: var(--color-accent);
+}
+.sectionIntro {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--color-text-muted);
+}
+.h4 {
+  margin: 0;
+  font: 500 var(--text-xs) / 1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-muted);
+}
+
+/* ---------- The case: the climax, an inverse panel ---------- */
+.case {
+  gap: var(--space-8);
+  margin-block-start: var(--space-section);
+  margin-inline: calc(-1 * var(--gutter));
+  padding: var(--space-10) var(--gutter);
+}
+.case.section {
+  padding-block-start: var(--space-10);
+}
+.caseHead {
+  display: grid;
+  gap: var(--space-3);
+}
+.caseKicker {
+  justify-self: start;
+  margin: 0;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font: 500 var(--text-xs) / 1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+}
+@media (min-width: 40rem) {
+  .case {
+    margin-inline: 0;
+    padding: clamp(2rem, 1rem + 3vw, 3.5rem);
+    border-radius: var(--radius-lg);
+  }
+}

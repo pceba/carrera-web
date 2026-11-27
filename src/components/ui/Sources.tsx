@@ -25,8 +25,14 @@ export function SourceList({ sources, title = "Fuentes" }: { sources: Source[]; 
             <a href={s.url} rel="noopener noreferrer" target="_blank">
               {s.title}
             </a>
-            {s.publisher ? <span className={styles.meta}> · {s.publisher}</span> : null}
-            {s.accessed ? <span className={styles.meta}> · consultado {s.accessed}</span> : null}
+            {s.publisher || s.accessed ? (
+              <span className={styles.meta}>
+                {" "}
+                {[s.publisher, s.accessed ? `consultado ${formatDate(s.accessed)}` : null]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </span>
+            ) : null}
           </li>
         ))}
       </ol>

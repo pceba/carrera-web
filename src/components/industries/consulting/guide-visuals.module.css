@@ -1,0 +1,274 @@
+/* ---------- Career ladder ---------- */
+.ladder {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rung {
+  /* Each rung steps further in: the stair reads bottom-up on phones. */
+  padding-inline-start: calc(var(--i) * 1.25rem);
+}
+.rungCard {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-block-start: 3px solid var(--color-text);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+.rung:first-child .rungCard {
+  border-block-start-color: var(--color-accent);
+}
+.rungLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin: 0;
+  font: 500 var(--text-xs) / 1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-muted);
+}
+.entry {
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  letter-spacing: 0.06em;
+}
+.rungTitle {
+  margin: 0;
+  font: 400 var(--text-xl) / 1.15 var(--font-display);
+}
+.rungText {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.rungText > * {
+  margin: 0;
+}
+
+@media (min-width: 40rem) {
+  .ladder {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: var(--space-3);
+    padding-block-start: var(--space-4);
+    border-block-end: 1px solid var(--color-text);
+  }
+  .rung {
+    padding-inline-start: 0;
+  }
+  .rungCard {
+    /* Taller with each level: the ladder as a staircase. */
+    min-block-size: calc(9rem + var(--i) * 5rem);
+    align-content: start;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    border-block-end: 0;
+  }
+}
+
+/* ---------- Example week ---------- */
+.week {
+  display: grid;
+  gap: var(--space-2);
+}
+.weekDays {
+  display: none;
+}
+.weekList {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.day {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: var(--space-1) var(--space-4);
+  padding-block: var(--space-3);
+  border-block-start: 1px solid var(--color-border);
+}
+.dayLabel {
+  grid-row: 1 / span 2;
+  margin: 0;
+  font: 500 var(--text-xs) / 1.6 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+.dayTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin: 0;
+  font: 600 var(--text-base) / 1.3 var(--font-sans);
+}
+.dayN {
+  font: 500 var(--text-xs) / 1 var(--font-mono);
+  color: var(--color-accent);
+}
+.dayText {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.dayText > * {
+  margin: 0;
+}
+
+@media (min-width: 48rem) {
+  .weekDays,
+  .weekList {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .weekDays {
+    display: grid;
+    font: 500 var(--text-xs) / 1 var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--color-text-muted);
+  }
+  .weekDays span {
+    padding-block-end: var(--space-2);
+    border-block-end: 1px solid var(--color-text);
+  }
+  .day {
+    grid-column: var(--day-col);
+    grid-template-columns: 1fr;
+    align-content: start;
+    padding: var(--space-4);
+    min-block-size: 11rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  .dayLabel {
+    grid-row: auto;
+  }
+}
+
+/* ---------- Recruiting calendar ---------- */
+.calendar {
+  margin: 0;
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.calCaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  margin-block-end: var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.calYear {
+  font: 400 var(--text-2xl) / 1 var(--font-display);
+  color: var(--color-text);
+}
+.calGrid {
+  --cols: repeat(12, minmax(0, 1fr));
+}
+.calMonths {
+  display: grid;
+  grid-template-columns: var(--cols);
+  padding-block-end: var(--space-2);
+  border-block-end: 1px solid var(--color-text);
+}
+.calMonths span {
+  padding-inline-start: 3px;
+  font: 500 0.6875rem / 1 var(--font-mono);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.calEvents {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.calEvent {
+  display: grid;
+  grid-template-columns: var(--cols);
+  row-gap: var(--space-3);
+  padding-block: var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+}
+/* Month gridlines behind the bar row only. */
+.calEvent::before {
+  content: "";
+  grid-row: 1;
+  grid-column: 1 / -1;
+  margin-block: calc(-1 * var(--space-4)) calc(-1 * var(--space-1));
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-border) 0 1px,
+    transparent 1px calc(100% / 12)
+  );
+}
+.calBar {
+  grid-row: 1;
+  position: relative;
+  block-size: 0.875rem;
+  margin-inline: 2px;
+  border-radius: var(--radius-full);
+  background: var(--color-text);
+}
+/* A deadline is a single marker at the end of its month. */
+.calDeadline {
+  justify-self: end;
+  /* The 26th sits near the end of the month, not on the boundary. */
+  margin-inline-end: 12%;
+  inline-size: 0.875rem;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-accent-soft);
+}
+.calText {
+  grid-row: 2;
+  grid-column: 1 / -1;
+}
+.calWhen {
+  margin: 0 0 var(--space-1);
+  font: 500 var(--text-xs) / 1.3 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+.calTitle {
+  margin: 0;
+  font: 600 var(--text-base) / 1.3 var(--font-sans);
+}
+.calDetail {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.calDetail > * {
+  margin: 0;
+}
+.calUndated {
+  margin-block-start: var(--space-5);
+  padding: var(--space-4);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.calUndated .calWhen {
+  color: var(--color-text-muted);
+}
+.calUndated ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
