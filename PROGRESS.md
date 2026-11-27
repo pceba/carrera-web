@@ -1,37 +1,45 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R and WS-UI)
+Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator; merged WS-R2a)
 
 ## Current step
 
-M1 + Rust core phase 1 on `main`. Architecture: ADR-001 in `docs/architecture.md` (Rust engine,
-Next.js face). Nothing connected yet (Vercel, Supabase, secrets).
+Phase 2 (plan in `docs/roadmap.md`, six industries). Orchestrator brief: `docs/ORCHESTRATOR_PROMPT.md`.
+At most 2 sessions at a time, slices of about 1 hour (briefs in `docs/briefs/ws_*2*`, `ws_ia3_*`).
 
 ## Done
 
-- Rust workspace `crates/` (`cw-domain`, `cw-sources`, `cw-classify`, `cw-pipeline`); Python
-  pipeline removed after a parity test. `ts-rs` types in `src/lib/generated/`. ADR-002 (PostgREST),
-  ADR-003 in `docs/decisions.md`. Dry run: 102 postings, 42 verified boards; Bosch still 55 of them.
-- UI redesign: paper/ink + terracotta tokens, Instrument Serif + Schibsted Grotesk, wordmark, theme
-  switch, mobile menu, richer home, bespoke consulting page (rail, ladder, calendar, case panel),
-  styled offers and account pages. Screenshots in `docs/screenshots/before|after/`.
+- M1 + Rust core phase 1 (ADR-001). Editorial UI v1.
+- WS-R2a merged: six-industry taxonomy (ADR-004, parity now covers parsers/level/place only),
+  `cw-lexicon`, `cw-match` (score 0-100 + Spanish reasons, builds for wasm32). Dry run keeps 27
+  postings: consulting 19, ai 4, data-science 3, big-law 1 (false positive), PE 0, IB 0.
 
-## Next task
+## In flight
 
-Phase 2 of the Rust core: `cw-match` + `cw-wasm` (CV parsing and matching in the browser), then
-`cw-alerts`. In parallel: run Lighthouse and fix what it finds.
+- WS-IA (branch `claude/nifty-solomon-fc84d8`): build green, home + map + hub/section CSS done.
+  Now slice 2: `/preparacion`, `/recursos`, visual check. Then slice 3: e2e rewrite, Lighthouse,
+  screenshots v2; merge only after that.
+- WS-R2 (branch `claude/sleepy-wilson-35377a`): slice b = big-law rule fix, `cw-cv`, `cw-wasm` +
+  CI staleness job. Then slice c: `/cuenta/encaje` + `/dev/encaje` (after WS-IA merges, it uses UI).
+
+## Next after these
+
+`cw-alerts` (Resend digest via GitHub Actions); rework `config/companies.yaml` for the six
+industries (PE, IB, Big Law have no ATS boards; consulting is mostly Sopra Steria).
+
+## On hold
+
+Industry research: wait for Pablo's Gemini Deep Research report, then plan wave 2.
 
 ## Open threads
 
-- Pablo: connect Vercel; create Supabase EU, apply migrations, add secrets; fill legal placeholders;
-  choose the name; read Jobicy's terms; Adzuna keys optional.
-- Consulting is thin on ATS boards (big firms use Workday, no public API).
-- Lighthouse not run yet (`npx lighthouse` blocked in-session). Proxy: LCP 1.1-1.3 s, CLS 0.
+- Pablo: connect Vercel; Supabase EU + migrations + secrets; legal placeholders; site name;
+  Jobicy terms; Adzuna keys optional. 13 stale worktrees in `.claude/worktrees/` (ask before removing).
 
 ## Gotchas
 
-- Windows: no MSVC. Build Rust with `cargo +stable-x86_64-pc-windows-gnu` and WinLibs
-  `mingw64/bin` on PATH.
+- Windows: no MSVC. `cargo +stable-x86_64-pc-windows-gnu` with WinLibs `mingw64/bin` on PATH.
 - `cargo test` regenerates `src/lib/generated/`; commit the result or CI fails.
-- Worktrees need `npm ci` before web checks. Run `npx prettier --write` before committing.
-- `npm run start` from a background shell can leave an orphan `next start`; kill by port.
+- Worktrees need `npm ci`. Run `npx prettier --write` on docs too (handovers broke format:check).
+- Stale `.next/` can break `tsc` after route moves: `rm -rf .next`.
+- Postings have no description: matching uses titles only; present ranking as a sort, not a verdict.
