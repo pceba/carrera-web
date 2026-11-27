@@ -438,6 +438,10 @@ Definitions are standard textbook meanings (not market claims).
 
 ## 15. Open questions for Pablo and unverified items
 
+**Pablo's answers (2026-11-27):** Big Four deal advisory goes inside the IB guide (Q3); sales &
+trading gets one paragraph only (Q4); pay ranges from named recruiter studies may be shown with
+source and year, never per firm (Q2); do not name "feeder" universities (Q5). Q1 stays open.
+
 **Open questions**
 
 1. **Right to work in London for Spanish students.** The gov.uk page I read says the Skilled Worker route needs a licensed sponsor and a salary threshold, and a Graduate visa exists only after a UK degree [10|V]. That page quotes a threshold of "normally £26,500", which I believe was raised in 2025 and was not re-checked [10|U]. Do firms sponsor Spanish applicants for spring weeks, summers and graduate analysts? Not verified. Ask a UK immigration source or a firm FAQ before the page tells students it is feasible.
