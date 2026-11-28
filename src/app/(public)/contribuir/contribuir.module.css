@@ -1,0 +1,17 @@
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block: var(--space-6);
+}
+
+.section {
+  margin-block: var(--space-10);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-4);
+  margin-block-start: var(--space-4);
+}

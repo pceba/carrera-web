@@ -1,0 +1,40 @@
+name: Proponer una fuente
+description: Sugiere un enlace o estudio que deberíamos citar en una guía.
+title: "Fuente: "
+labels: ["fuente"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Aceptamos webs oficiales, normativa y estudios con nombre y fecha. Pasamos por los
+        términos de uso: no copiamos contenido protegido, lo citamos y enlazamos.
+  - type: input
+    id: url
+    attributes:
+      label: Enlace
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Página donde encajaría
+      description: Por ejemplo /industrias/consultoria/sueldos
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: Qué aporta
+      description: Qué dato respalda, de qué año es y si cubre España.
+    validations:
+      required: true
+  - type: dropdown
+    id: access
+    attributes:
+      label: Acceso
+      options:
+        - Gratuito y público
+        - Requiere registro gratuito
+        - De pago
+    validations:
+      required: true
