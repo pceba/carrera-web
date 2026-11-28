@@ -4,6 +4,10 @@ Branch `claude/p8-encaje` (from local `main`), not pushed.
 
 ## Done
 
+- **Shared file touched:** `next.config.mjs` got a 308 `redirects()` for `/cuenta/encaje`. The
+  auth middleware sends signed-out visitors of `/cuenta/*` to sign-in before the page runs, so a
+  page-level redirect alone never fires. The page still redirects as a fallback.
+
 - `/encaje` is public (`src/app/(public)/encaje/page.tsx`): same CV-in-browser flow, profile in
   `localStorage` (`carrera-web.profile.v1`, unchanged), ranked postings. Works without Supabase.
 - `/cuenta/encaje` now `permanentRedirect("/encaje")`.
@@ -21,8 +25,6 @@ Branch `claude/p8-encaje` (from local `main`), not pushed.
 - **"Guardar en tu cuenta" is not built.** There is no table for the Encaje profile (only
   `profiles.birth_year`) and the brief forbids new migrations here. It needs a migration plus a
   server action; the signed-in note says "llegará pronto".
-- The redirect answers 307, not 308: a page-level `permanentRedirect` does not give a real 308.
-  For a true permanent redirect add `redirects()` in `next.config` (shared file, not touched).
 - `src/app/dev/encaje/page.tsx` still mentions `/cuenta/encaje` in a comment (not my folder).
 - On prod without postings the results list is empty; the add-to-tracker test uses `/dev/encaje`
   (sample postings), which only exists under `next dev`.
