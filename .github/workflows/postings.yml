@@ -38,7 +38,7 @@ jobs:
             echo "present=true" >> "$GITHUB_OUTPUT"
           else
             echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set: skipping the database write."
+            echo "::warning::SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY not set: skipping the database write."
           fi
       - name: Collect and sync
         if: steps.secrets.outputs.present == 'true' && inputs.dry_run != true
@@ -52,3 +52,10 @@ jobs:
           name: postings-dry-run
           path: out/
           retention-days: 7
+      # A daily run that could not write to the database must not look green: that is how
+      # /ofertas stayed empty unnoticed. Manual dry runs stay green.
+      - name: Fail loudly when a scheduled run had no secrets
+        if: github.event_name == 'schedule' && steps.secrets.outputs.present != 'true'
+        run: |
+          echo "::error::Scheduled run had no SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY: nothing was written and /ofertas stays empty. Add the repository secrets (Settings > Secrets and variables > Actions)."
+          exit 1

@@ -1,5 +1,5 @@
 # Curated employers whose public ATS board lists Spain roles. Each slug was checked against the
-# ATS's public endpoint on 2026-11-27 (HTTP 200 with data and at least one Spain location; the
+# ATS's public endpoint on 2026-11-28 (probe of ~400 candidate slugs; see crates/cw-sources/SOURCES.md) (HTTP 200 with data and at least one Spain location; the
 # pipeline keeps only junior roles in Spain or remote-in-Spain, so many boards yield few rows).
 # Add a company: name, ats (greenhouse | lever | ashby | workable | smartrecruiters), slug.
 # Aim for a mix: do not let one employer's internship programme dominate the page.
@@ -8,6 +8,7 @@ companies:
   - { name: Sopra Steria, ats: smartrecruiters, slug: SopraSteria1 }
   - { name: ALTEN, ats: smartrecruiters, slug: Alten }
   - { name: Celonis, ats: greenhouse, slug: celonis }
+  - { name: Quantexa, ats: ashby, slug: quantexa }
 
   # --- Banking, fintech, insurance data -----------------------------------------------------------
   - { name: N26, ats: greenhouse, slug: n26 }
@@ -17,6 +18,12 @@ companies:
   - { name: SumUp, ats: greenhouse, slug: sumup }
   - { name: Affirm, ats: greenhouse, slug: affirm }
   - { name: Monzo, ats: greenhouse, slug: monzo }
+  - { name: Adyen, ats: greenhouse, slug: adyen }
+  - { name: Finom, ats: greenhouse, slug: finom }
+  - { name: Raisin, ats: greenhouse, slug: raisin }
+  - { name: Pennylane, ats: ashby, slug: pennylane }
+  - { name: Mollie, ats: ashby, slug: mollie }
+  - { name: Alan, ats: ashby, slug: alan }
   - { name: Qonto, ats: ashby, slug: qonto }
   - { name: Pleo, ats: ashby, slug: pleo }
   - { name: Kantox, ats: workable, slug: kantox }
@@ -41,6 +48,9 @@ companies:
   - { name: Jobandtalent, ats: lever, slug: jobandtalent }
   - { name: OpenAI, ats: ashby, slug: openai }
   - { name: ElevenLabs, ats: ashby, slug: elevenlabs }
+  - { name: Anthropic, ats: greenhouse, slug: anthropic }
+  - { name: Legora, ats: ashby, slug: legora }
+  - { name: Harvey, ats: ashby, slug: harvey }
   - { name: n8n, ats: ashby, slug: n8n }
   - { name: Back Market, ats: ashby, slug: backmarket }
   - { name: Docplanner, ats: ashby, slug: docplanner }
@@ -51,3 +61,8 @@ companies:
   - { name: Bosch, ats: smartrecruiters, slug: BoschGroup }
   - { name: Continental, ats: smartrecruiters, slug: Continental }
   - { name: Accor, ats: smartrecruiters, slug: Accor }
+
+# Not covered, on purpose: investment banks, private equity and big law firms in Spain publish
+# through Workday, SuccessFactors or their own sites, with no public job-board API. Probing
+# ~100 PE/IB/law/Big 4 slugs on all five ATSs found no live board. We do not force it: those
+# industries show few or no rows in /ofertas until a firm adopts one of these ATSs.
