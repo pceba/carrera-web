@@ -4,10 +4,12 @@ Last updated: 2026-11-28 (Claude Opus 5.5, orchestrator)
 
 ## Current step
 
-Product phase (content paused; brief `docs/ORCHESTRATOR_PROMPT.md`). Pablo confirmed roadmap
-order 1-6. P1 tracker `/candidaturas` running in session `p1-tracker` (brief `docs/briefs/p1_tracker.md`).
+Product phase (content paused; brief `docs/ORCHESTRATOR_PROMPT.md`), roadmap order confirmed 1-6.
+On main (2026-11-28, all checks + 105 e2e green): P1 tracker `/candidaturas` (migration applied
+to prod), P4 quiz `/diagnostico`, P3 redesign (header dropdowns, Ctrl/⌘K palette, dialogs,
+toasts, new home, `/industrias`, CSS motion; screenshots `docs/screenshots/v4/`).
 Deployed: https://path-ten-theta.vercel.app (noindex unless `NEXT_PUBLIC_INDEXABLE=true`).
-2026-11-28: CI wasm stamp fixed (green); smoke test OK (all public routes 200); `/ofertas` empty.
+Handovers: `docs/handover/p1-tracker.md`, `p3-redesign.md`, `p4-fit-quiz.md`.
 
 ## Done (on main, CI green)
 
@@ -30,12 +32,12 @@ Deployed: https://path-ten-theta.vercel.app (noindex unless `NEXT_PUBLIC_INDEXAB
 
 ## Next task
 
-Merge P1 (`p1/tracker`), `npx supabase db push` its migration, then P2 recruiting calendar +
-alerts UI (WS-F2). Magic link: Pablo gets no email (see open threads).
+P2 recruiting calendar + alerts UI (WS-F2): brief in `docs/briefs/` first. Then P5 BYOK
+practice, P6 real postings (`/ofertas` is empty in prod). Magic link still sends no email.
 
 ## Then
 
-P3 richer interface; P4 fit quiz; P5 BYOK practice; P6 real postings. Content later: PE, data
+Industry comparison on `/industrias`; real firm logos only from official press kits. Content later: PE, data
 science, AI; WS-F2 (`/cuenta/alertas` + `/alertas/baja`); `config/companies.yaml` for
 the six industries; human review of every page marked `pendiente` (check Michael Page table on
 PDF p. 5); stale `industrias/consultoria/` row in `docs/ownership.md`.
