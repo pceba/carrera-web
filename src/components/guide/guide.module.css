@@ -49,7 +49,7 @@
 }
 @media (min-width: 48rem) {
   .hero {
-    grid-template-columns: minmax(0, 1fr) 16rem;
+    grid-template-columns: minmax(0, 1fr) 13rem;
     align-items: center;
     padding: var(--space-8) var(--space-8) var(--space-8) var(--space-10);
   }
