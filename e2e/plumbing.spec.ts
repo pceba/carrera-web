@@ -1,7 +1,5 @@
 import { expect, test } from "@playwright/test";
 
-test.skip(({ browserName }, testInfo) => testInfo.project.name !== "desktop", "same on both");
-
 test("robots disallows everything unless indexable", async ({ request }) => {
   const body = await (await request.get("/robots.txt")).text();
   if (process.env.NEXT_PUBLIC_INDEXABLE === "true") {
