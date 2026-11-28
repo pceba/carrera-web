@@ -6,27 +6,34 @@ import { createClient } from "@/lib/supabase/server";
 import { isOldEnough, parseBirthYear } from "@/lib/supabase/age";
 
 /**
- * Magic-link sign-in / sign-up. A birth year means "create account": it is checked here (friendly
- * message) and again in the DB trigger (the real gate). Without it we only sign in existing users.
- * The answer never reveals whether an email already has an account.
+ * Magic-link sign-in / sign-up, two explicit modes. "crear" needs a birth year and the 16+ box: they
+ * are checked here (friendly message) and again in the DB trigger (the real gate). "entrar" only
+ * signs in existing users. The answer never reveals whether an email already has an account.
  */
 export async function requestMagicLink(formData: FormData) {
+  const creating = formData.get("mode") === "crear";
   const email = String(formData.get("email") ?? "")
     .trim()
     .toLowerCase();
-  const birthYear = parseBirthYear(formData.get("birth_year"));
-  const creating = String(formData.get("birth_year") ?? "").trim() !== "";
   const next = String(formData.get("next") ?? "/cuenta");
   const safeNext = next.startsWith("/cuenta") ? next : "/cuenta";
+  const back = (error: string) => {
+    const q = new URLSearchParams();
+    if (creating) q.set("modo", "crear");
+    q.set("error", error);
+    if (safeNext !== "/cuenta") q.set("next", safeNext);
+    return `/entrar?${q.toString()}`;
+  };
 
-  if (!/^\S+@\S+\.\S+$/.test(email)) redirect("/entrar?error=email");
+  if (!/^\S+@\S+\.\S+$/.test(email)) redirect(back("email"));
+  const birthYear = creating ? parseBirthYear(formData.get("birth_year")) : null;
   if (creating) {
-    if (birthYear === null) redirect("/entrar?error=anio");
-    if (!isOldEnough(birthYear) || formData.get("age_ok") !== "on") redirect("/entrar?error=edad");
+    if (birthYear === null) redirect(back("anio"));
+    if (!isOldEnough(birthYear) || formData.get("age_ok") !== "on") redirect(back("edad"));
   }
 
   const supabase = await createClient();
-  if (!supabase) redirect("/entrar?error=config");
+  if (!supabase) redirect(back("config"));
 
   const h = await headers();
   const origin = h.get("origin") ?? `https://${h.get("host")}`;
@@ -43,8 +50,8 @@ export async function requestMagicLink(formData: FormData) {
     // answers "sent" for client errors such as "signups not allowed", so it never reveals
     // whether an email already has an account.
     console.error("magic link failed", { status: error.status, code: error.code });
-    if (error.status === 429) redirect("/entrar?error=limite");
-    if (error.status && error.status >= 500) redirect("/entrar?error=servicio");
+    if (error.status === 429) redirect(back("limite"));
+    if (error.status && error.status >= 500) redirect(back("servicio"));
   }
-  redirect("/entrar?enviado=1");
+  redirect(creating ? "/entrar?modo=crear&enviado=1" : "/entrar?enviado=1");
 }

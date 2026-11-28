@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   Button,
   Checkbox,
@@ -11,6 +12,8 @@ import {
   Page,
   Panel,
 } from "@/components/ui";
+import { AuthTabs } from "@/components/account/AuthTabs";
+import ui from "@/components/account/account-ui.module.css";
 import { requestMagicLink } from "./actions";
 import styles from "../account.module.css";
 
@@ -28,16 +31,18 @@ const ERRORS: Record<string, string> = {
 export default async function EntrarPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; enviado?: string; next?: string }>;
+  searchParams: Promise<{ error?: string; enviado?: string; next?: string; modo?: string }>;
 }) {
-  const { error, enviado, next } = await searchParams;
+  const { error, enviado, next, modo } = await searchParams;
+  const mode = modo === "crear" ? "crear" : "entrar";
+  const creating = mode === "crear";
 
   return (
     <Page>
       <div className={styles.split}>
         <header className={styles.intro}>
           <Kicker>Tu cuenta</Kicker>
-          <Heading level="display">Entrar</Heading>
+          <Heading level="display">{creating ? "Crear cuenta" : "Entrar"}</Heading>
           <p className={styles.lead}>
             Toda la guía es pública. La cuenta solo sirve para guardar tu progreso, recibir alertas
             de ofertas y practicar con tu propia clave de IA.
@@ -50,37 +55,57 @@ export default async function EntrarPage({
         </header>
 
         <Panel>
+          <AuthTabs mode={mode} next={next} />
           {enviado ? (
-            <Notice>
-              Si el correo es válido, te hemos enviado un enlace para entrar. Ábrelo en este mismo
-              navegador. Caduca en poco tiempo.
-            </Notice>
+            <div className={styles.form}>
+              <Notice>
+                Si el correo es válido, te hemos enviado un enlace para{" "}
+                {creating ? "crear tu cuenta" : "entrar"}.
+              </Notice>
+              <ul className={ui.tips}>
+                <li>Mira también en spam o en correo no deseado.</li>
+                <li>El enlace vale aproximadamente una hora y solo funciona una vez.</li>
+                <li>Ábrelo en este mismo navegador.</li>
+                {creating ? null : (
+                  <li>
+                    Si no llega nada, quizá aún no tienes cuenta:{" "}
+                    <Link href="/entrar?modo=crear">crea una</Link>.
+                  </li>
+                )}
+              </ul>
+            </div>
           ) : (
             <form action={requestMagicLink} className={styles.form}>
               {error && ERRORS[error] ? <Notice tone="alert">{ERRORS[error]}</Notice> : null}
               <input type="hidden" name="next" value={next ?? "/cuenta"} />
+              <input type="hidden" name="mode" value={mode} />
               <Field id="email" label="Correo electrónico">
                 <Input id="email" name="email" type="email" autoComplete="email" required />
               </Field>
-              <Fieldset legend="¿Primera vez? Crea tu cuenta">
-                <p className={styles.note}>
-                  Si ya tienes cuenta, deja estos campos vacíos. Solo pedimos tu año de nacimiento
-                  para comprobar la edad mínima; no guardamos tu fecha completa.
-                </p>
-                <Field id="birth_year" label="Año de nacimiento">
-                  <Input
-                    id="birth_year"
-                    name="birth_year"
-                    inputMode="numeric"
-                    pattern="\d{4}"
-                    maxLength={4}
-                    autoComplete="bday-year"
-                  />
-                </Field>
-                <Checkbox name="age_ok">Confirmo que tengo 16 años o más</Checkbox>
-              </Fieldset>
+              {creating ? (
+                <Fieldset legend="Edad mínima">
+                  <p className={styles.note}>
+                    Solo pedimos tu año de nacimiento para comprobar la edad mínima; no guardamos tu
+                    fecha completa.
+                  </p>
+                  <Field id="birth_year" label="Año de nacimiento">
+                    <Input
+                      id="birth_year"
+                      name="birth_year"
+                      inputMode="numeric"
+                      pattern="\d{4}"
+                      maxLength={4}
+                      autoComplete="bday-year"
+                      required
+                    />
+                  </Field>
+                  <Checkbox name="age_ok" required>
+                    Confirmo que tengo 16 años o más
+                  </Checkbox>
+                </Fieldset>
+              ) : null}
               <div className={styles.actions}>
-                <Button type="submit">Enviarme el enlace</Button>
+                <Button type="submit">{creating ? "Crear mi cuenta" : "Enviarme el enlace"}</Button>
               </div>
               <p className={styles.note}>
                 No usamos contraseñas: te mandamos un enlace de un solo uso.
