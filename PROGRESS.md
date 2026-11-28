@@ -1,6 +1,6 @@
 # PROGRESS
 
-Last updated: 2026-11-28 (Claude Opus 5.5, orchestrator)
+Last updated: 2026-11-28 evening (Claude Opus 5.5, orchestrator)
 
 ## Current step
 
@@ -36,9 +36,9 @@ handovers `docs/handover/p*`. Deployed: https://path-ten-theta.vercel.app (noind
 
 ## Next task
 
-Slow review of waves 1-3 with a cheaper model (one route per pass: a11y, copy, 375 px, facts).
-Check `/ofertas` shows the 27 postings (else Vercel env vars). Verify signed-in paths live once
-the magic link works. Wire the handover requests (home/header links to `/empezar`, `/contribuir`).
+New orchestrator: paste `docs/ORCHESTRATOR_PROMPT.md`. Master plan `docs/plan-next.md`: Track 0
+(Pablo: Supabase custom SMTP via Resend, Vercel env, Resend secrets) → wave 4 audit/verify
+(R1-R6) → U1 primitives consolidation → rest of wave 5 UI → wave 6 product depth.
 
 ## Then
 
