@@ -16,6 +16,9 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
+  // Content is only in the DOM while open, plus the length of the exit animation.
+  const [lingering, setLingering] = useState(false);
+  const lingerTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const listRef = useRef<HTMLDivElement>(null);
   const uid = useId();
   const all = useMemo(() => buildPaletteItems(), []);
@@ -83,101 +86,113 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       onClose={() => {
         setQuery("");
         setActive(0);
+        setLingering(true);
+        clearTimeout(lingerTimer.current);
+        lingerTimer.current = setTimeout(() => setLingering(false), 320);
         onClose();
       }}
       title="Buscar en Path"
       hideTitle
       placement="top"
     >
-      <div className={styles.search}>
-        <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.searchIcon}>
-          <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
-          <path d="M16 16l4.5 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
-        <input
-          type="text"
-          role="combobox"
-          aria-expanded="true"
-          aria-controls={`${uid}-list`}
-          aria-activedescendant={current ? optionId(current) : undefined}
-          aria-autocomplete="list"
-          aria-label="Buscar industrias, guías y herramientas"
-          placeholder="Busca una industria o guía…"
-          autoComplete="off"
-          spellCheck={false}
-          autoFocus
-          className={styles.input}
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setActive(0);
-          }}
-          onKeyDown={onKeyDown}
-        />
-        <kbd className={styles.esc}>Esc</kbd>
-      </div>
+      {open || lingering ? (
+        <>
+          <div className={styles.search}>
+            <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.searchIcon}>
+              <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+              <path
+                d="M16 16l4.5 4.5"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+            <input
+              type="text"
+              role="combobox"
+              aria-expanded="true"
+              aria-controls={`${uid}-list`}
+              aria-activedescendant={current ? optionId(current) : undefined}
+              aria-autocomplete="list"
+              aria-label="Buscar industrias, guías y herramientas"
+              placeholder="Busca una industria o guía…"
+              autoComplete="off"
+              spellCheck={false}
+              autoFocus
+              className={styles.input}
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setActive(0);
+              }}
+              onKeyDown={onKeyDown}
+            />
+            <kbd className={styles.esc}>Esc</kbd>
+          </div>
 
-      <div
-        id={`${uid}-list`}
-        role="listbox"
-        aria-label="Resultados"
-        className={styles.list}
-        ref={listRef}
-      >
-        {results.length === 0 ? (
-          <p className={styles.empty} role="status">
-            Nada para «{query.trim()}». Prueba con el nombre de una industria o de una guía.
-          </p>
-        ) : (
-          groups.map(([group, items]) => (
-            <div
-              key={group}
-              role="group"
-              aria-labelledby={`${uid}-g-${group}`}
-              className={styles.group}
-            >
-              <p id={`${uid}-g-${group}`} className={styles.groupLabel}>
-                {group}
+          <div
+            id={`${uid}-list`}
+            role="listbox"
+            aria-label="Resultados"
+            className={styles.list}
+            ref={listRef}
+          >
+            {results.length === 0 ? (
+              <p className={styles.empty} role="status">
+                Nada para «{query.trim()}». Prueba con el nombre de una industria o de una guía.
               </p>
-              {items.map((item) => {
-                const selected = item === current;
-                return (
-                  <div
-                    key={item.id}
-                    id={optionId(item)}
-                    role="option"
-                    aria-selected={selected}
-                    className={styles.option}
-                    data-selected={selected || undefined}
-                    onMouseMove={() => {
-                      const i = results.indexOf(item);
-                      if (i !== active) setActive(i);
-                    }}
-                    onClick={() => run(item)}
-                  >
-                    <span className={styles.optionText}>
-                      <span className={styles.optionTitle}>{item.title}</span>
-                      <span className={styles.optionHint}>{item.hint}</span>
-                    </span>
-                    <span className={styles.enter} aria-hidden="true">
-                      ↵
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          ))
-        )}
-      </div>
+            ) : (
+              groups.map(([group, items]) => (
+                <div
+                  key={group}
+                  role="group"
+                  aria-labelledby={`${uid}-g-${group}`}
+                  className={styles.group}
+                >
+                  <p id={`${uid}-g-${group}`} className={styles.groupLabel}>
+                    {group}
+                  </p>
+                  {items.map((item) => {
+                    const selected = item === current;
+                    return (
+                      <div
+                        key={item.id}
+                        id={optionId(item)}
+                        role="option"
+                        aria-selected={selected}
+                        className={styles.option}
+                        data-selected={selected || undefined}
+                        onMouseMove={() => {
+                          const i = results.indexOf(item);
+                          if (i !== active) setActive(i);
+                        }}
+                        onClick={() => run(item)}
+                      >
+                        <span className={styles.optionText}>
+                          <span className={styles.optionTitle}>{item.title}</span>
+                          <span className={styles.optionHint}>{item.hint}</span>
+                        </span>
+                        <span className={styles.enter} aria-hidden="true">
+                          ↵
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              ))
+            )}
+          </div>
 
-      <p className={styles.footer} aria-hidden="true">
-        <span>
-          <kbd>↑</kbd> <kbd>↓</kbd> moverse
-        </span>
-        <span>
-          <kbd>↵</kbd> abrir
-        </span>
-      </p>
+          <p className={styles.footer} aria-hidden="true">
+            <span>
+              <kbd>↑</kbd> <kbd>↓</kbd> moverse
+            </span>
+            <span>
+              <kbd>↵</kbd> abrir
+            </span>
+          </p>
+        </>
+      ) : null}
     </Dialog>
   );
 }
