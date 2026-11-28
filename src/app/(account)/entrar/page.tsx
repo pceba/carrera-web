@@ -22,6 +22,7 @@ const ERRORS: Record<string, string> = {
   edad: "Hay que tener 16 años o más para crear una cuenta. Toda la guía sigue siendo pública y gratis sin cuenta.",
   config: "El inicio de sesión aún no está configurado en este entorno.",
   servicio: "No hemos podido enviar el enlace. Inténtalo de nuevo en unos minutos.",
+  limite: "Hemos enviado demasiados enlaces en poco tiempo. Espera una hora y vuelve a probar.",
 };
 
 export default async function EntrarPage({

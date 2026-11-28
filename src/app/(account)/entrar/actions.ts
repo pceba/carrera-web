@@ -38,6 +38,13 @@ export async function requestMagicLink(formData: FormData) {
       emailRedirectTo: `${origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
     },
   });
-  if (error && error.status && error.status >= 500) redirect("/entrar?error=servicio");
+  if (error) {
+    // Logged without the email so the reason shows in the host's runtime logs. The page still
+    // answers "sent" for client errors such as "signups not allowed", so it never reveals
+    // whether an email already has an account.
+    console.error("magic link failed", { status: error.status, code: error.code });
+    if (error.status === 429) redirect("/entrar?error=limite");
+    if (error.status && error.status >= 500) redirect("/entrar?error=servicio");
+  }
   redirect("/entrar?enviado=1");
 }
