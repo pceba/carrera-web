@@ -1,12 +1,24 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { Industry } from "@/lib/generated/Industry";
 import type { Profile } from "@/lib/generated/Profile";
 import type { Ranked } from "@/lib/generated/Ranked";
 import { INDUSTRY_LABELS, LEVELS, type Posting } from "@/lib/postings/types";
-import { Button, Checkbox, Field, Fieldset, Input, Notice, Panel, Tag } from "@/components/ui";
+import {
+  Button,
+  Checkbox,
+  Field,
+  Fieldset,
+  Input,
+  Notice,
+  Panel,
+  Tag,
+  toast,
+} from "@/components/ui";
 import { cvKind, parseCv, rankPostings } from "./engine";
+import { addPostingToTracker } from "./tracker";
 import {
   clearProfile,
   EMPTY_PROFILE,
@@ -44,7 +56,14 @@ const LIST_FIELDS: { key: ListKey; label: string; hint: string }[] = [
  * compiled to WebAssembly; nothing is uploaded. Only the structured profile is kept, in
  * `localStorage`.
  */
-export function Encaje({ postings }: { postings: Posting[] }) {
+export function Encaje({
+  postings,
+  signedIn = false,
+}: {
+  postings: Posting[];
+  /** Only changes the closing note; everything works without an account. */
+  signedIn?: boolean;
+}) {
   const [profile, setProfile] = useState<Profile>(EMPTY_PROFILE);
   const [hydrated, setHydrated] = useState(false);
   const [status, setStatus] = useState<{ tone: "status" | "alert"; text: string } | null>(null);
@@ -271,10 +290,43 @@ export function Encaje({ postings }: { postings: Posting[] }) {
                 ) : (
                   <p className={styles.meta}>Sin coincidencias claras con tu perfil.</p>
                 )}
+                <div>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      const r = addPostingToTracker(posting);
+                      toast(
+                        r === "added"
+                          ? `${posting.company} añadida a tus candidaturas.`
+                          : r === "exists"
+                            ? `${posting.company} ya estaba en tus candidaturas.`
+                            : "Tu navegador no deja guardar datos. No hemos podido añadirla.",
+                      );
+                    }}
+                  >
+                    Añadir a candidaturas
+                    <span className={styles.sr}>
+                      {" "}
+                      ({posting.title}, {posting.company})
+                    </span>
+                  </Button>
+                </div>
               </li>
             );
           })}
         </ol>
+        <p className={styles.meta}>
+          {signedIn ? (
+            <>
+              Tu perfil se guarda en este navegador. Guardarlo también en tu cuenta llegará pronto.
+            </>
+          ) : (
+            <>
+              <Link href="/entrar?modo=crear">Crea una cuenta</Link> para guardarlo y recibir
+              alertas.
+            </>
+          )}
+        </p>
       </section>
     </div>
   );

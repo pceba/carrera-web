@@ -10,11 +10,11 @@ export const ROUTES = {
   prep: "/preparacion",
   resources: "/recursos",
   offers: "/ofertas",
-  /** Tools. `/candidaturas` is built by the P1 stream; `/cuenta/encaje` needs an account. */
+  /** Tools. `/candidaturas` is built by the P1 stream; `/encaje` works without an account. */
   tracker: "/candidaturas",
   /** Quiz "¿Qué industria encaja contigo?", built by another stream. */
   diagnostic: "/diagnostico",
-  fit: "/cuenta/encaje",
+  fit: "/encaje",
   /** Owned by WS-C: magic-link sign-in, which also creates the account on first use. */
   signIn: "/entrar",
   account: "/cuenta",
