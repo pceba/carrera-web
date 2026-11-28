@@ -23,3 +23,39 @@
 .block {
   display: grid;
 }
+
+.cardWrap {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+.cardWrap > :first-child {
+  justify-self: stretch;
+}
+.compare {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-16);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--color-border);
+}
+.compareHead {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+.compareTitle {
+  margin: 0;
+  font-size: var(--text-3xl);
+  letter-spacing: var(--tracking-display);
+}
+.quizCta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+.quizCta p {
+  margin: 0;
+  font-weight: 600;
+}
