@@ -1,84 +1,104 @@
-import Link from "next/link";
-import { ButtonLink, Page, ROUTES } from "@/components/ui";
-import { INDUSTRIES, industryHref } from "../../../content/catalog";
+import { INDUSTRIES } from "../../../content/catalog";
+import { CtaBand, StatsStrip, TrustRow } from "@/components/marketing/Bands";
+import { IndustryCard } from "@/components/marketing/IndustryCard";
+import { LogoWall } from "@/components/marketing/LogoWall";
+import { ProductShowcase } from "@/components/marketing/ProductShowcase";
+import { SectionHead } from "@/components/marketing/SectionHead";
+import { ToolsBento } from "@/components/marketing/ToolsBento";
+import { ButtonLink, Reveal, ROUTES } from "@/components/ui";
 import styles from "./home.module.css";
-
-/** How the site works. Advice only, no facts, so no sources needed. */
-const STEPS = [
-  {
-    title: "Elige una industria",
-    text: "Cada guía cuenta cómo funciona el sector, cómo es el trabajo y quién contrata.",
-  },
-  {
-    title: "Prepara el proceso",
-    text: "Entrevistas, pruebas y CV, con la preparación que comparten varias industrias.",
-  },
-  {
-    title: "Busca ofertas",
-    text: "Prácticas y puestos junior que enlazan al anuncio original, donde te apuntas.",
-  },
-] as const;
 
 export default function Home() {
   return (
-    <Page>
+    <>
       <section className={styles.hero} aria-labelledby="titular">
-        <h1 id="titular" className={styles.title}>
-          Entra en la industria que quieres sabiendo lo que te espera.
-        </h1>
-        <p className={styles.lead}>
-          Una guía por industria, escrita a mano y con fuentes. Gratis y sin rastreo.
-        </p>
-        <div className={styles.actions}>
-          <ButtonLink href={ROUTES.consulting} arrow>
-            Empieza por consultoría
-          </ButtonLink>
-          <ButtonLink href={ROUTES.industries} variant="ghost">
-            Ver el mapa de industrias
-          </ButtonLink>
+        <div className={styles.heroText}>
+          <h1 id="titular" className={styles.title}>
+            Empieza tu carrera sabiendo lo que te espera.
+          </h1>
+          <p className={styles.lead}>
+            Una guía escrita a mano para seis industrias, y las herramientas para entrar: encaje,
+            candidaturas y ofertas.
+          </p>
+          <div className={styles.actions}>
+            <ButtonLink href={ROUTES.industries} size="lg" arrow>
+              Explorar industrias
+            </ButtonLink>
+            <ButtonLink href={ROUTES.fit} size="lg" variant="secondary">
+              Probar Encaje
+            </ButtonLink>
+          </div>
+          <p className={styles.mono}>Gratis · Código abierto · Sin rastreo</p>
+        </div>
+        <div className={styles.showcase}>
+          <ProductShowcase />
         </div>
       </section>
 
-      <section className={styles.section} aria-labelledby="industrias-titulo">
-        <h2 id="industrias-titulo" className={styles.h2}>
-          Seis industrias
-        </h2>
-        <ul className={styles.industries}>
-          {INDUSTRIES.map((i) => (
-            <li key={i.slug}>
-              <Link href={industryHref(i.slug)} className={styles.industry}>
-                <span className={styles.industryName}>{i.title}</span>
-                <span className={styles.industryLine}>{i.line}</span>
-                {i.status === "preparing" ? (
-                  <span className={styles.industryStatus}>En preparación</span>
-                ) : null}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className={styles.wrap}>
+        <div className={styles.block}>
+          <Reveal>
+            <StatsStrip />
+          </Reveal>
+        </div>
 
-      <section className={styles.section} aria-labelledby="pasos-titulo">
-        <h2 id="pasos-titulo" className={styles.h2}>
-          Cómo funciona
-        </h2>
-        <ol className={styles.steps}>
-          {STEPS.map((s, idx) => (
-            <li key={s.title} className={styles.step}>
-              <span className={styles.stepN} aria-hidden="true">
-                {idx + 1}
-              </span>
-              <h3 className={styles.stepTitle}>{s.title}</h3>
-              <p className={styles.stepText}>{s.text}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+        <div className={styles.block}>
+          <LogoWall />
+        </div>
 
-      <p className={styles.trust}>
-        Cada dato cita su fuente y la fecha de revisión. Sin rastreo ni analítica. Código MIT y
-        contenidos CC BY-SA 4.0.
-      </p>
-    </Page>
+        <section className={styles.block} aria-labelledby="industrias-titulo">
+          <Reveal>
+            <SectionHead
+              eyebrow="Seis industrias"
+              id="industrias-titulo"
+              title="Una guía para cada puerta de entrada."
+              link={{ href: ROUTES.industries, label: "Ver el mapa" }}
+            />
+          </Reveal>
+          <ul className={styles.cards}>
+            {[...INDUSTRIES]
+              .sort((a, b) => Number(b.status === "live") - Number(a.status === "live"))
+              .map((i, n) => (
+                <Reveal as="li" key={i.slug} delay={(n % 3) * 70}>
+                  <IndustryCard industry={i} />
+                </Reveal>
+              ))}
+          </ul>
+        </section>
+
+        <section className={styles.block} aria-labelledby="herramientas-titulo">
+          <Reveal>
+            <SectionHead
+              eyebrow="Herramientas"
+              id="herramientas-titulo"
+              title="Todo lo que necesitas para entrar, en un sitio."
+              lead="La guía te dice cómo funciona cada industria. Las herramientas te ayudan a moverte."
+            />
+          </Reveal>
+          <Reveal>
+            <ToolsBento />
+          </Reveal>
+        </section>
+
+        <section className={styles.block} aria-labelledby="confianza-titulo">
+          <Reveal>
+            <SectionHead
+              eyebrow="Cómo lo hacemos"
+              id="confianza-titulo"
+              title="Hecho para ti, no para venderte nada."
+            />
+          </Reveal>
+          <Reveal>
+            <TrustRow />
+          </Reveal>
+        </section>
+
+        <div className={styles.block}>
+          <Reveal>
+            <CtaBand />
+          </Reveal>
+        </div>
+      </div>
+    </>
   );
 }

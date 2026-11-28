@@ -28,6 +28,11 @@ export function Kicker({ children }: { children: ReactNode }) {
   return <p className={styles.kicker}>{children}</p>;
 }
 
+/** Mono caps label (`SEIS INDUSTRIAS`) above a heading or a figure. Decorative rhythm, not a heading. */
+export function Eyebrow({ children }: { children: ReactNode }) {
+  return <p className={styles.eyebrow}>{children}</p>;
+}
+
 export function Text({
   variant = "body",
   children,

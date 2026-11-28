@@ -1,0 +1,187 @@
+/* Bento: a thin 1 px grid, the gap shows the border colour through the cells. */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background: var(--color-border);
+}
+@media (min-width: 40rem) {
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .a,
+  .b {
+    grid-column: span 3;
+  }
+  .c {
+    grid-column: span 2;
+  }
+}
+
+.cell {
+  display: grid;
+  background: var(--color-surface);
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: var(--space-2);
+  min-height: 15rem;
+  padding: var(--space-6);
+  color: var(--color-text-body);
+  text-decoration: none;
+}
+.a .card,
+.b .card {
+  min-height: 19rem;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--space-3);
+}
+.icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+.soon {
+  padding: 0.125rem var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font: 500 var(--text-eyebrow) / 1.6 var(--font-mono);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+.title {
+  color: var(--color-text);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+}
+.text {
+  max-width: 38ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+.go {
+  position: absolute;
+  inset-block-start: var(--space-6);
+  inset-inline-end: var(--space-6);
+  color: var(--color-text);
+  opacity: 0;
+}
+.card[data-soon] .title {
+  color: var(--color-text-body);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.card:hover {
+    background: var(--color-bg);
+    color: var(--color-text-body);
+  }
+  a.card:hover .go {
+    opacity: 1;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  a.card {
+    transition: background-color var(--dur) var(--ease-out);
+  }
+  .go {
+    transition:
+      opacity var(--dur) var(--ease-out),
+      translate var(--dur) var(--ease-out);
+    translate: -0.25rem 0;
+  }
+  a.card:hover .go {
+    translate: 0 0;
+  }
+}
+.card:focus-visible {
+  outline-offset: -3px;
+}
+
+/* --- Visuals ------------------------------------------------------------------------------- */
+.vFit {
+  display: grid;
+  align-content: end;
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+}
+.vFit i {
+  display: block;
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-rule);
+}
+.vFit i[data-top] {
+  background: var(--color-accent);
+}
+
+.vBoard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: end;
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+}
+.vBoard span {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+.vBoard i {
+  display: block;
+  height: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+.vBoard i[data-hot] {
+  border-color: var(--color-accent);
+}
+
+.vList {
+  display: grid;
+  align-content: end;
+  gap: var(--space-3);
+  padding-block-start: var(--space-4);
+}
+.vList span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.vList i {
+  display: block;
+  height: 0.5rem;
+  flex: 1;
+  border-radius: var(--radius-pill);
+  background: var(--color-rule);
+}
+.vList b {
+  display: block;
+  width: 2.25rem;
+  height: 0.5rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+}

@@ -1,0 +1,120 @@
+/* --- Stats strip --------------------------------------------------------------------------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-border);
+}
+@media (min-width: 48rem) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.stat {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-6) var(--space-6);
+  background: var(--color-surface);
+}
+.statLabel {
+  color: var(--color-text-muted);
+  font: 500 var(--text-eyebrow) / 1.4 var(--font-mono);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+.statValue {
+  margin: 0;
+  color: var(--color-text);
+  font-size: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-hero);
+  line-height: 1;
+}
+
+/* --- Trust row ----------------------------------------------------------------------------- */
+.trust {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-border);
+}
+@media (min-width: 40rem) {
+  .trust {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 64rem) {
+  .trust {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.trustItem {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background: var(--color-surface);
+}
+.trustTitle {
+  margin: var(--space-4) 0 0;
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.25;
+}
+.trustText {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+/* --- Closing band -------------------------------------------------------------------------- */
+.band {
+  position: relative;
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(2.5rem, 1.5rem + 5vw, 5.5rem) clamp(1.5rem, 0.5rem + 5vw, 5rem);
+  border-radius: var(--radius-2xl);
+}
+.bandGlow {
+  position: absolute;
+  inset: auto -10% -60% auto;
+  z-index: -1;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-accent) 55%, transparent),
+    transparent
+  );
+  filter: blur(20px);
+}
+.bandTitle {
+  margin: 0;
+  max-width: 18ch;
+  font-size: var(--text-band);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display-lg);
+}
+.bandActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-start: var(--space-3);
+}
