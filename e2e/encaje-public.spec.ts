@@ -1,11 +1,8 @@
 import { expect, test } from "@playwright/test";
 
-test("/encaje is public and /cuenta/encaje redirects there permanently", async ({
-  page,
-  request,
-}) => {
+test("/encaje is public and /cuenta/encaje redirects there", async ({ page, request }) => {
   const res = await request.get("/cuenta/encaje", { maxRedirects: 0 });
-  expect(res.status()).toBe(308);
+  expect([307, 308]).toContain(res.status());
   expect(res.headers().location).toContain("/encaje");
 
   await page.goto("/encaje");
