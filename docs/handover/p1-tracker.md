@@ -30,8 +30,8 @@ Branch `claude/p1-tracker-5e2df3` (brief said `p1/tracker`; the worktree branch 
 - `src/app/(account)/cuenta/page.tsx`: one panel with a link to `/candidaturas`.
 - `src/lib/supabase/rls.test.ts`: RLS case (requested by the brief) plus deletion-cascade check.
 - `docs/briefs/p1_tracker.md`: only reformatted by Prettier (it failed `format:check` on main).
-- Site nav not touched: `NAV_LINKS` is four fixed items, not a tools list. `/candidaturas` has no
-  nav link yet; decide where it goes.
+- Request for the redesign session (owns header/nav/`ui`/`styles`): add `/candidaturas` ("Candidaturas")
+  to the header nav (`NAV_LINKS` in `src/components/ui/site-data.ts`). Not touched here.
 
 ## Gotchas
 
