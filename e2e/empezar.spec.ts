@@ -21,7 +21,7 @@ test("empezar: four steps, manual tick persists, finish state", async ({ page })
   await page.evaluate(() => {
     localStorage.setItem(
       "path.applications.v1",
-      JSON.stringify({ items: [{ id: "a1", firm: "Acme", role: "Analista", stage: "applied" }] }),
+      JSON.stringify({ items: [{ id: "a1", firm: "Acme", role: "Analista", stage: "enviada" }] }),
     );
   });
   await page.reload();
