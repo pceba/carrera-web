@@ -1,0 +1,57 @@
+name: Revisar una página
+description: Corrige, completa o valida una página de una guía con tu experiencia profesional.
+title: "Revisión: "
+labels: ["revisión"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por revisar. Todo lo que escribas aquí es público. No incluyas datos personales
+        de terceros ni información confidencial de tu empresa. Al contribuir aceptas que el texto
+        resultante se publique con licencia CC BY-SA 4.0.
+  - type: input
+    id: page
+    attributes:
+      label: Página
+      description: Ruta de la página, por ejemplo /industrias/banca-de-inversion/proceso
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Qué encuentras
+      options:
+        - Dato incorrecto o desfasado
+        - Falta algo importante
+        - Cuesta entenderlo
+        - Todo correcto, la valido
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Detalle
+      description: Qué dice la página, qué debería decir y desde cuándo es así.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Fuentes
+      description: Enlaces a webs oficiales, estudios con nombre o normativa. Si es experiencia propia, dilo.
+    validations:
+      required: true
+  - type: input
+    id: credit
+    attributes:
+      label: Cómo quieres figurar como revisor/a (opcional)
+      description: Nombre y cargo general, o déjalo vacío si prefieres no aparecer.
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Confirmo que
+      options:
+        - label: No pido ni recibo pago por firma ni por posición en la guía.
+          required: true
+        - label: Acepto la licencia CC BY-SA 4.0 para mi aportación.
+          required: true
