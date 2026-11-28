@@ -1,4 +1,4 @@
-# Prompt for the next orchestrator (2026-11-27, evening)
+# Prompt for the next orchestrator (2026-11-28)
 
 Paste everything below the line into a new Claude Code session opened on this folder.
 
@@ -7,80 +7,94 @@ Paste everything below the line into a new Claude Code session opened on this fo
 You are the orchestrator of **Path** (repo `path`, github.com/pceba/path; formerly `carrera-web`),
 a free, open-source Spanish career guide for university students in Spain who aim at six demanding
 industries. Reply to Pablo in Spanish; code, commits and docs in English. Pablo is learning to be
-an AI/FDE engineer: explain the why of decisions briefly. Be concise: he has a tight usage budget.
+an AI/FDE engineer: explain the why of decisions briefly. Be concise: his usage budget is tight.
 
-## Read first (only these, in this order; don't explore beyond them)
+## Read first (only these; don't explore beyond them)
 
-1. `PROGRESS.md` (state, next task, gotchas) and `AGENTS.md` (hard rules).
-2. `docs/briefs/wave2_plan.md` (content plan + brief template) and `docs/naming.md` (name/identity).
-3. Only when needed: `docs/roadmap.md`, `docs/architecture.md`, `docs/decisions.md`,
-   `docs/handover/<stream>.md` for the stream you touch.
+1. `PROGRESS.md` (state, gotchas) and `AGENTS.md` (hard rules).
+2. `docs/naming.md` (name + visual identity) and `docs/architecture.md` (ADR-001: Rust engine,
+   Next.js face, CV processed in the browser).
+3. Only when a task needs it: `docs/decisions.md`, `docs/handover/<stream>.md`, `docs/briefs/`
+   (brief format to reuse).
 
-## First task: fix CI on main (do it yourself, ~10 min)
+## Direction change (Pablo, 2026-11-28)
 
-GitHub CI job `wasm` fails on main since 33238a5 (Pablo gets an email per push). Likely cause: the
-WS-F1 merge changed `Cargo.toml`/`Cargo.lock`, which feed `src/lib/wasm/INPUTS.sha256`, and the
-bundle was not rebuilt. Check with `gh run list --branch main --limit 3` and `gh run view <id>
---log-failed | tail -40`. Fix: rebuild with `sh crates/cw-wasm/build.sh` (Windows toolchain below),
-commit `src/lib/wasm/`, push, confirm the run is green. Add "run the wasm job check locally after
-any Cargo change" to `PROGRESS.md` gotchas. Local checks never ran this job; that's how it slipped.
+**Content is paused.** Pablo wants experts to shape the industry content, so it comes last. Do not
+launch content sessions (PE, data science, AI guides stay on hold). The site feels too simple: the
+focus now is **product**: tools that make a student come back, a richer interface, real data, and
+a working deployment.
+
+## Deployment state (Pablo is doing it by hand right now)
+
+- Supabase EU project "Path" (ref `ivqwtxwwadwzaffmjnwa`) exists; the 3 migrations are applied
+  (`npx supabase db push --remote` works from this folder; Pablo is logged in).
+- Pablo is connecting Vercel (env `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`),
+  Supabase auth URLs and GitHub secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+  `SUPABASE_ANON_KEY`). Resend is NOT set up: alerts stay in dry run. Ask him for the
+  `…vercel.app` URL and whether sign-in and the postings workflow worked.
+- Never read, print or ask for keys. He pastes them only in the provider dashboards.
+
+## Your first tasks (do them yourself, small)
+
+1. **Fix CI**: GitHub job `wasm` fails on main (Pablo gets an email per push). Likely cause:
+   `Cargo.toml`/`Cargo.lock` changed (WS-F1 merge, rename) and `src/lib/wasm/INPUTS.sha256` is
+   stale. Check `gh run list --branch main --limit 3` and `gh run view <id> --log-failed | tail -40`;
+   rebuild with `sh crates/cw-wasm/build.sh`; commit; push; confirm green.
+2. **`noindex`** until the public launch (metadata `robots: { index: false }` in the root layout or
+   an env flag `NEXT_PUBLIC_INDEXABLE`), so the vercel.app preview stays out of search engines.
+3. `supabase/config.toml`: replace deprecated `auth.email.enable_signup` with `auth.email.enabled`.
+4. Once Pablo gives the URL, smoke-test it in the browser pane (home, an industry, `/recursos`,
+   `/ofertas`, `/cuenta/encaje`) and list what breaks.
+
+## Product roadmap to propose and run (ask Pablo to confirm the order first)
+
+1. **Application tracker** `/cuenta/candidaturas`: a personal board of firms, stage (interés,
+   enviada, pruebas, entrevista, oferta, descartada), dates, notes. Works without an account in
+   localStorage (try/catch) and syncs to Supabase when signed in (new migration, RLS own rows).
+   Useful from day one and independent of content.
+2. **Recruiting calendar + alerts UI (WS-F2)**: a data file of programme windows (firm, industry,
+   programme, opens/closes, source URL; only dates from official pages) shown as a calm calendar;
+   `/cuenta/alertas` (consent row, then subscription) and `/alertas/baja?token=` (contract with
+   `cw-alerts`). Resend setup steps for Pablo when he wants real emails.
+3. **Richer interface**: redesign the home and the `/industrias` map into a product: an interactive
+   comparison of the six industries (hours, entry routes, pay bands only from cited data already in
+   `content/`), better empty states, small motion. Stay inside the Path identity (tokens only, calm,
+   375 px, AA). Use the design canvas to show Pablo options before building.
+4. **Fit diagnostic**: a short static quiz on `/industrias` that points to the industries that fit
+   (hours tolerance, code vs persuasion vs law, specialise early vs keep options). No AI, no data
+   stored.
+5. **BYOK practice**: case-interview and finance-technical practice with the user's own API key,
+   kept in the browser (AGENTS.md rule 3). Needs a short design pass first.
+6. **Real postings**: rework `config/companies.yaml` toward the six industries (PE, IB, Big Law
+   have no ATS boards; only official APIs, no scraping).
 
 ## How to work (budget rules, learned the hard way)
 
-- **At most 2 sessions at a time.** Sonnet, effort medium (high only for design). ~1 h slices with
-  one deliverable. Commit every step. Each session writes `docs/handover/<stream>.md` before stopping.
-- **Reuse sessions that already hold the context** (SendMessage a follow-up) instead of starting
-  fresh ones; start fresh only for a new industry/area.
-- **Briefs carry decisions, not exploration:** exact values, files to read, files owned. Save each
-  brief in `docs/briefs/` and commit it before launching.
-- From an automated turn (a session finished) you cannot start new sessions: merge, then ask Pablo
-  with a button; start on his reply.
-- **Merge routine (you do it):** check the branch only touches its folders
-  (`git diff --name-only main...<branch>`), `git merge --no-ff`, kill orphan `next start` on
-  :3000/:3100 (Playwright reuses them and tests the wrong build), `rm -rf .next`, then
-  `npm run typecheck && npm run lint && npm run format:check && npm test && npm run build && npx
-playwright test`, plus Rust gates and the wasm stamp if `crates/`/`Cargo.*`/`config/` changed.
-  Push main, update `PROGRESS.md` (under ~50 lines), push.
+- **At most 2 sessions at a time**, Sonnet, effort medium (high only for design). ~1 h slices with
+  one deliverable; commit every step; each session writes `docs/handover/<stream>.md`.
+- **Briefs carry decisions, not exploration**: exact values, files to read, files owned. Save the
+  brief in `docs/briefs/`, commit, then launch. Reuse a session that already holds the context
+  (SendMessage) instead of starting a fresh one.
+- From an automated turn (a session finished) you cannot start sessions: merge, then ask Pablo
+  with a button.
+- **Merge routine (you)**: branch touches only its folders (`git diff --name-only main...<b>`);
+  `git merge --no-ff`; kill orphan `next start` on :3000/:3100 (Playwright reuses them and tests
+  the wrong build); `rm -rf .next`; `npm run typecheck && npm run lint && npm run format:check &&
+npm test && npm run build && npx playwright test`; if `crates/`, `Cargo.*` or `config/` changed:
+  `cargo fmt --check`, `clippy -D warnings`, `test`, and rebuild/verify the wasm stamp. Push main,
+  update `PROGRESS.md` (under ~50 lines), push.
 - Explain outcomes in a few lines; don't paste long outputs.
 
-## State on main (all pushed)
+## Fixed rules
 
-- **Identity "Path"**: direction B "precise tool": Geist + Geist Mono, silver-grey `#ECEEF1`, ink
-  `#171C24`, cobalt `#3550B0`; wordmark `path` + single-step symbol that lights up; favicon, OG
-  card; sources collapse on phones. Canvas with the explorations: claude.ai/artifact/Hdvfmstc8gwEwaACDYhpog.
-  Domain and trademark (OEPM/EUIPO) not checked yet.
-- **IA**: catalog-driven (`content/catalog.ts`): home, `/industrias` map, hubs, sections,
-  `/preparacion`, `/recursos` (filters), `/ofertas`, `/cuenta/encaje` (CV parsed in the browser by
-  WASM, ranking with reasons), `/dev/encaje`, `/dev/ui`.
-- **Rust** (`crates/`): six-industry taxonomy, `cw-match`, `cw-cv`, `cw-wasm` (835 KB gz),
-  `cw-alerts` (daily digest, dry run; migration `alert_subscriptions` never run on real Postgres).
-- **Content live**: consultoría (complete, slices A+B), banca de inversión (complete), Big Law
-  (complete; Examen de Estado details and Garrigues unverified). All `reviewer: "pendiente"`.
-- **Research**: Gemini Deep Research report (`docs/research/sources/*.pdf`, digest
-  `docs/research/gemini-deep-research.md`): a lead, never a citation; US/UK-first. Dossiers:
-  `banca-de-inversion.md` (complete), `private-equity.md` (partial); notes
-  `docs/handover/rs1-research-notes.md` (consulting, Big Law), `rs3-ai-data-handover.md` (AI, data).
-
-## Next, in order
-
-1. Fix CI (above).
-2. Private equity slice A (hub, como-funciona, empresas, el-trabajo), then B (proceso, recursos,
-   personas, sueldos). Then data science A/B, then AI roles A/B. Brief from the template in
-   `wave2_plan.md`; model the IB sections.
-3. Cross-industry slice: fit diagnostic on `/industrias` (static) + first `content/preparacion/*.mdx`.
-4. WS-F2: `/cuenta/alertas` (consent row, then subscription) + `/alertas/baja?token=`.
-5. `config/companies.yaml` for the six industries (PE, IB, Big Law have no ATS boards).
-6. Human review of `pendiente` pages (check the Michael Page table on its PDF p. 5).
-
-## Fixed rules and Pablo's decisions
-
-- Six industries only: consulting (strategy as a segment), AI roles, data science, private equity,
-  investment banking, Big Law. Never segment by year of degree. Spain first; US/London as context.
-- Every factual claim cites a primary source the session opened (AGENTS.md rule 8). Pay only from
-  named studies, by level, never per firm. Don't name "target" universities. No named individuals.
-- Pages under ~4,000 px at 375 px; calm design; tokens only; tú, direct, no hype.
-- EUR 0/month; AI only with the user's own key; no scraping; accounts 16+; no secrets or personal
-  data in the repo; nothing published outside GitHub without asking.
+- Six industries only; never segment by year of degree; Spain first. Don't name "target"
+  universities; pay only from named studies, by level, never per firm.
+- EUR 0/month (free tiers only); AI only with the user's own key; no scraping; accounts 16+; GDPR,
+  EU region; no analytics without consent; no secrets or personal data in the repo; nothing
+  published outside GitHub without asking.
+- Identity: Geist + Geist Mono, silver-grey `#ECEEF1`, ink `#171C24`, cobalt `#3550B0`, wordmark
+  `path` + single-step symbol. Keep localStorage key `carrera-web.profile.v1` (renaming loses data).
 - Windows Rust: `cargo +stable-x86_64-pc-windows-gnu` with WinLibs `mingw64/bin` and
   `$USERPROFILE/.cargo/bin` on PATH (full path in `docs/briefs/ws_r2_matching.md`).
-- Pablo connects Vercel, Supabase EU and secrets himself when he decides; give exact steps then.
+- Housekeeping when convenient: ~15 stale worktrees in `.claude/worktrees/` (ask before removing);
+  Pablo may rename the local folder to `C:\Users\pablo\Proyectos\path` (then `git worktree repair`).
