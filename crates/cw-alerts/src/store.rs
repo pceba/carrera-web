@@ -32,7 +32,7 @@ impl Store {
             client: reqwest::Client::builder()
                 .timeout(std::time::Duration::from_secs(60))
                 .build()?,
-            base: format!("{}/rest/v1", supabase_url.trim_end_matches('/')),
+            base: format!("{}/rest/v1", project_root(supabase_url)),
             key: service_role_key.to_owned(),
         })
     }
@@ -120,8 +120,28 @@ async fn check(response: reqwest::Response) -> anyhow::Result<reqwest::Response>
     bail!("HTTP {status}: {body}")
 }
 
+/// Accepts the project URL with or without a trailing `/` or `/rest/v1` (the dashboard shows both
+/// forms), so a secret pasted either way reaches the same PostgREST base.
+fn project_root(url: &str) -> &str {
+    let url = url.trim().trim_end_matches('/');
+    url.strip_suffix("/rest/v1")
+        .unwrap_or(url)
+        .trim_end_matches('/')
+}
+
 #[cfg(test)]
 mod tests {
+
+    #[test]
+    fn project_root_accepts_rest_suffix() {
+        for url in [
+            "https://x.supabase.co",
+            "https://x.supabase.co/",
+            "https://x.supabase.co/rest/v1/",
+        ] {
+            assert_eq!(super::project_root(url), "https://x.supabase.co");
+        }
+    }
     use super::*;
     use chrono::TimeZone;
     use serde_json::json;
