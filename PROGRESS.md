@@ -39,7 +39,7 @@ PDF p. 5); stale `industrias/consultoria/` row in `docs/ownership.md`.
 
 ## Open threads (Pablo)
 
-Connect Vercel; Supabase EU + migrations + secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+Supabase EU project "Path" created and 3 migrations applied (2026-11-28). Still: connect Vercel; secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
 `RESEND_API_KEY`, `ALERTS_FROM`, `SITE_URL`); legal placeholders; name chosen: **Path** (domain and
 trademark check pending; identity in `docs/naming.md`); Jobicy terms;
 London right-to-work question (IB dossier Q1). 13 stale worktrees in `.claude/worktrees/`.
