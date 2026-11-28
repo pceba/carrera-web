@@ -26,7 +26,7 @@ Product roadmap item 1 (content is paused; see `docs/ORCHESTRATOR_PROMPT.md`). R
   banner "Tienes N candidaturas guardadas en este navegador" with a button to import them
   (explicit, never a silent merge); after import, clear the local copy.
 - Migration `public.applications`: `id uuid pk default gen_random_uuid()`, `user_id uuid not null
-  default auth.uid() references auth.users(id) on delete cascade`, the fields above with `check`
+default auth.uid() references auth.users(id) on delete cascade`, the fields above with `check`
   constraints (lengths, stage list, industry list or null, `url ~ '^https://'`), `created_at`,
   `updated_at` (trigger). RLS on; select/insert/update/delete policies `user_id = auth.uid()`,
   same style as `saved_items` in `20261127000000_init_accounts.sql`. Index on `(user_id, stage)`.

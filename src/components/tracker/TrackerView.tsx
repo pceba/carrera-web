@@ -210,8 +210,6 @@ export function TrackerView({
           </div>
         </>
       )}
-
-      {items.length === 0 && form}
     </div>
   );
 }
