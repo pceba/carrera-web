@@ -30,7 +30,7 @@ guide pages, nor `src/app/(public)/candidaturas/` (another session builds it).
 - **Identity stays**: Geist / Geist Mono, silver-grey `#ECEEF1`, ink `#171C24`, cobalt `#3550B0`,
   wordmark + single-step symbol. You may add tokens (display sizes, radii incl. pill, shadows,
   motion) to `tokens.css`; light and dark both AA.
-- **Logos**: no logo files (trademarks, no download source). Build a *typographic* logo wall: firm
+- **Logos**: no logo files (trademarks, no download source). Build a _typographic_ logo wall: firm
   names set as wordmarks (Geist, varied weight/tracking per firm, greyscale), only firms already
   named in `content/industrias/*/empresas*`. Caption: "Empresas que analiza la guía" and small
   print "Path no está afiliado a ninguna de ellas."
