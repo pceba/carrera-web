@@ -17,3 +17,6 @@ next-env.d.ts
 target/
 *.egg-info/
 __pycache__/
+
+# Supabase CLI cache (project ref, versions)
+supabase/.temp/

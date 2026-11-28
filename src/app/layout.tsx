@@ -24,6 +24,12 @@ const mono = Geist_Mono({
 export const metadata: Metadata = {
   title: { default: SITE.name, template: `%s · ${SITE.name}` },
   description: SITE.description,
+  // Keep every deployment (including the vercel.app preview) out of search engines until the
+  // public launch. Set NEXT_PUBLIC_INDEXABLE=true in the production environment to allow indexing.
+  robots:
+    process.env.NEXT_PUBLIC_INDEXABLE === "true"
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
 };
 
 // Light is the default for everyone; dark is an opt-in toggle (see theme-script.ts).
