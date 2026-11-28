@@ -8,6 +8,10 @@ const withMDX = createMDX({});
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   reactStrictMode: true,
+  async redirects() {
+    // Encaje is public; the old account URL must not hit the sign-in wall first.
+    return [{ source: "/cuenta/encaje", destination: "/encaje", permanent: true }];
+  },
 };
 
 export default withMDX(nextConfig);
