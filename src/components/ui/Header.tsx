@@ -27,6 +27,7 @@ const TOOL_ICONS = {
   [ROUTES.tracker]: "tracker",
   [ROUTES.practice]: "practice",
   [ROUTES.offers]: "offers",
+  [ROUTES.calendar]: "calendar",
 } as const;
 
 /** The three header menus. Industries and guides come from the catalog, so they never go stale. */
