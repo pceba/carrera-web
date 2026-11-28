@@ -10,6 +10,11 @@ export const ROUTES = {
   prep: "/preparacion",
   resources: "/recursos",
   offers: "/ofertas",
+  /** Tools. `/candidaturas` is built by the P1 stream; `/cuenta/encaje` needs an account. */
+  tracker: "/candidaturas",
+  /** Quiz "¿Qué industria encaja contigo?", built by another stream. */
+  diagnostic: "/diagnostico",
+  fit: "/cuenta/encaje",
   /** Owned by WS-C: magic-link sign-in, which also creates the account on first use. */
   signIn: "/entrar",
   account: "/cuenta",
@@ -30,14 +35,45 @@ export const NAV_LINKS = [
   { href: ROUTES.offers, label: "Ofertas", match: "/ofertas" },
 ] as const;
 
+/** Tools shown in the "Herramientas" menu, the command palette and the footer. */
+export const TOOLS = [
+  {
+    href: ROUTES.fit,
+    label: "Encaje",
+    text: "Ordena las seis industrias según tu perfil. Tu CV no sale del navegador.",
+  },
+  {
+    href: ROUTES.diagnostic,
+    label: "Diagnóstico",
+    text: "¿Qué industria encaja contigo? Unas preguntas y una primera idea.",
+  },
+  {
+    href: ROUTES.tracker,
+    label: "Candidaturas",
+    text: "Un tablero para seguir cada solicitud, de guardada a oferta.",
+  },
+  {
+    href: ROUTES.offers,
+    label: "Ofertas",
+    text: "Prácticas y puestos junior, con enlace al anuncio original.",
+  },
+] as const;
+
 export const FOOTER_GROUPS = [
   {
-    title: "Guía",
+    title: "Herramientas",
     links: [
-      { href: ROUTES.industries, label: "Industrias" },
-      { href: ROUTES.prep, label: "Preparación" },
-      { href: ROUTES.resources, label: "Recursos" },
+      { href: ROUTES.diagnostic, label: "Diagnóstico" },
+      { href: ROUTES.fit, label: "Encaje" },
+      { href: ROUTES.tracker, label: "Candidaturas" },
       { href: ROUTES.offers, label: "Ofertas" },
+    ],
+  },
+  {
+    title: "Preparación",
+    links: [
+      { href: ROUTES.prep, label: "Guías de preparación" },
+      { href: ROUTES.resources, label: "Biblioteca de recursos" },
     ],
   },
   {

@@ -1,0 +1,61 @@
+.region {
+  position: fixed;
+  inset-inline: var(--gutter);
+  inset-block-end: var(--space-4);
+  z-index: 60;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: min(26rem, 100%);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  box-shadow: var(--shadow-float);
+  pointer-events: auto;
+}
+
+.close {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.close svg {
+  width: 1rem;
+  height: 1rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  .close:hover {
+    background: color-mix(in oklch, var(--color-bg) 18%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toast {
+    transition:
+      opacity var(--dur) var(--ease-out),
+      translate var(--dur) var(--ease-out);
+  }
+  @starting-style {
+    .toast {
+      opacity: 0;
+      translate: 0 0.75rem;
+    }
+  }
+}

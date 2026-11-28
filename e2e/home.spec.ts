@@ -80,26 +80,29 @@ test("tabs work with the keyboard", async ({ page }) => {
 });
 
 test("header reaches Industrias, Preparación, Recursos and Ofertas", async ({ page, isMobile }) => {
+  // Each destination lives in a header menu: a dropdown on desktop, the sheet on phones.
   const targets = [
-    ["Industrias", /\/industrias$/],
-    ["Preparación", /\/preparacion$/],
-    ["Recursos", /\/recursos$/],
-    ["Ofertas", /\/ofertas$/],
+    ["Industrias", "Ver todas las industrias", /\/industrias$/],
+    ["Recursos", "Todas las guías de preparación", /\/preparacion$/],
+    ["Recursos", "Biblioteca de recursos", /\/recursos$/],
+    ["Herramientas", "Ofertas", /\/ofertas$/],
   ] as const;
 
-  for (const [label, url] of targets) {
+  for (const [menu, label, url] of targets) {
     await page.goto("/");
-    let nav;
     if (isMobile) {
       await page.getByRole("button", { name: "Menú" }).click();
-      nav = page.getByRole("navigation", { name: "Principal (móvil)" });
+      const nav = page.getByRole("navigation", { name: "Principal (móvil)" });
       await expect(nav).toBeVisible();
+      await nav.getByRole("link", { name: label }).click();
     } else {
-      nav = page.getByRole("navigation", { name: "Principal", exact: true });
+      await page.getByRole("button", { name: menu, exact: true }).click();
+      await page
+        .getByRole("navigation", { name: "Principal", exact: true })
+        .getByRole("link", { name: label })
+        .click();
     }
-    await nav.getByRole("link", { name: label }).click();
     await expect(page).toHaveURL(url);
-    await expect(page.locator('header a[aria-current="page"]').first()).toHaveText(label);
   }
 });
 

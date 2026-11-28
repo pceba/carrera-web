@@ -1,0 +1,25 @@
+/* Industry map: same visual language as the home. The shared industrias.module.css still styles
+   the guide pages under [slug]. */
+.head {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: start;
+  padding-block: clamp(1.5rem, 0.5rem + 4vw, 4rem) var(--space-10);
+}
+.title {
+  margin: 0;
+  max-width: 16ch;
+  font-size: var(--text-hero);
+  line-height: var(--leading-hero);
+  letter-spacing: var(--tracking-hero);
+}
+.lead {
+  margin: 0;
+  max-width: 50ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+}
+.block {
+  display: grid;
+}

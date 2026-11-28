@@ -106,3 +106,24 @@ a {
   line-height: var(--leading-tight);
   margin: 0 0 var(--space-4);
 }
+
+/* A modal dialog locks page scroll. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/*
+ * Scroll reveal (see src/components/ui/Reveal.tsx). Without JavaScript, or with reduced motion,
+ * nothing is ever hidden: the hook only sets data-reveal on elements below the fold.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal="out"] {
+    opacity: 0;
+    translate: 0 1.25rem;
+  }
+  [data-reveal="in"] {
+    transition:
+      opacity var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms),
+      translate var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms);
+  }
+}

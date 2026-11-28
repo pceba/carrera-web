@@ -1,119 +1,149 @@
-/* Calm home: hero, six industries, three steps, one trust line. Tokens only. */
-.hero {
+/* Home: announcement and header live in the Shell. Everything here reads tokens only. */
+.wrap {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.block {
   display: grid;
+  gap: var(--space-8);
+  padding-block-start: var(--space-section);
+}
+
+/* --- Hero ---------------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: clamp(2.5rem, 1rem + 6vw, 6rem) var(--gutter) 0;
+}
+/* A thin grid that fades out, and a cobalt glow behind the window: depth without images. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  background-position: center top;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 20%, transparent 80%);
+  opacity: 0.7;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 38%;
+  z-index: -1;
+  height: 28rem;
+  margin-inline: auto;
+  max-width: 60rem;
+  border-radius: var(--radius-full);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-accent) 22%, transparent),
+    transparent
+  );
+  filter: blur(30px);
+}
+
+.heroText {
+  display: grid;
+  justify-items: center;
   gap: var(--space-6);
-  justify-items: start;
-  padding-block: clamp(2rem, 1rem + 5vw, 5.5rem) var(--space-8);
+  max-width: var(--page-max);
+  margin-inline: auto;
+  text-align: center;
 }
 .title {
   margin: 0;
-  max-width: 16ch;
-  font: var(--weight-display) var(--text-display) / var(--leading-display) var(--font-display);
-  letter-spacing: -0.03em;
+  max-width: 14ch;
+  font-size: var(--text-hero);
+  line-height: var(--leading-hero);
+  letter-spacing: var(--tracking-hero);
   text-wrap: balance;
 }
 .lead {
   margin: 0;
-  max-width: 44ch;
-  font-size: var(--text-lg);
-  line-height: 1.5;
+  max-width: 40ch;
   color: var(--color-text-muted);
+  font-size: clamp(1.1875rem, 1.1rem + 0.45vw, 1.5rem);
+  line-height: 1.45;
+  text-wrap: balance;
 }
 .actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3) var(--space-4);
+  justify-content: center;
+  gap: var(--space-3);
+  margin-block-start: var(--space-2);
+}
+.actions > * {
+  flex: 1 1 14rem;
+  max-width: 20rem;
+}
+@media (min-width: 40rem) {
+  .actions > * {
+    flex: 0 0 auto;
+  }
+}
+.mono {
+  margin: 0;
+  color: var(--color-text-muted);
+  font: 400 var(--text-eyebrow) / 1.4 var(--font-mono);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
 }
 
-.section {
-  display: grid;
-  gap: var(--space-6);
-  padding-block-start: var(--space-section);
-}
-.h2 {
-  margin: 0;
-  font: var(--weight-display) var(--text-2xl) / var(--leading-tight) var(--font-display);
-  letter-spacing: -0.02em;
+.showcase {
+  max-width: 62rem;
+  margin: clamp(2.5rem, 1.5rem + 4vw, 5rem) auto 0;
 }
 
-/* Industries: one quiet card per industry, the whole card is the link. */
-.industries {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
-  gap: var(--space-4);
-  margin: 0;
-  padding: 0;
-  list-style: none;
+/* The window sinks into the page: the hero ends where the stats begin. */
+@media (prefers-reduced-motion: no-preference) {
+  .heroText > * {
+    animation: rise var(--dur-slow) var(--ease-out) backwards;
+  }
+  .heroText > :nth-child(2) {
+    animation-delay: 70ms;
+  }
+  .heroText > :nth-child(3) {
+    animation-delay: 140ms;
+  }
+  .heroText > :nth-child(4) {
+    animation-delay: 210ms;
+  }
+  .showcase {
+    animation: rise 480ms var(--ease-out) 200ms backwards;
+  }
 }
-.industry {
-  display: grid;
-  align-content: start;
-  gap: var(--space-2);
-  height: 100%;
-  padding: var(--space-5) var(--space-6);
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  color: inherit;
-  text-decoration: none;
-}
-.industryName {
-  font: var(--weight-display) var(--text-xl) / var(--leading-tight) var(--font-display);
-}
-.industryLine {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-}
-.industryStatus {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
-.industry:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
-}
-@media (hover: hover) and (pointer: fine) {
-  .industry:hover .industryName {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 1rem;
   }
 }
 
-/* Steps */
-.steps {
+/* --- Industry cards ------------------------------------------------------------------------ */
+.cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-  gap: var(--space-8);
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.step {
-  display: grid;
-  gap: var(--space-2);
-  align-content: start;
+@media (min-width: 40rem) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-.stepN {
-  font: var(--weight-display) var(--text-2xl) / 1 var(--font-display);
-  color: var(--color-accent);
-  font-variant-numeric: lining-nums;
-}
-.stepTitle {
-  margin: 0;
-  font: 600 var(--text-base) / 1.3 var(--font-sans);
-}
-.stepText {
-  margin: 0;
-  max-width: 34ch;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-}
-
-.trust {
-  margin: 0;
-  padding-block: var(--space-section) var(--space-8);
-  max-width: 56ch;
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
+@media (min-width: 64rem) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

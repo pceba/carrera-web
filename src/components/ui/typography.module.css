@@ -43,6 +43,14 @@
   color: var(--color-text-muted);
 }
 
+.eyebrow {
+  margin: 0;
+  font: 500 var(--text-eyebrow) / 1.4 var(--font-mono);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
 .lead {
   margin: 0;
   max-width: 56ch;

@@ -1,0 +1,43 @@
+.frame {
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-window);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-block-end: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 0.375rem;
+}
+.dots i {
+  width: 0.625rem;
+  height: 0.625rem;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill);
+}
+
+.address {
+  min-width: 0;
+  padding: 0.125rem var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-sunken);
+  color: var(--color-text-muted);
+  font: 400 var(--text-eyebrow) / 1.6 var(--font-mono);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body {
+  position: relative;
+}
