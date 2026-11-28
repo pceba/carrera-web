@@ -1,11 +1,13 @@
 # PROGRESS
 
-Last updated: 2026-11-27 (Claude Opus 5.5, orchestrator)
+Last updated: 2026-11-28 (Claude Opus 5.5, orchestrator)
 
 ## Current step
 
-Phase 2, wave 2 (content per industry). Orchestrator brief `docs/ORCHESTRATOR_PROMPT.md`; plan
-`docs/briefs/wave2_plan.md`. At most 2 sessions at a time, ~1 h slices, briefs in `docs/briefs/`.
+Product phase (content paused; brief `docs/ORCHESTRATOR_PROMPT.md`). Pablo confirmed roadmap
+order 1-6. P1 tracker `/candidaturas` running in session `p1-tracker` (brief `docs/briefs/p1_tracker.md`).
+Deployed: https://path-ten-theta.vercel.app (noindex unless `NEXT_PUBLIC_INDEXABLE=true`).
+2026-11-28: CI wasm stamp fixed (green); smoke test OK (all public routes 200); `/ofertas` empty.
 
 ## Done (on main, CI green)
 
@@ -28,18 +30,21 @@ Phase 2, wave 2 (content per industry). Orchestrator brief `docs/ORCHESTRATOR_PR
 
 ## Next task
 
-Wave 2 #4 private equity slice A (hub, como-funciona, empresas, el-trabajo) from
-`docs/research/private-equity.md` (partial) + report pp. 23–26; brief from the plan's template.
+Merge P1 (`p1/tracker`), `npx supabase db push` its migration, then P2 recruiting calendar +
+alerts UI (WS-F2). Magic link: Pablo gets no email (see open threads).
 
 ## Then
 
-PE slice B; data science; AI; WS-F2 (`/cuenta/alertas` + `/alertas/baja`); `config/companies.yaml` for
+P3 richer interface; P4 fit quiz; P5 BYOK practice; P6 real postings. Content later: PE, data
+science, AI; WS-F2 (`/cuenta/alertas` + `/alertas/baja`); `config/companies.yaml` for
 the six industries; human review of every page marked `pendiente` (check Michael Page table on
 PDF p. 5); stale `industrias/consultoria/` row in `docs/ownership.md`.
 
 ## Open threads (Pablo)
 
-Supabase EU project "Path" created and 3 migrations applied (2026-11-28). Still: connect Vercel; secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
+Magic link sends no email: check Supabase Auth logs; built-in SMTP only mails org members, ~2/h;
+leaving the birth year empty on a new email silently skips sign-up; Site URL + redirect
+`https://path-ten-theta.vercel.app/auth/callback`. Failures now logged in Vercel by code. Secrets (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`,
 `RESEND_API_KEY`, `ALERTS_FROM`, `SITE_URL`); legal placeholders; name chosen: **Path** (domain and
 trademark check pending; identity in `docs/naming.md`); Jobicy terms;
 London right-to-work question (IB dossier Q1). 13 stale worktrees in `.claude/worktrees/`.
