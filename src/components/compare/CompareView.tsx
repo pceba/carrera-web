@@ -92,7 +92,7 @@ export function CompareView({ initial }: { initial?: IndustrySlug[] }) {
           );
         })}
       </div>
-      <p className={styles.status} role="status">
+      <p className={styles.status} aria-live="polite">
         {selected.length < MIN
           ? `Elige al menos ${MIN} industrias para compararlas.`
           : `Comparando ${selected.length} de ${MAX} posibles.`}
@@ -137,13 +137,14 @@ export function CompareView({ initial }: { initial?: IndustrySlug[] }) {
             </table>
           </div>
 
-          <ul
+          <div
+            role="list"
             className={styles.cards}
             aria-label="Comparación en tarjetas"
             data-testid="compare-cards"
           >
             {picked.map((i) => (
-              <li key={i.slug} className={styles.card}>
+              <div role="listitem" key={i.slug} className={styles.card}>
                 <p className={styles.cardTitle}>{i.title}</p>
                 <dl className={styles.dl}>
                   {DIMENSIONS.map((d) => (
@@ -162,9 +163,9 @@ export function CompareView({ initial }: { initial?: IndustrySlug[] }) {
                 ) : (
                   <span className={styles.headNote}>Guía en preparación</span>
                 )}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </>
       ) : null}
       <p className={styles.foot}>
