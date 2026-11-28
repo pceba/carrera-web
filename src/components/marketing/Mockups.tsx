@@ -9,7 +9,7 @@ import styles from "./mockups.module.css";
 
 const PROFILE = [
   ["Grado", "ADE"],
-  ["Curso", "3.º"],
+  ["Habilidades", "Excel, SQL"],
   ["Idiomas", "Inglés C1"],
   ["Ciudad", "Madrid"],
 ] as const;
