@@ -59,7 +59,7 @@ const TOOLS: Tool[] = [
     icon: "practice",
     title: "Práctica con IA",
     text: "Practica entrevistas con tu propia clave de API. La clave no sale de tu navegador.",
-    soon: true,
+    href: ROUTES.practice,
     span: "b",
   },
 ];
