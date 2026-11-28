@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Heading, Page, Text } from "@/components/ui";
-import { INDUSTRIES, industryHref, PREP_GUIDES } from "../../../../content/catalog";
-import styles from "./industrias.module.css";
+import { Eyebrow, Page, Reveal } from "@/components/ui";
+import { IndustryCard } from "@/components/marketing/IndustryCard";
+import { IndustryFilter } from "@/components/marketing/IndustryFilter";
+import { INDUSTRIES, PREP_GUIDES } from "../../../../content/catalog";
+import styles from "./hub.module.css";
 
 export const metadata: Metadata = {
   title: "Industrias",
@@ -24,40 +25,39 @@ function sharedWith(slug: string): string[] {
 }
 
 export default function IndustriesPage() {
+  // Guides that exist come first.
+  const ordered = [...INDUSTRIES].sort(
+    (a, b) => Number(b.status === "live") - Number(a.status === "live"),
+  );
+  const items = ordered.map((i) => {
+    const near = sharedWith(i.slug);
+    return {
+      slug: i.slug,
+      status: i.status,
+      card: (
+        <IndustryCard
+          industry={i}
+          note={near.length ? `Comparte preparación con ${near.join(", ")}.` : undefined}
+        />
+      ),
+    };
+  });
+
   return (
     <Page>
-      <header className={styles.hubHead}>
-        <Heading level="display">Industrias</Heading>
-        <Text variant="lead">
-          Seis industrias, cada una con su guía. Las que tienen sello «En preparación» solo muestran
-          lo que ya podemos citar.
-        </Text>
+      <header className={styles.head}>
+        <Eyebrow>El mapa</Eyebrow>
+        <h1 className={styles.title}>Seis industrias, cada una con su guía.</h1>
+        <p className={styles.lead}>
+          Las que tienen sello «En preparación» solo muestran lo que ya podemos citar. Las demás
+          tienen guía completa, con fuentes y fecha de revisión.
+        </p>
       </header>
-
-      <section aria-labelledby="mapa" className={styles.block}>
-        <h2 id="mapa" className={styles.blockTitle}>
-          El mapa
-        </h2>
-        <ul className={styles.toc}>
-          {INDUSTRIES.map((i) => {
-            const near = sharedWith(i.slug);
-            return (
-              <li key={i.slug}>
-                <Link href={industryHref(i.slug)} className={styles.tocLink}>
-                  <span className={styles.tocTitle}>{i.title}</span>
-                  <span className={styles.tocText}>
-                    {i.line}
-                    {near.length ? ` Comparte preparación con ${near.join(", ")}.` : ""}
-                  </span>
-                  {i.status === "preparing" ? (
-                    <span className={styles.kind}>En preparación</span>
-                  ) : null}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+      <Reveal>
+        <section aria-label="Industrias" className={styles.block}>
+          <IndustryFilter items={items} />
+        </section>
+      </Reveal>
     </Page>
   );
 }

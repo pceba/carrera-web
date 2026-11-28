@@ -1,0 +1,78 @@
+.root {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.chip[aria-pressed="true"] {
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+.n {
+  font: 400 var(--text-xs) / 1 var(--font-mono);
+  opacity: 0.7;
+}
+.chip:active {
+  scale: 0.97;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chip[aria-pressed="false"]:hover {
+    border-color: var(--color-rule);
+    background: var(--color-bg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chip {
+    transition:
+      background-color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      scale var(--dur-fast) var(--ease-out);
+  }
+}
+
+.status {
+  margin: 0;
+  color: var(--color-text-muted);
+  font: 400 var(--text-xs) / 1.4 var(--font-mono);
+  letter-spacing: 0.04em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 40rem) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
