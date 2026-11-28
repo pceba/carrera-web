@@ -4,12 +4,13 @@ Last updated: 2026-11-28 (Claude Opus 5.5, orchestrator)
 
 ## Current step
 
-Product phase (content paused; brief `docs/ORCHESTRATOR_PROMPT.md`), roadmap order confirmed 1-6.
-On main (2026-11-28, all checks + 105 e2e green): P1 tracker `/candidaturas` (migration applied
-to prod), P4 quiz `/diagnostico`, P3 redesign (header dropdowns, Ctrl/⌘K palette, dialogs,
-toasts, new home, `/industrias`, CSS motion; screenshots `docs/screenshots/v4/`).
-Deployed: https://path-ten-theta.vercel.app (noindex unless `NEXT_PUBLIC_INDEXABLE=true`).
-Handovers: `docs/handover/p1-tracker.md`, `p3-redesign.md`, `p4-fit-quiz.md`.
+Product phase (content paused; `docs/ORCHESTRATOR_PROMPT.md`). On main 2026-11-28 (108 unit,
+142 e2e green; Cargo gates green): P1 `/candidaturas`, P2a `/calendario` (all dates null: no
+official page publishes them), P2b `/cuenta/alertas` + `/alertas/baja`, P3 redesign (dropdowns,
+Ctrl/⌘K palette, dialogs, motion), P4 `/diagnostico`, P5 `/practica` (BYOK Gemini/Anthropic/
+OpenAI, key never hits our server), P6 +12 official boards, P7 `/entrar` tabs + `/cuenta` hub,
+P8 public `/encaje` (old URL redirects), P9 comparison on `/industrias`. Briefs `docs/briefs/p*`,
+handovers `docs/handover/p*`. Deployed: https://path-ten-theta.vercel.app (noindex).
 
 ## Done (on main, CI green)
 
@@ -32,8 +33,10 @@ Handovers: `docs/handover/p1-tracker.md`, `p3-redesign.md`, `p4-fit-quiz.md`.
 
 ## Next task
 
-P2 recruiting calendar + alerts UI (WS-F2): brief in `docs/briefs/` first. Then P5 BYOK
-practice, P6 real postings (`/ofertas` is empty in prod). Magic link still sends no email.
+Pablo: GitHub Actions secrets `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` (repo has none, so
+`/ofertas` is empty and scheduled `postings` runs now fail on purpose); then
+`gh workflow run postings -f dry_run=false`. Steps in `docs/handover/p6-postings.md`. Then
+smoke-test prod and the signed-in paths (tracker sync, alerts, Mi Path), never verified live.
 
 ## Then
 
@@ -58,4 +61,5 @@ London right-to-work question (IB dossier Q1). 13 stale worktrees in `.claude/wo
 - e2e reuses any server on :3000/:3100: kill orphan `next start` from other worktrees first, or
   you test the wrong build. `rm -rf .next` after route moves.
 - Worktrees may show CRLF `format:check` noise on untouched files; check on main.
+- `consulting.spec.ts` "proceso lists" is flaky under load (passes isolated).
 - Postings have titles only: matching is a sort order, not a verdict. MDX has no GFM tables.
