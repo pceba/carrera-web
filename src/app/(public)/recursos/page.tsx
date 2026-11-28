@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Heading, Page, ROUTES, Text } from "@/components/ui";
+import { formatDate, Heading, Page, ROUTES, Text } from "@/components/ui";
 import { Breadcrumbs } from "@/components/nav/Breadcrumbs";
-import { ResourceList } from "@/components/nav/ResourceList";
-import { INDUSTRIES, RESOURCE_TYPES } from "../../../../content/catalog";
+import { ResourceLibrary, type ResourceCard } from "@/components/library/ResourceLibrary";
+import { getIndustry, INDUSTRIES, RESOURCE_TYPES, resourcesFor } from "../../../../content/catalog";
 import styles from "./recursos.module.css";
 
 export const metadata: Metadata = {
@@ -30,6 +30,22 @@ export default async function ResourcesPage({ searchParams }: { searchParams: Se
   // Unknown values are ignored instead of producing an empty page nobody can explain.
   const industria = INDUSTRIES.find((i) => i.slug === first(sp.industria))?.slug ?? null;
   const tipo = RESOURCE_TYPES.find((t) => t.slug === first(sp.tipo))?.slug ?? null;
+
+  const cards: ResourceCard[] = resourcesFor({
+    industry: industria ?? undefined,
+    type: tipo ?? undefined,
+  }).map((r) => ({
+    id: r.id,
+    title: r.title,
+    url: r.url,
+    type: r.type,
+    typeLabel: RESOURCE_TYPES.find((t) => t.slug === r.type)?.one ?? r.type,
+    publisher: r.publisher,
+    industries: r.industries.map((s) => getIndustry(s)?.title ?? s).join(", "),
+    note: r.note,
+    checked: r.checked,
+    checkedLabel: formatDate(r.checked),
+  }));
 
   return (
     <Page>
@@ -73,11 +89,9 @@ export default async function ResourcesPage({ searchParams }: { searchParams: Se
       </nav>
 
       <div className={styles.results}>
-        <ResourceList
-          industry={industria ?? undefined}
-          type={tipo ?? undefined}
-          showIndustry
-          headingLevel="h2"
+        <ResourceLibrary
+          cards={cards}
+          emptyText="Todavía no hay recursos revisados con estos filtros."
         />
         {industria || tipo ? (
           <p>
