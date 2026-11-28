@@ -1,0 +1,117 @@
+# Recruiting calendar: programme windows of firms named in content/industrias/.
+# Dates are filled in ONLY when the firm's official careers page states them. On 2026-11-28 every
+# page listed below was fetched and none stated an opening or closing date, so all are null.
+# Never infer dates from blogs, forums or previous years. Update a row by re-reading `source_url`.
+# Restricted YAML (flat rows, scalars only): parsed by src/lib/calendar/parse.ts.
+reviewer: "pendiente"
+reviewed_at: "2026-11-28"
+next_review: "2027-01-15"
+sources:
+  - "https://careers.bcg.com/spain"
+  - "https://www.bain.com/es/careers/"
+  - "https://www.deloitte.com/es/es/careers.html"
+  - "https://www.kpmg.com/es/es/carreras.html"
+  - "https://www.accenture.com/es-es/careers"
+  - "https://www.alantra.com/careers/students-graduates/"
+  - "https://www.santandercib.com/about-us/careers/graduates-young-talent"
+  - "https://www.uria.com/es/talento/proceso"
+  - "https://www.cuatrecasas.com/es/spain/unete/programas-de-practicas"
+  - "https://ga-p.com/empleo/practicas-de-verano/"
+  - "https://www.aoshearman.com/careers/spain/students-and-graduates"
+programmes:
+  - firm: "Boston Consulting Group (BCG)"
+    industry: "consultoria"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "La página de BCG España menciona prácticas, sin fechas."
+    source_url: "https://careers.bcg.com/spain"
+    checked_at: "2026-11-28"
+  - firm: "Bain & Company"
+    industry: "consultoria"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "Bain España tiene una sección de prácticas y programas para estudiantes, sin fechas."
+    source_url: "https://www.bain.com/es/careers/"
+    checked_at: "2026-11-28"
+  - firm: "Deloitte España"
+    industry: "consultoria"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "Programa de prácticas «Glow up» en la web de carreras, sin fechas."
+    source_url: "https://www.deloitte.com/es/es/careers.html"
+    checked_at: "2026-11-28"
+  - firm: "KPMG España"
+    industry: "consultoria"
+    programme: "graduate"
+    opens: null
+    closes: null
+    status_note: "Sección «Estudiantes y recién graduados», sin fechas."
+    source_url: "https://www.kpmg.com/es/es/carreras.html"
+    checked_at: "2026-11-28"
+  - firm: "Accenture España"
+    industry: "consultoria"
+    programme: "graduate"
+    opens: null
+    closes: null
+    status_note: "Accesos para estudiantes y jóvenes profesionales, sin fechas."
+    source_url: "https://www.accenture.com/es-es/careers"
+    checked_at: "2026-11-28"
+  - firm: "Alantra"
+    industry: "banca-de-inversion"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "Summer Internship de 8-10 semanas para penúltimo curso, sin fechas."
+    source_url: "https://www.alantra.com/careers/students-graduates/"
+    checked_at: "2026-11-28"
+  - firm: "Alantra"
+    industry: "banca-de-inversion"
+    programme: "graduate"
+    opens: null
+    closes: null
+    status_note: "Analyst Programs para recién graduados, sin fechas."
+    source_url: "https://www.alantra.com/careers/students-graduates/"
+    checked_at: "2026-11-28"
+  - firm: "Santander Corporate & Investment Banking"
+    industry: "banca-de-inversion"
+    programme: "graduate"
+    opens: null
+    closes: null
+    status_note: "Graduate Program internacional, sin fechas en la página."
+    source_url: "https://www.santandercib.com/about-us/careers/graduates-young-talent"
+    checked_at: "2026-11-28"
+  - firm: "Uría Menéndez"
+    industry: "big-law"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "Prácticas de verano (penúltimo curso de Derecho) y de grado, sin fechas."
+    source_url: "https://www.uria.com/es/talento/proceso"
+    checked_at: "2026-11-28"
+  - firm: "Cuatrecasas"
+    industry: "big-law"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "Programa de prácticas durante el curso o en verano, sin fechas."
+    source_url: "https://www.cuatrecasas.com/es/spain/unete/programas-de-practicas"
+    checked_at: "2026-11-28"
+  - firm: "Gómez-Acebo & Pombo"
+    industry: "big-law"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "Página de prácticas de verano, sin fechas de convocatoria."
+    source_url: "https://ga-p.com/empleo/practicas-de-verano/"
+    checked_at: "2026-11-28"
+  - firm: "A&O Shearman (España)"
+    industry: "big-law"
+    programme: "internship"
+    opens: null
+    closes: null
+    status_note: "Programa de verano para estudiantes en España, sin fechas."
+    source_url: "https://www.aoshearman.com/careers/spain/students-and-graduates"
+    checked_at: "2026-11-28"

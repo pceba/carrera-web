@@ -1,0 +1,172 @@
+.view {
+  margin-block-start: var(--space-6);
+  display: grid;
+  gap: var(--space-6);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.chip {
+  font: inherit;
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+  min-block-size: 44px;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.chip[aria-pressed="true"] {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}
+.chip:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-lg);
+}
+.month {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-base);
+  text-transform: capitalize;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.row {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.rowHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.firm {
+  margin: 0;
+  font-size: var(--text-base);
+  margin-inline-end: var(--space-2);
+}
+.dates {
+  margin: 0;
+  font-weight: 500;
+}
+.note,
+.checked {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+.source {
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  text-underline-offset: 3px;
+}
+.empty {
+  margin: 0;
+  padding: var(--space-5);
+  border: 1px dashed var(--color-rule);
+  border-radius: var(--radius-lg);
+  max-inline-size: var(--measure);
+}
+
+/* 12-month timeline: desktop only; phones get the list grouped by month. */
+.desktopOnly {
+  display: none;
+}
+.mobileOnly {
+  display: block;
+}
+@media (min-width: 900px) {
+  .desktopOnly {
+    display: block;
+  }
+  ul.desktopOnly {
+    display: grid;
+    margin-block-start: var(--space-5);
+  }
+  .mobileOnly {
+    display: none;
+  }
+}
+
+.timeline {
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.tlHead,
+.tlRow {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  align-items: center;
+  border-block-end: 1px solid var(--color-rule);
+}
+.tlHead {
+  grid-template-columns: 14rem repeat(12, 1fr);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-transform: capitalize;
+}
+.tlHead > span {
+  padding: var(--space-2) var(--space-3);
+}
+.tlMonth {
+  border-inline-start: 1px solid var(--color-rule);
+  text-align: center;
+  padding-inline: 0 !important;
+}
+.tlLabel {
+  padding: var(--space-3);
+  font-size: var(--text-sm);
+}
+.tlTrack {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding-block: var(--space-3);
+}
+.bar {
+  block-size: 12px;
+  border-radius: 999px;
+  background: var(--color-accent);
+}
+.outside {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.sr {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
