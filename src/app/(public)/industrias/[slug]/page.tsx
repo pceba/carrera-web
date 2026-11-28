@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ButtonLink, formatDate, Heading, Page, ROUTES, Tag, Text } from "@/components/ui";
+import { ButtonLink, formatDate, Page, ROUTES, Tag } from "@/components/ui";
+import { CopyLink } from "@/components/guide/CopyLink";
+import { GuideHero } from "@/components/guide/GuideHero";
 import { Breadcrumbs } from "@/components/nav/Breadcrumbs";
 import { Related } from "@/components/nav/Related";
 import {
@@ -58,22 +60,32 @@ async function LiveHub({ industry }: { industry: Industry }) {
 
   return (
     <>
-      <header className={styles.hubHead}>
-        <Heading level="display">{industry.title}</Heading>
-        <Text variant="lead">{industry.line}</Text>
-        {start ? (
-          <div className={styles.hubActions}>
-            <ButtonLink href={pageHref(industry.slug, start.slug)} arrow>
-              Empieza por «{start.title}»
-            </ButtonLink>
-          </div>
-        ) : null}
-        <p className={styles.hubMeta}>
-          {sources.length} fuentes · revisada el{" "}
-          <time dateTime={meta.reviewed_at}>{formatDate(meta.reviewed_at)}</time> · próxima revisión{" "}
-          <time dateTime={meta.next_review}>{formatDate(meta.next_review)}</time>
-        </p>
-      </header>
+      <GuideHero
+        slug={industry.slug}
+        eyebrow="Guía de industria"
+        title={industry.title}
+        lead={industry.line}
+        facts={[
+          `${industry.sections.length} secciones`,
+          `${sources.length} fuentes`,
+          <>
+            Revisada el <time dateTime={meta.reviewed_at}>{formatDate(meta.reviewed_at)}</time>
+          </>,
+          <>
+            Próxima revisión <time dateTime={meta.next_review}>{formatDate(meta.next_review)}</time>
+          </>,
+        ]}
+        actions={
+          <>
+            {start ? (
+              <ButtonLink href={pageHref(industry.slug, start.slug)} arrow>
+                Empieza por «{start.title}»
+              </ButtonLink>
+            ) : null}
+            <CopyLink />
+          </>
+        }
+      />
 
       <section aria-labelledby="secciones" className={styles.block}>
         <h2 id="secciones" className={styles.blockTitle}>
@@ -125,18 +137,18 @@ async function LiveHub({ industry }: { industry: Industry }) {
 function PreparingHub({ industry }: { industry: Industry }) {
   return (
     <>
-      <header className={styles.hubHead}>
-        <p>
-          <Tag tone="muted">En preparación</Tag>
-        </p>
-        <Heading level="display">{industry.title}</Heading>
-        <Text variant="lead">{industry.line}</Text>
-        <Text>
-          Estamos escribiendo esta guía a partir de fuentes oficiales. Solo publicamos lo que
-          podemos citar, así que de momento aquí no hay más. La guía de{" "}
-          <Link href={ROUTES.consulting}>consultoría</Link> te enseña cómo será.
-        </Text>
-      </header>
+      <GuideHero
+        slug={industry.slug}
+        eyebrow="En preparación"
+        title={industry.title}
+        lead={industry.line}
+        facts={["Solo publicamos lo que podemos citar"]}
+      />
+      <p className={styles.hubMeta}>
+        <Tag tone="muted">En preparación</Tag> Estamos escribiendo esta guía a partir de fuentes
+        oficiales. Solo publicamos lo que podemos citar, así que de momento aquí no hay más. La guía
+        de <Link href={ROUTES.consulting}>consultoría</Link> te enseña cómo será.
+      </p>
       <div className={styles.block}>
         <Related links={related(industry)} title="Mientras tanto" />
       </div>

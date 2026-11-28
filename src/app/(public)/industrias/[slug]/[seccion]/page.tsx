@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import {
+  formatDate,
   Heading,
   Page,
   Prose,
   ReviewedBy,
   ROUTES,
   SourceList,
-  Text,
   uiMdxComponents,
 } from "@/components/ui";
+import type { MDXComponents } from "mdx/types";
+import { notFound } from "next/navigation";
+import { CopyLink } from "@/components/guide/CopyLink";
+import { GuideHero } from "@/components/guide/GuideHero";
+import { GuideToc } from "@/components/guide/GuideToc";
+import { extractHeadings, makeSlugger, readingMinutes, textOf } from "@/components/guide/headings";
+import { PagerCards } from "@/components/guide/PagerCards";
+import { ReadingProgress } from "@/components/guide/ReadingProgress";
+import { readGuideSource } from "@/components/guide/source";
+import guide from "@/components/guide/guide.module.css";
 import { Breadcrumbs } from "@/components/nav/Breadcrumbs";
-import { PrevNext } from "@/components/nav/PrevNext";
 import { Related } from "@/components/nav/Related";
 import { SectionNav } from "@/components/nav/SectionNav";
 import {
@@ -60,8 +68,31 @@ export default async function IndustrySection({ params }: { params: Params }) {
   const cited = citedOn(industry.slug, page.slug, mod);
   const { prev, next } = neighbours(industry, page.slug);
 
+  // Reading aids are derived from the MDX source; the text itself is never touched.
+  const source = readGuideSource(industry.slug, page.slug);
+  const toc = extractHeadings(source);
+  const minutes = readingMinutes(source);
+  // Same slugger rules as `extractHeadings`, applied to the rendered headings in document order,
+  // so every table-of-contents link has a target (checked in e2e/guide.spec.ts).
+  const slugFor = makeSlugger();
+  const components: MDXComponents = {
+    ...uiMdxComponents,
+    h2: (p) => (
+      <Heading level="h2" as="h2" id={slugFor(textOf(p.children))}>
+        {p.children}
+      </Heading>
+    ),
+  };
+
+  const index = industry.sections.findIndex((s) => s.slug === page.slug);
+  const where =
+    kind === "segment"
+      ? `Segmento de ${industry.title}`
+      : `${industry.title} · Sección ${index + 1} de ${industry.sections.length}`;
+
   return (
     <Page>
+      <ReadingProgress />
       <Breadcrumbs
         items={[
           { href: ROUTES.home, label: "Inicio" },
@@ -71,31 +102,42 @@ export default async function IndustrySection({ params }: { params: Params }) {
         ]}
       />
 
-      <div className={styles.guide}>
+      <div className={guide.layout}>
         <SectionNav industry={industry} current={page.slug} />
 
-        <article className={styles.article} aria-labelledby="titulo">
-          <header className={styles.articleHead}>
-            {kind === "segment" ? (
-              <p className={styles.kind}>Segmento de {industry.title}</p>
-            ) : null}
-            <Heading level="h1" as="h1" id="titulo">
-              {page.title}
-            </Heading>
-            <Text variant="lead">{page.summary}</Text>
-          </header>
+        <div className={guide.main}>
+          <GuideHero
+            slug={industry.slug}
+            eyebrow={where}
+            title={page.title}
+            titleId="titulo"
+            lead={page.summary}
+            facts={[
+              `${minutes} min de lectura`,
+              <>
+                Revisada el <time dateTime={meta.reviewed_at}>{formatDate(meta.reviewed_at)}</time>
+              </>,
+            ]}
+            actions={<CopyLink />}
+          />
 
-          <Prose>
-            <Content components={uiMdxComponents} />
-          </Prose>
+          <GuideToc items={toc} variant="compact" />
 
-          <footer className={styles.articleFoot}>
-            {cited.length ? <SourceList sources={sources} only={cited} /> : null}
-            <ReviewedBy reviewer={meta.reviewer} reviewedAt={meta.reviewed_at} />
-            <PrevNext prev={prev} next={next} />
-            <Related links={related(industry, page)} />
-          </footer>
-        </article>
+          <article id="guia-articulo" className={styles.article} aria-labelledby="titulo">
+            <Prose>
+              <Content components={components} />
+            </Prose>
+
+            <footer className={styles.articleFoot}>
+              {cited.length ? <SourceList sources={sources} only={cited} /> : null}
+              <ReviewedBy reviewer={meta.reviewer} reviewedAt={meta.reviewed_at} />
+              <PagerCards prev={prev} next={next} />
+              <Related links={related(industry, page)} />
+            </footer>
+          </article>
+        </div>
+
+        <GuideToc items={toc} variant="rail" />
       </div>
     </Page>
   );
