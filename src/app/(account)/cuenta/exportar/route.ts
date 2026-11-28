@@ -7,10 +7,11 @@ export async function GET() {
   const { data } = (await supabase?.auth.getUser()) ?? { data: { user: null } };
   if (!supabase || !data.user) return new NextResponse("No autorizado", { status: 401 });
 
-  const [profile, consents, savedItems] = await Promise.all([
+  const [profile, consents, savedItems, applications] = await Promise.all([
     supabase.from("profiles").select("*").eq("id", data.user.id).maybeSingle(),
     supabase.from("consents").select("*").order("accepted_at"),
     supabase.from("saved_items").select("*").order("created_at"),
+    supabase.from("applications").select("*").order("created_at"),
   ]);
 
   const body = {
@@ -19,6 +20,7 @@ export async function GET() {
     profile: profile.data,
     consents: consents.data ?? [],
     saved_items: savedItems.data ?? [],
+    applications: applications.data ?? [],
   };
   return new NextResponse(JSON.stringify(body, null, 2), {
     headers: {

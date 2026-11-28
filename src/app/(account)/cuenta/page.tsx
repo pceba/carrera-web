@@ -85,6 +85,15 @@ export default async function CuentaPage({
           </form>
         </Panel>
 
+        <Panel title="Mis candidaturas">
+          <p>Tu tablero de candidaturas se guarda en tu cuenta.</p>
+          <div className={styles.actions}>
+            <a href="/candidaturas" className={styles.download}>
+              Abrir mis candidaturas
+            </a>
+          </div>
+        </Panel>
+
         <Panel title="Mis datos">
           <p>Descarga una copia de todo lo que guardamos sobre ti.</p>
           <div className={styles.actions}>

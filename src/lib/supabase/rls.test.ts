@@ -107,6 +107,39 @@ suite("accounts schema (RLS, age gate, deletion)", () => {
     expect(res.rowCount).toBe(0);
   });
 
+  it("applications: each user sees and changes only their own, constraints hold", async () => {
+    await db.query("insert into public.applications (user_id, firm) values ($1,'Firma B')", [B]);
+    const own = await asUser(A, async () => {
+      await db.query("insert into public.applications (firm, stage) values ('Firma A','enviada')");
+      return (await db.query("select firm from public.applications")).rows;
+    });
+    expect(own).toEqual([{ firm: "Firma A" }]); // user_id defaults to auth.uid(); B's row is hidden
+
+    await expect(
+      asUser(A, () =>
+        db.query("insert into public.applications (user_id, firm) values ($1,'x')", [B]),
+      ),
+    ).rejects.toThrow(/row-level security/);
+    const upd = await asUser(A, () => db.query("update public.applications set firm = 'hacked'"));
+    expect(upd.rowCount).toBe(1); // only A's own row
+    const del = await asUser(A, () =>
+      db.query("delete from public.applications where user_id = $1", [B]),
+    );
+    expect(del.rowCount).toBe(0);
+
+    for (const bad of [
+      "insert into public.applications (firm, url) values ('F','http://a.es')",
+      "insert into public.applications (firm, stage) values ('F','fichada')",
+      "insert into public.applications (firm, industry) values ('F','retail')",
+      "insert into public.applications (firm) values ('')",
+    ]) {
+      await expect(asUser(A, () => db.query(bad))).rejects.toThrow(/check constraint/);
+    }
+    await expect(asAnon(() => db.query("select * from public.applications"))).rejects.toThrow(
+      /permission denied/,
+    );
+  });
+
   it("anonymous role gets no access", async () => {
     await expect(asAnon(() => db.query("select * from public.profiles"))).rejects.toThrow(
       /permission denied/,
@@ -158,6 +191,7 @@ suite("accounts schema (RLS, age gate, deletion)", () => {
         "insert into public.saved_items (user_id, kind, ref) values ($1,'progress','p')",
         [id],
       );
+      await db.query("insert into public.applications (user_id, firm) values ($1,'F')", [id]);
     }
     await asUser(A, () => db.query("select public.delete_my_account()"));
     const count = async (table: string, col: string, id: string) =>
@@ -168,6 +202,7 @@ suite("accounts schema (RLS, age gate, deletion)", () => {
     expect(await count("public.profiles", "id", A)).toBe(0);
     expect(await count("public.consents", "user_id", A)).toBe(0);
     expect(await count("public.saved_items", "user_id", A)).toBe(0);
+    expect(await count("public.applications", "user_id", A)).toBe(0);
     expect(await count("public.profiles", "id", B)).toBe(1);
     expect(await count("public.saved_items", "user_id", B)).toBe(1);
   });
