@@ -47,10 +47,14 @@ export function loadLocal(): Application[] {
   }
 }
 
+export function serialize(items: Application[]): string {
+  return JSON.stringify({ version: VERSION, items });
+}
+
 /** Returns false when the browser refused to store (the UI warns that nothing will persist). */
 export function saveLocal(items: Application[]): boolean {
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: VERSION, items }));
+    window.localStorage.setItem(STORAGE_KEY, serialize(items));
     return true;
   } catch {
     return false;
