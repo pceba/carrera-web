@@ -36,7 +36,7 @@ export function EncajeCard() {
             {profile.skills.length} habilidades · {profile.locations.length} ciudades
           </p>
           <div>
-            <ButtonLink href="/cuenta/encaje" variant="secondary">
+            <ButtonLink href="/encaje" variant="secondary">
               Ver mis ofertas
             </ButtonLink>
           </div>
@@ -48,7 +48,7 @@ export function EncajeCard() {
             que encaja contigo.
           </p>
           <div>
-            <ButtonLink href="/cuenta/encaje" variant="secondary">
+            <ButtonLink href="/encaje" variant="secondary">
               Crear mi perfil
             </ButtonLink>
           </div>
