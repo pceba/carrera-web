@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Eyebrow, Page, Reveal } from "@/components/ui";
+import { ButtonLink, Eyebrow, Page, Reveal } from "@/components/ui";
+import { CompareButton } from "@/components/compare/CompareButton";
+import { CompareView } from "@/components/compare/CompareView";
 import { IndustryCard } from "@/components/marketing/IndustryCard";
 import { IndustryFilter } from "@/components/marketing/IndustryFilter";
 import { INDUSTRIES, PREP_GUIDES } from "../../../../content/catalog";
@@ -35,10 +37,13 @@ export default function IndustriesPage() {
       slug: i.slug,
       status: i.status,
       card: (
-        <IndustryCard
-          industry={i}
-          note={near.length ? `Comparte preparación con ${near.join(", ")}.` : undefined}
-        />
+        <div className={styles.cardWrap}>
+          <IndustryCard
+            industry={i}
+            note={near.length ? `Comparte preparación con ${near.join(", ")}.` : undefined}
+          />
+          <CompareButton slug={i.slug} title={i.title} />
+        </div>
       ),
     };
   });
@@ -58,6 +63,24 @@ export default function IndustriesPage() {
           <IndustryFilter items={items} />
         </section>
       </Reveal>
+      <section aria-labelledby="comparar-titulo" className={styles.compare}>
+        <header className={styles.compareHead}>
+          <Eyebrow>Comparar</Eyebrow>
+          <h2 id="comparar-titulo" className={styles.compareTitle}>
+            Dos o tres industrias, lado a lado.
+          </h2>
+          <p className={styles.lead}>
+            Elige las que te interesen. Cada dato enlaza a la página de la guía que lo cita.
+          </p>
+        </header>
+        <CompareView />
+        <div className={styles.quizCta}>
+          <p>¿No sabes cuál?</p>
+          <ButtonLink href="/diagnostico" variant="secondary">
+            Haz el test
+          </ButtonLink>
+        </div>
+      </section>
     </Page>
   );
 }
