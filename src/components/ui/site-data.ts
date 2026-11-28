@@ -12,6 +12,8 @@ export const ROUTES = {
   offers: "/ofertas",
   /** Tools. `/candidaturas` is built by the P1 stream; `/cuenta/encaje` needs an account. */
   tracker: "/candidaturas",
+  /** Quiz "¿Qué industria encaja contigo?", built by another stream. */
+  diagnostic: "/diagnostico",
   fit: "/cuenta/encaje",
   /** Owned by WS-C: magic-link sign-in, which also creates the account on first use. */
   signIn: "/entrar",
@@ -41,6 +43,11 @@ export const TOOLS = [
     text: "Ordena las seis industrias según tu perfil. Tu CV no sale del navegador.",
   },
   {
+    href: ROUTES.diagnostic,
+    label: "Diagnóstico",
+    text: "¿Qué industria encaja contigo? Unas preguntas y una primera idea.",
+  },
+  {
     href: ROUTES.tracker,
     label: "Candidaturas",
     text: "Un tablero para seguir cada solicitud, de guardada a oferta.",
@@ -56,6 +63,7 @@ export const FOOTER_GROUPS = [
   {
     title: "Herramientas",
     links: [
+      { href: ROUTES.diagnostic, label: "Diagnóstico" },
       { href: ROUTES.fit, label: "Encaje" },
       { href: ROUTES.tracker, label: "Candidaturas" },
       { href: ROUTES.offers, label: "Ofertas" },

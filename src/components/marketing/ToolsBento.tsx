@@ -31,6 +31,14 @@ const TOOLS: Tool[] = [
     span: "b",
   },
   {
+    id: "diagnostico",
+    icon: "diagnostic",
+    title: "Diagnóstico",
+    text: "¿Qué industria encaja contigo? Unas preguntas y una primera idea, sin cuenta.",
+    href: ROUTES.diagnostic,
+    span: "c",
+  },
+  {
     id: "ofertas",
     icon: "offers",
     title: "Ofertas",
@@ -44,7 +52,7 @@ const TOOLS: Tool[] = [
     title: "Alertas",
     text: "Un correo cuando se abre una convocatoria de las industrias que sigues.",
     soon: true,
-    span: "c",
+    span: "b",
   },
   {
     id: "practica",
@@ -52,7 +60,7 @@ const TOOLS: Tool[] = [
     title: "Práctica con IA",
     text: "Practica entrevistas con tu propia clave de API. La clave no sale de tu navegador.",
     soon: true,
-    span: "c",
+    span: "b",
   },
 ];
 
@@ -75,6 +83,17 @@ function Visual({ id }: { id: string }) {
             {Array.from({ length: n }, (_, i) => (
               <i key={i} data-hot={c === 3 || undefined} />
             ))}
+          </span>
+        ))}
+      </div>
+    );
+  }
+  if (id === "diagnostico") {
+    return (
+      <div className={styles.vQuiz} aria-hidden="true">
+        {[0, 1, 2].map((i) => (
+          <span key={i} data-on={i === 1 || undefined}>
+            <i />
           </span>
         ))}
       </div>

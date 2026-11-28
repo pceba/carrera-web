@@ -1,5 +1,5 @@
 /** Small line icons for the tools (menu, palette, bento). Decorative: always `aria-hidden`. */
-export type ToolIconName = "fit" | "tracker" | "offers" | "alerts" | "practice";
+export type ToolIconName = "fit" | "diagnostic" | "tracker" | "offers" | "alerts" | "practice";
 
 export function ToolIcon({ name, className }: { name: ToolIconName; className?: string }) {
   const common = {
@@ -20,6 +20,14 @@ export function ToolIcon({ name, className }: { name: ToolIconName; className?: 
           <circle cx="12" cy="12" r="8" />
           <circle cx="12" cy="12" r="3.5" />
           <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+        </svg>
+      );
+    case "diagnostic":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="8.5" />
+          <path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2.9-1.2 1.8" />
+          <path d="M12 16.8h.01" strokeWidth="2.4" />
         </svg>
       );
     case "tracker":

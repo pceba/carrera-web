@@ -22,6 +22,7 @@ type MenuLink = { href: string; title: string; text?: string; badge?: string; ic
 type Menu = { id: string; label: string; links: MenuLink[]; all?: MenuLink; cols?: 1 | 2 };
 
 const TOOL_ICONS = {
+  [ROUTES.diagnostic]: "diagnostic",
   [ROUTES.fit]: "fit",
   [ROUTES.tracker]: "tracker",
   [ROUTES.offers]: "offers",

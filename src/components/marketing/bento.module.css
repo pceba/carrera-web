@@ -185,3 +185,30 @@
   border-radius: var(--radius-pill);
   background: var(--color-accent-soft);
 }
+
+.vQuiz {
+  display: grid;
+  align-content: end;
+  gap: var(--space-2);
+  padding-block-start: var(--space-4);
+}
+.vQuiz span {
+  display: flex;
+  align-items: center;
+  height: 1.75rem;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+}
+.vQuiz span[data-on] {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+.vQuiz i {
+  display: block;
+  width: 55%;
+  height: 0.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-rule);
+}
