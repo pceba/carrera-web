@@ -33,10 +33,10 @@ handovers `docs/handover/p*`. Deployed: https://path-ten-theta.vercel.app (noind
 
 ## Next task
 
-Pablo: GitHub Actions secrets `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` (repo has none, so
-`/ofertas` is empty and scheduled `postings` runs now fail on purpose); then
-`gh workflow run postings -f dry_run=false`. Steps in `docs/handover/p6-postings.md`. Then
-smoke-test prod and the signed-in paths (tracker sync, alerts, Mi Path), never verified live.
+Wave 3 (P10-P16, briefs `docs/briefs/p10_p16.md`) running in 7 sessions: merge each branch
+(merge routine), then slow review. Postings: secrets set, first real run upserted 27
+(2026-11-28); `/ofertas` still showed empty right after (30 min revalidate, or Vercel env vars
+missing: check). Signed-in paths (tracker sync, alerts, Mi Path) never verified live.
 
 ## Then
 
