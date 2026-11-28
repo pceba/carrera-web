@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { PrepLibrary, type PrepCard } from "@/components/library/PrepLibrary";
 import { Heading, Page, ROUTES, Text } from "@/components/ui";
 import { Breadcrumbs } from "@/components/nav/Breadcrumbs";
 import { getIndustry, INDUSTRIES, PREP_GUIDES, prepHref } from "../../../../content/catalog";
@@ -11,6 +11,20 @@ export const metadata: Metadata = {
 };
 
 export default function PreparationIndex() {
+  const cards: PrepCard[] = PREP_GUIDES.map((g) => ({
+    slug: g.slug,
+    href: prepHref(g.slug),
+    title: g.title,
+    summary: g.summary,
+    industries: g.industries,
+    where:
+      (g.industries.length === INDUSTRIES.length
+        ? "Todas las industrias"
+        : g.industries.map((s) => getIndustry(s)?.title ?? s).join(" · ")) +
+      (g.hasContent ? "" : " · En preparación"),
+    ready: g.hasContent,
+  }));
+  const industries = INDUSTRIES.map((i) => ({ slug: i.slug, title: i.title }));
   return (
     <Page>
       <Breadcrumbs
@@ -26,22 +40,7 @@ export default function PreparationIndex() {
         </Text>
       </header>
 
-      <ul className={styles.list}>
-        {PREP_GUIDES.map((g) => (
-          <li key={g.slug}>
-            <Link href={prepHref(g.slug)} className={styles.row}>
-              <span className={styles.rowTitle}>{g.title}</span>
-              <span className={styles.rowText}>{g.summary}</span>
-              <span className={styles.rowMeta}>
-                {g.industries.length === INDUSTRIES.length
-                  ? "Todas las industrias"
-                  : g.industries.map((s) => getIndustry(s)?.title ?? s).join(" · ")}
-                {g.hasContent ? "" : " · En preparación"}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <PrepLibrary cards={cards} industries={industries} />
     </Page>
   );
 }
