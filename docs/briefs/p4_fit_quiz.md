@@ -34,5 +34,5 @@ links from home and `/industrias`).
 ## Deliverable (commit after each)
 
 1. Lib + tests. 2. Page and components. 3. e2e (complete the quiz by keyboard, see a ranked result,
-reload with the hash restores it, 375 px). All checks pass (`typecheck`, `lint`, `format:check`,
-`test`, `build`, Playwright; kill orphan `next start` on :3000/:3100 first). Handover ≤20 lines.
+   reload with the hash restores it, 375 px). All checks pass (`typecheck`, `lint`, `format:check`,
+   `test`, `build`, Playwright; kill orphan `next start` on :3000/:3100 first). Handover ≤20 lines.
