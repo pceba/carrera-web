@@ -9,7 +9,10 @@ Product phase (content paused; `docs/ORCHESTRATOR_PROMPT.md`). On main 2026-11-2
 official page publishes them), P2b `/cuenta/alertas` + `/alertas/baja`, P3 redesign (dropdowns,
 Ctrl/⌘K palette, dialogs, motion), P4 `/diagnostico`, P5 `/practica` (BYOK Gemini/Anthropic/
 OpenAI, key never hits our server), P6 +12 official boards, P7 `/entrar` tabs + `/cuenta` hub,
-P8 public `/encaje` (old URL redirects), P9 comparison on `/industrias`. Briefs `docs/briefs/p*`,
+P8 public `/encaje` (old URL redirects), P9 comparison on `/industrias`. Wave 3 (130 unit, 214
+e2e green): P10 `/ofertas` cards/chips/dialog, P11 tracker v2 (drag, stats, CSV, .ics), P12 guide
+TOC/progress, P13 sitemap/robots/manifest/404/OG, P14 library + saved, P15 `/empezar`, P16
+`/contribuir` + issue templates. Briefs `docs/briefs/p*`,
 handovers `docs/handover/p*`. Deployed: https://path-ten-theta.vercel.app (noindex).
 
 ## Done (on main, CI green)
@@ -33,10 +36,9 @@ handovers `docs/handover/p*`. Deployed: https://path-ten-theta.vercel.app (noind
 
 ## Next task
 
-Wave 3 (P10-P16, briefs `docs/briefs/p10_p16.md`) running in 7 sessions: merge each branch
-(merge routine), then slow review. Postings: secrets set, first real run upserted 27
-(2026-11-28); `/ofertas` still showed empty right after (30 min revalidate, or Vercel env vars
-missing: check). Signed-in paths (tracker sync, alerts, Mi Path) never verified live.
+Slow review of waves 1-3 with a cheaper model (one route per pass: a11y, copy, 375 px, facts).
+Check `/ofertas` shows the 27 postings (else Vercel env vars). Verify signed-in paths live once
+the magic link works. Wire the handover requests (home/header links to `/empezar`, `/contribuir`).
 
 ## Then
 
