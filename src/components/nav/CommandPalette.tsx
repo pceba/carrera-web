@@ -18,7 +18,7 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
   const [active, setActive] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
   const uid = useId();
-  const all = useMemo(buildPaletteItems, []);
+  const all = useMemo(() => buildPaletteItems(), []);
 
   // Groups appear in order of their best match, and the flat `results` list follows the same
   // order, so the keyboard order always equals the visual order.
