@@ -25,6 +25,7 @@ const TOOL_ICONS = {
   [ROUTES.diagnostic]: "diagnostic",
   [ROUTES.fit]: "fit",
   [ROUTES.tracker]: "tracker",
+  [ROUTES.practice]: "practice",
   [ROUTES.offers]: "offers",
 } as const;
 
