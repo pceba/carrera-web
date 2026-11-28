@@ -98,7 +98,7 @@
     0 2px 6px light-dark(oklch(0.3 0.02 260 / 0.06), oklch(0 0 none / 0.4)),
     0 32px 80px -24px light-dark(oklch(0.3 0.04 260 / 0.35), oklch(0 0 none / 0.8));
   --shadow-lift: 0 14px 32px -14px light-dark(oklch(0.3 0.03 260 / 0.28), oklch(0 0 none / 0.7));
-  --color-glass: color-mix(in oklch, var(--color-bg) 82%, transparent);
+  --color-glass: color-mix(in srgb, var(--color-bg) 82%, transparent);
   --color-scrim: oklch(0.14 0.01 260 / 0.5);
 
   /* Motion */
