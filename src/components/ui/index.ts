@@ -1,6 +1,10 @@
 export { Accordion, type AccordionItem } from "./Accordion";
 export { Button, ButtonLink } from "./Button";
 export { Callout } from "./Callout";
+export { Dialog } from "./Dialog";
+export { Reveal, useReveal } from "./Reveal";
+export { dismissToast, toast, Toaster } from "./Toast";
+export { WindowFrame } from "./WindowFrame";
 export { Card } from "./Card";
 export { Checkbox, Field, Fieldset, Input, Notice, Panel } from "./Form";
 export { Footer } from "./Footer";

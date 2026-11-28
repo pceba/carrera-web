@@ -9,8 +9,13 @@
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
   user-select: none;
+}
+.lg {
+  min-height: 3.25rem;
+  padding: var(--space-3) var(--space-8);
+  font-size: var(--text-base);
 }
 .button svg {
   flex: none;
@@ -53,6 +58,7 @@
 @media (hover: hover) and (pointer: fine) {
   .primary:hover {
     background: color-mix(in oklch, var(--color-text), var(--color-bg) 18%);
+    box-shadow: var(--shadow-lift);
   }
   .accent:hover {
     background: color-mix(in oklch, var(--color-accent), var(--color-text) 20%);
